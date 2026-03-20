@@ -22,10 +22,10 @@
 
 Hola, soy **Iván Martínez** (`ivnmtz09`), estudiante apasionado por el desarrollo de software. Me apoyo mucho en herramientas de IA para aprender y construir proyectos reales mientras domino el stack poco a poco.
 
-- 🎓 Estudiante de desarrollo de software
+- 🎓 Estudiante de **Ingeniería de Sistemas** — Universidad de La Guajira
 - 📱 Enfocado en apps móviles con **Flutter/Dart**
 - 🐍 Backends con **Python & Django**
-- 🤖 Fan del **Vibe Coding** con IA
+- 🤖 Apoyado en IA para construir y aprender más rápido
 - 📍 Colombia
 
 </td>
@@ -35,10 +35,10 @@ Hola, soy **Iván Martínez** (`ivnmtz09`), estudiante apasionado por el desarro
 
 Hi, I'm **Ivan Martinez** (`ivnmtz09`), a passionate software development student. I leverage AI tools to learn faster and build real projects while gradually mastering my tech stack.
 
-- 🎓 Software development student
+- 🎓 **Systems Engineering** student — Universidad de La Guajira
 - 📱 Focused on mobile apps with **Flutter/Dart**
 - 🐍 Backends with **Python & Django**
-- 🤖 Fan of **AI-assisted / Vibe Coding**
+- 🤖 AI-assisted development to build and learn faster
 - 📍 Colombia
 
 </td>
