@@ -1,19 +1,23 @@
 <div align="center">
 
+<!-- SNAKE CONTRIBUTION GRAPH -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ivnmtz09/ivnmtz09/output/github-contribution-grid-snake-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/ivnmtz09/ivnmtz09/output/github-contribution-grid-snake.svg" />
+  <img alt="github-snake" src="https://raw.githubusercontent.com/ivnmtz09/ivnmtz09/output/github-contribution-grid-snake-dark.svg" />
+</picture>
+
 <!-- TYPING ANIMATION -->
 <a href="https://git.io/typing-svg">
   <img src="https://readme-typing-svg.demolab.com?font=Courier+Prime&weight=600&size=28&pause=1000&color=58A6FF&center=true&vCenter=true&width=720&lines=Ivan+Martinez+%40ivnmtz09;Systems+Engineer+🚀;Flutter+%26+Python+Developer+💻;AI-Assisted+Builder+🤖;Always+Learning%2C+Always+Building+📚" alt="Typing SVG" />
 </a>
 
 <br />
-<br />
 
 <!-- STATUS BADGES -->
-<div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
-  <img src="https://img.shields.io/badge/Status-🔨_Building_Projects-238636?style=for-the-badge&labelColor=0d1117" />
-  <img src="https://img.shields.io/badge/Focus-📱_Flutter_%26_🐍_Python-58a6ff?style=for-the-badge&labelColor=0d1117" />
-  <img src="https://img.shields.io/badge/Workflow-🤖_AI--Assisted-d29922?style=for-the-badge&labelColor=0d1117" />
-</div>
+<img src="https://img.shields.io/badge/Status-🔨_Building_Projects-238636?style=for-the-badge&labelColor=0d1117" />
+<img src="https://img.shields.io/badge/Focus-📱_Flutter_%26_🐍_Python-58a6ff?style=for-the-badge&labelColor=0d1117" />
+<img src="https://img.shields.io/badge/Workflow-🤖_AI--Assisted-d29922?style=for-the-badge&labelColor=0d1117" />
 
 </div>
 
@@ -107,21 +111,18 @@ Hi, I'm **Ivan Martinez** (`ivnmtz09`), a passionate software development studen
 
 ---
 
-## 📈 Activity & Stats
+## 📊 Stats
 
 <div align="center">
 
-### 🔥 Contribution Streak
-```
-Contribuyendo consistentemente para mejorar cada día.
-Building projects, fixing bugs, and learning from every line of code.
-```
+<img height="155" src="https://github-readme-stats.vercel.app/api?username=ivnmtz09&show_icons=true&theme=github_dark&hide_border=true&bg_color=161b22&title_color=58a6ff&icon_color=3fb950&text_color=8b949e" />
+<img height="155" src="https://github-readme-stats.vercel.app/api/top-langs/?username=ivnmtz09&layout=compact&theme=github_dark&hide_border=true&bg_color=161b22&title_color=58a6ff&text_color=8b949e" />
 
-### 💾 Repository Highlights
-- **Total Repositories**: 20+ projects in progress
-- **Main Focus**: Mobile & Backend development
-- **Collaboration**: Open to contributing and learning together
-- **Last Updated**: 2026-03-31
+</div>
+
+<div align="center">
+
+<img src="https://github-readme-streak-stats.herokuapp.com/?user=ivnmtz09&theme=github-dark-blue&hide_border=true&background=161b22&ring=58a6ff&fire=3fb950&currStreakLabel=58a6ff" />
 
 </div>
 
@@ -131,26 +132,17 @@ Building projects, fixing bugs, and learning from every line of code.
 
 <div align="center">
 
-### 📫 Contact Me
-
 [![Gmail](https://img.shields.io/badge/ivanjmm01@gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:ivanjmm01@gmail.com)
 [![GitHub](https://img.shields.io/badge/github.com/ivnmtz09-0d1117?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ivnmtz09)
-[![Portfolio](https://img.shields.io/badge/Portfolio-58A6FF?style=for-the-badge&logo=firefox&logoColor=white)](https://github.com/ivnmtz09)
-
-### 🎯 Always Open To:
-- 💡 Collaborating on interesting projects
-- 🧠 Learning new technologies
-- 🤝 Networking with developers
-- 📖 Sharing knowledge and experiences
 
 </div>
 
-<div align="center">
-
 ---
 
-<img src="https://komarev.com/ghpvc/?username=ivnmtz09&style=flat-square&color=58a6ff&label=Profile%20Views" alt="Profile Views" />
+<div align="center">
 
-**"The best way to predict the future is to build it." — Peter Drucker**
+<img src="https://komarev.com/ghpvc/?username=ivnmtz09&style=flat-square&color=58a6ff&label=Profile%20Views" />
+
+**"The best way to predict the future is to build it."**
 
 </div>
