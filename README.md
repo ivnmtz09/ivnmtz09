@@ -1,254 +1,149 @@
-<div align="center">
+# Ivan Martinez (`@ivnmtz09`)
 
-<!-- SNAKE CONTRIBUTION GRAPH -->
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ivnmtz09/ivnmtz09/output/github-contribution-grid-snake-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/ivnmtz09/ivnmtz09/output/github-contribution-grid-snake.svg" />
-  <img alt="github-snake" src="https://raw.githubusercontent.com/ivnmtz09/ivnmtz09/output/github-contribution-grid-snake-dark.svg" />
-</picture>
+**[🇬🇧 English](#english) | [🇪🇸 Español](#español)**
 
-<!-- TYPING ANIMATION -->
-<a href="https://git.io/typing-svg">
-  <img src="https://readme-typing-svg.demolab.com?font=Courier+Prime&weight=600&size=32&pause=1000&color=58A6FF&center=true&vCenter=true&width=800&lines=Ivan+Martinez+%40ivnmtz09;🚀+Systems+Engineer;💻+Full-Stack+Developer;🤖+AI-Assisted+Builder;📚+Always+Learning%2C+Always+Building" alt="Typing SVG" />
+---
+
+## English
+
+Backend & Frontend developer, vibecoder passionate about building. Currently learning every day, developing real-world projects with AI assistance.
+
+**📍 Riohacha, Colombia** | **🎓 Systems Engineering Student** | **💻 1+ years of coding**
+
+### About Me
+
+I'm Ivan, a Systems Engineering student working on real full-stack projects. I'm an apprentice in both backend and frontend, but I'm serious about learning every day. I code to learn, and I learn by building. With AI assistance, I handle both sides of the stack — backend APIs and frontend interfaces. I'm constantly exploring new technologies to expand my skills.
+
+**What I'm doing now:**
+
+- Building **[Educoin](https://github.com/ivnmtz09/Educoin-Backend)** — an educational SaaS platform (Django + DRF + React)
+- Starting a gym management SaaS with a friend
+- Learning Node.js and Angular
+- Exploring Next.js and modern full-stack patterns
+- Growing my skills across the entire development lifecycle
+
+**What drives me:**
+
+- Building things that work and solve real problems
+- Writing clean, maintainable code
+- Learning through practical projects
+- Connecting with other developers
+
+### Tech Stack
+
+**Languages:**
+Python, JavaScript, TypeScript, Java, Dart, Kotlin
+
+**Backend (Real Experience):**
+Django, Django REST Framework, PostgreSQL, MySQL
+
+**Frontend (Real Experience):**
+React, Vite
+
+**Currently Learning:**
+Node.js, Angular, Next.js, System Design & Scalability
+
+**Also Know:**
+Flutter, Docker, Git, FastAPI
+
+**Working Style:**
+Using AI assistance to learn faster and build better
+
+### Current Projects
+
+**Educoin** — Educational SaaS platform. Full-stack project with Django + DRF backend and React + Vite frontend.
+
+- Backend: Python, Django, DRF, PostgreSQL | Frontend: React, Vite | Status: In development | [Repo](https://github.com/ivnmtz09/Educoin-Backend)
+
+**Gym Management SaaS** — Working with a friend on a gym management platform to launch soon.
+
+- Tech: Backend (Django, DRF, MySQL) + Frontend (React, Vite) | Status: Starting development
+
+### GitHub Stats
+
+<a href="https://github.com/ivnmtz09">
+  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=ivnmtz09&show_icons=true&theme=github_dark&include_all_commits=true&count_private=true" />
+  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=ivnmtz09&layout=compact&theme=github_dark" />
 </a>
 
-<br />
+### Let's Connect
 
-<!-- STATUS BADGES -->
-<img src="https://img.shields.io/badge/Status-🔨_Building_Projects-238636?style=for-the-badge&labelColor=0d1117" />
-<img src="https://img.shields.io/badge/Focus-📱_Flutter_%26_🐍_Python-58a6ff?style=for-the-badge&labelColor=0d1117" />
-<img src="https://img.shields.io/badge/Workflow-🤖_AI--Assisted-d29922?style=for-the-badge&labelColor=0d1117" />
-<img src="https://img.shields.io/badge/Passionate-About_Technology-3fb950?style=for-the-badge&labelColor=0d1117" />
+I'm interested in opportunities where I can keep building and learning.
 
-</div>
+- **Email:** ivanjmm01@gmail.com
+- **GitHub:** [ivnmtz09](https://github.com/ivnmtz09)
 
----
-
-## 🎯 Quién Soy
-
-```javascript
-const ivan = {
-  name: "Ivan Martinez",
-  role: "Full-Stack Developer & AI Enthusiast",
-  university: "Uniguajira — Ing. Sistemas",
-  location: "Riohacha, Colombia 🇨🇴",
-
-  expertise: {
-    mobile: "Flutter/Dart 📱",
-    backend: "Python/Django 🐍",
-    frontend: "React/TypeScript 🌐",
-    mindset: "AI-assisted · Learning by building",
-  },
-
-  currentFocus: ["Scaling projects", "System design", "Team leadership"],
-  learning: ["Angular", "Microservices", "Cloud Architecture"],
-  goal: "Building impactful products that solve real problems 🚀",
-  motto: "Code → Learn → Build → Impact 🔄",
-};
-```
-
-<details>
-<summary>🇪🇸 <strong>Español — Mi Historia</strong></summary>
-<br>
-
-Soy **Iván Martínez** (`ivnmtz09`), un desarrollador apasionado por crear soluciones innovadoras mediante código.
-
-**¿Qué me impulsa?**
-
-- 🚀 Construir productos que impacten positivamente
-- 🧠 Aprender nuevas tecnologías constantemente
-- 🤝 Colaborar en proyectos desafiantes
-- 🎯 Convertir ideas en realidad
-
-**Mi Trayecto:**
-
-- 🎓 Estudiante de **Ingeniería de Sistemas** — Universidad de La Guajira
-- 📱 Especialista en desarrollo móvil con **Flutter/Dart**
-- 🐍 Backend engineer con **Python/Django**
-- 🌐 Full-Stack capaz de end-to-end development
-- 🤖 Aprovechando IA para construir más rápido y aprender mejor
-- 🏠 Basado en **Riohacha, Colombia** 🇨🇴
-
-</details>
-
-<details>
-<summary>🇺🇸 <strong>English — My Story</strong></summary>
-<br>
-
-I'm **Ivan Martinez** (`ivnmtz09`), a developer passionate about creating innovative solutions through code.
-
-**What drives me?**
-
-- 🚀 Building products that make a positive impact
-- 🧠 Constantly learning emerging technologies
-- 🤝 Collaborating on challenging projects
-- 🎯 Turning ideas into reality
-
-**My Journey:**
-
-- 🎓 **Systems Engineering** student — Universidad de La Guajira
-- 📱 Mobile development specialist with **Flutter/Dart**
-- 🐍 Backend engineer with **Python/Django**
-- 🌐 Full-Stack developer capable of end-to-end development
-- 🤖 Leveraging AI to build faster and learn better
-- 🏠 Based in **Riohacha, Colombia** 🇨🇴
-
-</details>
+**Open to:** Internships, junior positions, collaboration on projects
 
 ---
 
-## 🛠️ Tech Stack
+## Español
 
-<div align="center">
+Desarrollador backend & frontend, vibecoder apasionado por crear. Actualmente aprendiendo cada día, desarrollando proyectos reales con ayuda de IA.
 
-### 💬 Languages
+**📍 Riohacha, Colombia** | **🎓 Estudiante de Ingeniería de Sistemas** | **💻 1+ años programando**
 
-![Python](https://img.shields.io/badge/Python-0d1117?style=flat-square&logo=python&logoColor=3776AB) **[90%]**
-![Dart](https://img.shields.io/badge/Dart-0d1117?style=flat-square&logo=dart&logoColor=0175C2) **[85%]**
-![JavaScript](https://img.shields.io/badge/JavaScript-0d1117?style=flat-square&logo=javascript&logoColor=F7DF1E) **[80%]**
-![TypeScript](https://img.shields.io/badge/TypeScript-0d1117?style=flat-square&logo=typescript&logoColor=3178C6) **[75%]**
-![Java](https://img.shields.io/badge/Java-0d1117?style=flat-square&logo=openjdk&logoColor=ED8B00) **[70%]**
+### Quién Soy
 
-### 🚀 Frameworks & Specializations
+Soy Ivan, estudiante de Ingeniería de Sistemas trabajando en proyectos full-stack reales. Soy aprendiz en backend y frontend, pero serio en mi aprendizaje diario. Código para aprender, y aprendo construyendo. Con ayuda de IA, manejo ambos lados del stack — APIs backend e interfaces frontend. Constantemente exploro nuevas tecnologías para expandir mis habilidades.
 
-**Mobile:**
-![Flutter](https://img.shields.io/badge/Flutter-0d1117?style=flat-square&logo=flutter&logoColor=02569B)
-![Dart](https://img.shields.io/badge/Dart-0d1117?style=flat-square&logo=dart&logoColor=0175C2)
+**Lo que estoy haciendo ahora:**
 
-**Backend:**
-![Django](https://img.shields.io/badge/Django-0d1117?style=flat-square&logo=django&logoColor=092E20)
-![Django_REST](https://img.shields.io/badge/Django_REST-0d1117?style=flat-square&logo=django&logoColor=092E20)
-![Python](https://img.shields.io/badge/FastAPI-0d1117?style=flat-square&logo=fastapi&logoColor=009688)
+- Construyendo **[Educoin](https://github.com/ivnmtz09/Educoin-Backend)** — una plataforma SaaS educativa (Django + DRF + React)
+- Iniciando un SaaS de gestión de gimnasios con un amigo
+- Aprendiendo Node.js y Angular
+- Explorando Next.js y patrones full-stack modernos
+- Creciendo mis habilidades en todo el ciclo de desarrollo
 
-**Frontend:**
-![React](https://img.shields.io/badge/React-0d1117?style=flat-square&logo=react&logoColor=61DAFB)
-![Angular](https://img.shields.io/badge/Angular-0d1117?style=flat-square&logo=angular&logoColor=DD0031)
+**Qué me impulsa:**
 
-**Cloud & Services:**
-![Firebase](https://img.shields.io/badge/Firebase-0d1117?style=flat-square&logo=firebase&logoColor=FFCA28)
-![AWS](https://img.shields.io/badge/AWS-0d1117?style=flat-square&logo=amazon&logoColor=FF9900)
-![Docker](https://img.shields.io/badge/Docker-0d1117?style=flat-square&logo=docker&logoColor=2496ED)
+- Construir cosas que funcionan y resuelven problemas reales
+- Escribir código limpio y mantenible
+- Aprender mediante proyectos prácticos
+- Conectar con otros desarrolladores
 
-### 🌱 Currently Mastering
+### Stack Tecnológico
 
-![Node.js](https://img.shields.io/badge/Node.js-0d1117?style=flat-square&logo=node.js&logoColor=6DA55F) — Backend avanzado
-![Microservices](https://img.shields.io/badge/Microservices-0d1117?style=flat-square&logo=microgenesis&logoColor=3fb950) — Arquitectura escalable
-![System_Design](https://img.shields.io/badge/System_Design-0d1117?style=flat-square&logo=blender&logoColor=58a6ff) — Escalabilidad
+**Lenguajes:**
+Python, JavaScript, TypeScript, Java, Dart, Kotlin
 
-</div>
+**Backend (Experiencia Real):**
+Django, Django REST Framework, PostgreSQL, MySQL
 
----
+**Frontend (Experiencia Real):**
+React, Vite
 
-## 🚀 Featured Projects
+**Actualmente Aprendiendo:**
+Node.js, Angular, Next.js, System Design & Escalabilidad
 
-<div align="center">
+**También Conozco:**
+Flutter, Docker, Git, FastAPI
 
-| 🎯 Project                                                         | 📝 Description                                           | ⭐ Impact           | 🔧 Stack                                 |
-| :----------------------------------------------------------------- | :------------------------------------------------------- | :------------------ | :--------------------------------------- |
-| [**Educoin-Backend**](https://github.com/ivnmtz09/Educoin-Backend) | 🏫 Microservicios para plataforma edu-tech escalable     | Modular & Escalable | `Python` `Django` `REST` `PostgreSQL`    |
-| [**el_impostor_app**](https://github.com/ivnmtz09/el_impostor_app) | 🎮 Juego multijugador Android/iOS totalmente funcional   | Real-time Gaming    | `Flutter` `Dart` `Firebase` `WebSocket`  |
-| [**yonna_akademia**](https://github.com/ivnmtz09/yonna_akademia)   | 📚 Sistema completo de gestión académica                 | Producción          | `Python` `Django` `Firebase`             |
-| [**yonna_app**](https://github.com/ivnmtz09/yonna_app)             | 📱 App multiplataforma con sincronización en tiempo real | Cross-platform      | `Flutter` `Dart` `State Management`      |
-| [**JM Suplementos**](https://github.com/ivnmtz09)                  | 🛍️ E-commerce web completo con carrito y pagos           | Commercial          | `React` `JavaScript` `Node.js` `MongoDB` |
+**Estilo de Trabajo:**
+Usando IA para aprender más rápido y construir mejor
 
-> 💡 **Nota:** Todos los proyectos incluyen buenas prácticas de código, documentación completa y son escalables
+### Proyectos Actuales
 
-</div>
+**Educoin** — Plataforma SaaS educativa. Proyecto full-stack con backend Django + DRF y frontend React + Vite.
 
----
+- Backend: Python, Django, DRF, PostgreSQL | Frontend: React, Vite | Estado: En desarrollo | [Repo](https://github.com/ivnmtz09/Educoin-Backend)
 
-## 📊 GitHub Stats
+**SaaS de Gimnasios** — Trabajando con un amigo en una plataforma de gestión de gimnasios próxima a lanzar.
 
-<div align="center">
+- Tech: Backend (Django, DRF, MySQL) + Frontend (React, Vite) | Estado: Iniciando desarrollo
 
-<img height="155" src="https://github-readme-stats.vercel.app/api?username=ivnmtz09&show_icons=true&theme=github_dark&hide_border=true&bg_color=161b22&title_color=58a6ff&icon_color=3fb950&text_color=8b949e&card_width=500" />
+### Estadísticas de GitHub
 
-</div>
+<a href="https://github.com/ivnmtz09">
+  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=ivnmtz09&show_icons=true&theme=github_dark&include_all_commits=true&count_private=true" />
+  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=ivnmtz09&layout=compact&theme=github_dark" />
+</a>
 
-<div align="center">
+### Conectemos
 
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ivnmtz09&layout=compact&theme=github_dark&hide_border=true&bg_color=161b22&title_color=58a6ff&text_color=8b949e" />
+Estoy interesado en oportunidades donde pueda seguir construyendo y aprendiendo.
 
-</div>
+- **Email:** ivanjmm01@gmail.com
+- **GitHub:** [ivnmtz09](https://github.com/ivnmtz09)
 
-<div align="center">
-
-<img src="https://github-readme-streak-stats.herokuapp.com/?user=ivnmtz09&theme=github-dark-blue&hide_border=true&background=161b22&ring=58a6ff&fire=3fb950&currStreakLabel=58a6ff" />
-
-</div>
-
----
-
-## 💼 Lo Que Estoy Haciendo Ahora
-
-<div align="center">
-
-- 🔨 Construyendo proyectos escalables con arquitecturas modernas
-- 📚 Profundizando en **System Design** y patrones avanzados
-- 🤖 Integrando **IA** en flujos de desarrollo
-- 🌐 Explorando **Microservicios** y **Cloud Architecture**
-- 👥 Buscando oportunidades de **colaboración** en proyectos open-source
-
-</div>
-
----
-
-## 🎓 Principios & Valores
-
-<div align="center">
-
-| 🎯  | Principio                                                        |
-| :-: | :--------------------------------------------------------------- |
-| 💻  | **Code Quality First** — Código limpio, mantenible y documentado |
-| 🚀  | **Continuous Learning** — Siempre explorando nuevas tecnologías  |
-| 🤝  | **Collaboration** — Creo en el poder del trabajo en equipo       |
-| 📈  | **Scalability** — Pensando en el crecimiento desde el inicio     |
-| 🧠  | **Problem Solving** — Soluciones creativas y eficientes          |
-| ⏰  | **Commitment** — Dedicado y responsable en cada proyecto         |
-
-</div>
-
----
-
-## 🤝 ¡Conectemos!
-
-<div align="center">
-
-### 📞 Métodos de Contacto
-
-[![Gmail](https://img.shields.io/badge/Email-ivanjmm01@gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:ivanjmm01@gmail.com)
-[![GitHub](https://img.shields.io/badge/GitHub-ivnmtz09-0d1117?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ivnmtz09)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-ivnmtz09-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/ivnmtz09)
-[![Twitter](https://img.shields.io/badge/Twitter-@ivnmtz09-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/ivnmtz09)
-
-<br />
-
-> 💬 **Me encantaría colaborar en proyectos.**
->
-> Ya sea para construir algo nuevo, mejorar código existente o apenas charlar sobre tecnología — ¡estoy aquí para lo que necesites!
-
-</div>
-
----
-
-<div align="center">
-
-<img src="https://komarev.com/ghpvc/?username=ivnmtz09&style=flat-square&color=58a6ff&label=Profile%20Views" />
-
-<br />
-
-### 🎯 Mi Filosofía
-
-> **"El mejor camino para predecir el futuro es construirlo."**
->
-> — Cada línea de código es una oportunidad para aprender, crecer e impactar.
->
-> 🔄 **Code → Learn → Build → Repeat**
-
----
-
-<p>
-  Hecho con ❤️ por <strong>Ivan Martinez</strong> | Riohacha, Colombia 🇨🇴
-</p>
-
-</div>
+**Abierto a:** Prácticas, posiciones junior, colaboración en proyectos
