@@ -61,10 +61,8 @@ Using AI assistance to learn faster and build better
 
 ### GitHub Stats
 
-<a href="https://github.com/ivnmtz09">
-  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=ivnmtz09&show_icons=true&theme=github_dark&include_all_commits=true&count_private=true" />
-  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=ivnmtz09&layout=compact&theme=github_dark" />
-</a>
+[![GitHub Stats](https://github-readme-stats-git-master-anuraghazra.vercel.app/api?username=ivnmtz09&show_icons=true&theme=github_dark&count_private=true)](https://github.com/ivnmtz09)
+[![Top Langs](https://github-readme-stats-git-master-anuraghazra.vercel.app/api/top-langs/?username=ivnmtz09&layout=compact&theme=github_dark)](https://github.com/ivnmtz09)
 
 ### Let's Connect
 
@@ -134,10 +132,8 @@ Usando IA para aprender más rápido y construir mejor
 
 ### Estadísticas de GitHub
 
-<a href="https://github.com/ivnmtz09">
-  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=ivnmtz09&show_icons=true&theme=github_dark&include_all_commits=true&count_private=true" />
-  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=ivnmtz09&layout=compact&theme=github_dark" />
-</a>
+[![GitHub Stats](https://github-readme-stats-git-master-anuraghazra.vercel.app/api?username=ivnmtz09&show_icons=true&theme=github_dark&count_private=true)](https://github.com/ivnmtz09)
+[![Top Langs](https://github-readme-stats-git-master-anuraghazra.vercel.app/api/top-langs/?username=ivnmtz09&layout=compact&theme=github_dark)](https://github.com/ivnmtz09)
 
 ### Conectemos
 
