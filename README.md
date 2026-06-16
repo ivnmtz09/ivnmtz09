@@ -4,18 +4,30 @@
 
 **`Software Engineer`**
 
-[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ivnmtz09)
-[![Email](https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:ivanjmm01@gmail.com)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/ivnmtz09)
+[![Email](https://img.shields.io/badge/Email-EA4335?style=flat-square&logo=gmail&logoColor=white)](mailto:ivanjmm01@gmail.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://linkedin.com/) 
 
-Riohacha, Colombia -- Systems Engineering Student
+*Riohacha, Colombia -- Systems Engineering Student*
 
 ---
 
-[EN](#english) · [ES](#espanol)
+### GitHub Analytics
+
+<p align="center">
+  <a href="https://github.com/ivnmtz09">
+    <img height="165em" src="https://github-readme-stats.vercel.app/api?username=ivnmtz09&show_icons=true&hide_border=true&theme=transparent" alt="GitHub Stats" />
+  </a>
+  <a href="https://github.com/ivnmtz09">
+    <img height="165em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=ivnmtz09&layout=compact&hide_border=true&theme=transparent" alt="Top Languages" />
+  </a>
+</p>
+
+---
+
+[EN](#english) | [ES](#espanol)
 
 </div>
-
----
 
 <h2 id="english">English</h2>
 
@@ -25,23 +37,23 @@ Riohacha, Colombia -- Systems Engineering Student
 
 <table>
 <tr>
-<td width="60%">
+<td width="55%">
 
 ### About Me
 
-I am a Systems Engineering student and software developer with practical experience in full-stack development. My approach combines disciplined engineering practices with modern tooling -- including AI assistance -- to build scalable, maintainable applications.
+I am a Systems Engineering student and software developer with practical experience in full-stack development. My approach combines disciplined engineering practices with modern tooling, including AI assistance, to build scalable and maintainable applications.
 
 I believe in learning by building: every project is an opportunity to deepen my understanding of both backend architecture and frontend design.
 
 </td>
-<td width="40%">
+<td width="45%">
 
 ### Currently
 
-- Building **Edubid** -- gamified educational SaaS platform
-- Working on a gym management SaaS
-- Learning Node.js, Angular and Next.js
-- Exploring system design and scalability
+- Building **Edubid** -- gamified educational SaaS platform.
+- Working on a gym management SaaS.
+- Learning Node.js, Angular and Next.js.
+- Exploring system design and scalability.
 
 </td>
 </tr>
@@ -51,12 +63,11 @@ I believe in learning by building: every project is an opportunity to deepen my 
 
 | Category | Technologies |
 |---|---|
-| **Languages** | Python, JavaScript, TypeScript, Java, Dart, Kotlin |
-| **Backend** | Django, Django REST Framework, FastAPI, Node.js |
-| **Frontend** | React, Vite, Angular |
-| **Databases** | PostgreSQL, MySQL |
-| **DevOps and Tools** | Docker, Git |
-| **Mobile** | Flutter |
+| **Languages** | ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white) ![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=java&logoColor=white) ![Dart](https://img.shields.io/badge/Dart-0175C2?style=flat-square&logo=dart&logoColor=white) |
+| **Backend** | ![Django](https://img.shields.io/badge/Django-092E20?style=flat-square&logo=django&logoColor=white) ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=flat-square&logo=node.js&logoColor=white) |
+| **Frontend** | ![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB) ![Angular](https://img.shields.io/badge/Angular-DD0031?style=flat-square&logo=angular&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-B73BFE?style=flat-square&logo=vite&logoColor=FFD62E) |
+| **Databases** | ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=flat-square&logo=postgresql&logoColor=white) ![MySQL](https://img.shields.io/badge/MySQL-00000F?style=flat-square&logo=mysql&logoColor=white) |
+| **DevOps & Mobile** | ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white) ![Flutter](https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=flutter&logoColor=white) |
 
 ### Featured Projects
 
@@ -67,10 +78,8 @@ Educational gamification SaaS platform designed to enhance motivation and academ
 <br><br>
 <code>Python</code> <code>Django</code> <code>DRF</code> <code>PostgreSQL</code> <code>React</code> <code>Vite</code>
 <br>
-<a href="https://github.com/ivnmtz09/edubid">Repository →</a>
+<a href="https://github.com/ivnmtz09/edubid">Repository</a>
 </details>
-
-<br>
 
 <details>
 <summary><strong>Yonna Akademia</strong> -- Cultural Preservation and Gamification</summary>
@@ -79,10 +88,8 @@ REST API with Django 5 + Angular 21, focused on gamification and cultural preser
 <br><br>
 <code>Django 5</code> <code>Angular 21</code> <code>Flutter</code> <code>PostgreSQL</code>
 <br>
-<a href="https://github.com/ivnmtz09/yonna_akademia">Repository →</a>
+<a href="https://github.com/ivnmtz09/yonna_akademia">Repository</a>
 </details>
-
-<br>
 
 <details>
 <summary><strong>Curso FullStack Reservas</strong> -- Booking System</summary>
@@ -91,23 +98,12 @@ Full-stack booking system built with PostgreSQL 18, Angular 21, and Spring Boot 
 <br><br>
 <code>PostgreSQL 18</code> <code>Angular 21</code> <code>Spring Boot 4</code>
 <br>
-<a href="https://github.com/ivnmtz09/Curso-FullStack-Reservas">Repository →</a>
+<a href="https://github.com/ivnmtz09/Curso-FullStack-Reservas">Repository</a>
 </details>
-
-### Get in Touch
-
-I am open to internships, junior developer positions, and project collaboration.
-
-<div align="center">
-
-[![Email](https://img.shields.io/badge/ivanjmm01@gmail.com-EA4335?style=flat-square&logo=gmail&logoColor=white)](mailto:ivanjmm01@gmail.com)
-[![GitHub](https://img.shields.io/badge/@ivnmtz09-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/ivnmtz09)
-
-</div>
 
 ---
 
-<h2 id="espanol">Espanol</h2>
+<h2 id="espanol">Español</h2>
 
 <p align="center">
   <em>Construyendo soluciones backend y frontend. Aprendiz de por vida. Resolviendo problemas.</em>
@@ -115,64 +111,59 @@ I am open to internships, junior developer positions, and project collaboration.
 
 <table>
 <tr>
-<td width="60%">
+<td width="55%">
 
-### Sobre Mi
+### Sobre Mí
 
-Soy estudiante de Ingenieria de Sistemas y desarrollador de software con experiencia practica en desarrollo full-stack. Mi enfoque combina practicas disciplinadas de ingenieria con herramientas modernas --incluyendo asistencia de IA-- para construir aplicaciones escalables y mantenibles.
+Soy estudiante de Ingeniería de Sistemas y desarrollador de software con experiencia práctica en desarrollo full-stack. Mi enfoque combina prácticas disciplinadas de ingeniería con herramientas modernas, incluyendo asistencia de IA, para construir aplicaciones escalables y mantenibles.
 
-Creo en aprender construyendo: cada proyecto es una oportunidad para profundizar mi comprension tanto de la arquitectura backend como del diseno frontend.
+Creo en aprender construyendo: cada proyecto es una oportunidad para profundizar mi comprensión tanto de la arquitectura backend como del diseño frontend.
 
 </td>
-<td width="40%">
+<td width="45%">
 
 ### Actualmente
 
-- Construyendo **Edubid** -- plataforma SaaS educativa gamificada
-- Trabajando en un SaaS de gestion de gimnasios
-- Aprendiendo Node.js, Angular y Next.js
-- Explorando diseno de sistemas y escalabilidad
+- Construyendo **Edubid** -- plataforma SaaS educativa gamificada.
+- Trabajando en un SaaS de gestión de gimnasios.
+- Aprendiendo Node.js, Angular y Next.js.
+- Explorando diseño de sistemas y escalabilidad.
 
 </td>
 </tr>
 </table>
 
-### Competencias Tecnicas
+### Competencias Técnicas
 
-| Categoria | Tecnologias |
+| Categoría | Tecnologías |
 |---|---|
-| **Lenguajes** | Python, JavaScript, TypeScript, Java, Dart, Kotlin |
-| **Backend** | Django, Django REST Framework, FastAPI, Node.js |
-| **Frontend** | React, Vite, Angular |
-| **Bases de Datos** | PostgreSQL, MySQL |
-| **DevOps y Herramientas** | Docker, Git |
-| **Movil** | Flutter |
+| **Lenguajes** | ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white) ![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=java&logoColor=white) ![Dart](https://img.shields.io/badge/Dart-0175C2?style=flat-square&logo=dart&logoColor=white) |
+| **Backend** | ![Django](https://img.shields.io/badge/Django-092E20?style=flat-square&logo=django&logoColor=white) ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=flat-square&logo=node.js&logoColor=white) |
+| **Frontend** | ![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB) ![Angular](https://img.shields.io/badge/Angular-DD0031?style=flat-square&logo=angular&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-B73BFE?style=flat-square&logo=vite&logoColor=FFD62E) |
+| **Bases de Datos** | ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=flat-square&logo=postgresql&logoColor=white) ![MySQL](https://img.shields.io/badge/MySQL-00000F?style=flat-square&logo=mysql&logoColor=white) |
+| **DevOps y Móvil** | ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white) ![Flutter](https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=flutter&logoColor=white) |
 
 ### Proyectos Destacados
 
 <details open>
 <summary><strong>Edubid</strong> -- SaaS Educativo Gamificado</summary>
 <br>
-Plataforma SaaS de gamificacion educativa disenada para mejorar la motivacion y el rendimiento academico mediante una economia de incentivos y subastas de beneficios. Construido con Django REST Framework y React.
+Plataforma SaaS de gamificación educativa diseñada para mejorar la motivación y el rendimiento académico mediante una economía de incentivos y subastas de beneficios. Construido con Django REST Framework y React.
 <br><br>
 <code>Python</code> <code>Django</code> <code>DRF</code> <code>PostgreSQL</code> <code>React</code> <code>Vite</code>
 <br>
-<a href="https://github.com/ivnmtz09/edubid">Repositorio →</a>
+<a href="https://github.com/ivnmtz09/edubid">Repositorio</a>
 </details>
 
-<br>
-
 <details>
-<summary><strong>Yonna Akademia</strong> -- Preservacion Cultural y Gamificacion</summary>
+<summary><strong>Yonna Akademia</strong> -- Preservación Cultural y Gamificación</summary>
 <br>
-API REST con Django 5 + Angular 21, enfocada en gamificacion y preservacion cultural. Incluye cliente movil en Flutter.
+API REST con Django 5 + Angular 21, enfocada en gamificación y preservación cultural. Incluye cliente móvil en Flutter.
 <br><br>
 <code>Django 5</code> <code>Angular 21</code> <code>Flutter</code> <code>PostgreSQL</code>
 <br>
-<a href="https://github.com/ivnmtz09/yonna_akademia">Repositorio →</a>
+<a href="https://github.com/ivnmtz09/yonna_akademia">Repositorio</a>
 </details>
-
-<br>
 
 <details>
 <summary><strong>Curso FullStack Reservas</strong> -- Sistema de Reservas</summary>
@@ -181,22 +172,13 @@ Sistema de reservas full-stack construido con PostgreSQL 18, Angular 21 y Spring
 <br><br>
 <code>PostgreSQL 18</code> <code>Angular 21</code> <code>Spring Boot 4</code>
 <br>
-<a href="https://github.com/ivnmtz09/Curso-FullStack-Reservas">Repositorio →</a>
+<a href="https://github.com/ivnmtz09/Curso-FullStack-Reservas">Repositorio</a>
 </details>
 
-### Contacto
-
-Estoy abierto a pasantias, posiciones junior y colaboracion en proyectos.
+<br>
 
 <div align="center">
-
-[![Email](https://img.shields.io/badge/ivanjmm01@gmail.com-EA4335?style=flat-square&logo=gmail&logoColor=white)](mailto:ivanjmm01@gmail.com)
-[![GitHub](https://img.shields.io/badge/@ivnmtz09-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/ivnmtz09)
-
-</div>
-
----
-
-<div align="center">
-  <sub>Profile views since June 2026</sub>
+  <a href="https://github.com/ivnmtz09">
+    <img src="https://komarev.com/ghpvc/?username=ivnmtz09&color=blue&style=flat-square&label=Profile+Views" alt="Profile Views Counter" />
+  </a>
 </div>
