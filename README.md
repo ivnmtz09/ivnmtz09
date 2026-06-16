@@ -1,145 +1,224 @@
-# Ivan Martinez (`@ivnmtz09`)
+<div align="center">
 
-**[🇬🇧 English](#english) | [🇪🇸 Español](#español)**
+# Iván Martínez
+
+**`Software Engineer`**
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/ivnmtz09)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ivnmtz09)
+[![Email](https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:ivanjmm01@gmail.com)
+[![Portfolio](https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=aboutdotme&logoColor=white)](https://ivnmtz09.dev)
+
+📍 Riohacha, Colombia · 🎓 Systems Engineering Student
 
 ---
 
-## English
+[🇬🇧 English](#english) · [🇪🇸 Español](#español)
 
-Backend & Frontend developer, vibecoder passionate about building. Currently learning every day, developing real-world projects with AI assistance.
+</div>
 
-**📍 Riohacha, Colombia** | **🎓 Systems Engineering Student** | **💻 1+ years of coding**
+---
+
+<h2 id="english">English</h2>
+
+<p align="center">
+  <em>Building backend & frontend solutions. Lifelong learner. Problem solver.</em>
+</p>
+
+<table>
+<tr>
+<td width="60%">
 
 ### About Me
 
-I'm Ivan, a Systems Engineering student working on real full-stack projects. I'm an apprentice in both backend and frontend, but I'm serious about learning every day. I code to learn, and I learn by building. With AI assistance, I handle both sides of the stack — backend APIs and frontend interfaces. I'm constantly exploring new technologies to expand my skills.
+I am a Systems Engineering student and software developer with practical experience in full-stack development. My approach combines disciplined engineering practices with modern tooling — including AI assistance — to build scalable, maintainable applications.
 
-**What I'm doing now:**
+I believe in learning by building: every project is an opportunity to deepen my understanding of both backend architecture and frontend design.
 
-- Building **[Educoin](https://github.com/ivnmtz09/Educoin-Backend)** — an educational SaaS platform (Django + DRF + React)
-- Starting a gym management SaaS with a friend
-- Learning Node.js and Angular
-- Exploring Next.js and modern full-stack patterns
-- Growing my skills across the entire development lifecycle
+</td>
+<td width="40%">
 
-**What drives me:**
+### Currently
 
-- Building things that work and solve real problems
-- Writing clean, maintainable code
-- Learning through practical projects
-- Connecting with other developers
+- 🔨 Building **[Educoin](https://github.com/ivnmtz09/Educoin-Backend)** — educational SaaS platform
+- 🏋️ Working on a gym management SaaS
+- 📘 Learning Node.js, Angular & Next.js
+- 🧠 Exploring system design & scalability
 
-### Tech Stack
+</td>
+</tr>
+</table>
 
-**Languages:**
-Python, JavaScript, TypeScript, Java, Dart, Kotlin
+### 🛠️ Technical Proficiencies
 
-**Backend (Real Experience):**
-Django, Django REST Framework, PostgreSQL, MySQL
+| Category | Technologies |
+|---|---|
+| **Languages** | Python, JavaScript, TypeScript, Java, Dart, Kotlin |
+| **Backend** | Django, Django REST Framework, FastAPI, Node.js |
+| **Frontend** | React, Vite, Angular |
+| **Databases** | PostgreSQL, MySQL |
+| **DevOps & Tools** | Docker, Git |
+| **Mobile** | Flutter |
 
-**Frontend (Real Experience):**
-React, Vite
+### 📌 Featured Projects
 
-**Currently Learning:**
-Node.js, Angular, Next.js, System Design & Scalability
+<details open>
+<summary><strong>Educoin</strong> — Educational SaaS Platform</summary>
+<br>
+Full-stack platform built with Django + DRF (backend) and React + Vite (frontend). Designed to deliver gamified educational experiences as a service.
+<br><br>
+<code>Python</code> <code>Django</code> <code>DRF</code> <code>PostgreSQL</code> <code>React</code> <code>Vite</code>
+<br>
+<a href="https://github.com/ivnmtz09/Educoin-Backend">Repository →</a>
+</details>
 
-**Also Know:**
-Flutter, Docker, Git, FastAPI
+<br>
 
-**Working Style:**
-Using AI assistance to learn faster and build better
+<details>
+<summary><strong>Yonna Akademia</strong> — Cultural Preservation & Gamification</summary>
+<br>
+REST API with Django 5 + Angular 21, focused on gamification and cultural preservation. Includes a Flutter-based mobile client.
+<br><br>
+<code>Django 5</code> <code>Angular 21</code> <code>Flutter</code> <code>PostgreSQL</code>
+<br>
+<a href="https://github.com/ivnmtz09/yonna_akademia">Repository →</a>
+</details>
 
-### Current Projects
+<br>
 
-**Educoin** — Educational SaaS platform. Full-stack project with Django + DRF backend and React + Vite frontend.
+<details>
+<summary><strong>Edubid</strong> — Gamified Educational SaaS</summary>
+<br>
+Platform combining Django REST with React to deliver gamified learning experiences.
+<br><br>
+<code>Python</code> <code>Django REST</code> <code>React</code> <code>PostgreSQL</code>
+<br>
+<a href="https://github.com/ivnmtz09/edubid">Repository →</a>
+</details>
 
-- Backend: Python, Django, DRF, PostgreSQL | Frontend: React, Vite | Status: In development | [Repo](https://github.com/ivnmtz09/Educoin-Backend)
+### 📊 GitHub Analytics
 
-**Gym Management SaaS** — Working with a friend on a gym management platform to launch soon.
+<div align="center">
 
-- Tech: Backend (Django, DRF, MySQL) + Frontend (React, Vite) | Status: Starting development
+[![GitHub Stats](https://github-readme-stats-git-master-anuraghazra.vercel.app/api?username=ivnmtz09&show_icons=true&theme=github_dark&count_private=true&hide_border=true&bg_color=0d1117&title_color=58a6ff&icon_color=58a6ff)](https://github.com/ivnmtz09)
 
-### GitHub Stats
+[![Top Languages](https://github-readme-stats-git-master-anuraghazra.vercel.app/api/top-langs/?username=ivnmtz09&layout=compact&theme=github_dark&hide_border=true&bg_color=0d1117&title_color=58a6ff)](https://github.com/ivnmtz09)
 
-[![GitHub Stats](https://github-readme-stats-git-master-anuraghazra.vercel.app/api?username=ivnmtz09&show_icons=true&theme=github_dark&count_private=true)](https://github.com/ivnmtz09)
-[![Top Langs](https://github-readme-stats-git-master-anuraghazra.vercel.app/api/top-langs/?username=ivnmtz09&layout=compact&theme=github_dark)](https://github.com/ivnmtz09)
+</div>
 
-### Let's Connect
+### 📬 Get in Touch
 
-I'm interested in opportunities where I can keep building and learning.
+I am open to internships, junior developer positions, and project collaboration.
 
-- **Email:** ivanjmm01@gmail.com
-- **GitHub:** [ivnmtz09](https://github.com/ivnmtz09)
+<div align="center">
 
-**Open to:** Internships, junior positions, collaboration on projects
+[![Email](https://img.shields.io/badge/ivanjmm01@gmail.com-EA4335?style=flat-square&logo=gmail&logoColor=white)](mailto:ivanjmm01@gmail.com)
+[![GitHub](https://img.shields.io/badge/@ivnmtz09-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/ivnmtz09)
+
+</div>
 
 ---
 
-## Español
+<h2 id="español">Español</h2>
 
-Desarrollador backend & frontend, vibecoder apasionado por crear. Actualmente aprendiendo cada día, desarrollando proyectos reales con ayuda de IA.
+<p align="center">
+  <em>Construyendo soluciones backend y frontend. Aprendiz de por vida. Resolviendo problemas.</em>
+</p>
 
-**📍 Riohacha, Colombia** | **🎓 Estudiante de Ingeniería de Sistemas** | **💻 1+ años programando**
+<table>
+<tr>
+<td width="60%">
 
-### Quién Soy
+### Sobre Mí
 
-Soy Ivan, estudiante de Ingeniería de Sistemas trabajando en proyectos full-stack reales. Soy aprendiz en backend y frontend, pero serio en mi aprendizaje diario. Código para aprender, y aprendo construyendo. Con ayuda de IA, manejo ambos lados del stack — APIs backend e interfaces frontend. Constantemente exploro nuevas tecnologías para expandir mis habilidades.
+Soy estudiante de Ingeniería de Sistemas y desarrollador de software con experiencia práctica en desarrollo full-stack. Mi enfoque combina prácticas disciplinadas de ingeniería con herramientas modernas —incluyendo asistencia de IA— para construir aplicaciones escalables y mantenibles.
 
-**Lo que estoy haciendo ahora:**
+Creo en aprender construyendo: cada proyecto es una oportunidad para profundizar mi comprensión tanto de la arquitectura backend como del diseño frontend.
 
-- Construyendo **[Educoin](https://github.com/ivnmtz09/Educoin-Backend)** — una plataforma SaaS educativa (Django + DRF + React)
-- Iniciando un SaaS de gestión de gimnasios con un amigo
-- Aprendiendo Node.js y Angular
-- Explorando Next.js y patrones full-stack modernos
-- Creciendo mis habilidades en todo el ciclo de desarrollo
+</td>
+<td width="40%">
 
-**Qué me impulsa:**
+### Actualmente
 
-- Construir cosas que funcionan y resuelven problemas reales
-- Escribir código limpio y mantenible
-- Aprender mediante proyectos prácticos
-- Conectar con otros desarrolladores
+- 🔨 Construyendo **Educoin** — plataforma SaaS educativa
+- 🏋️ Trabajando en un SaaS de gestión de gimnasios
+- 📘 Aprendiendo Node.js, Angular y Next.js
+- 🧠 Explorando diseño de sistemas y escalabilidad
 
-### Stack Tecnológico
+</td>
+</tr>
+</table>
 
-**Lenguajes:**
-Python, JavaScript, TypeScript, Java, Dart, Kotlin
+### 🛠️ Competencias Técnicas
 
-**Backend (Experiencia Real):**
-Django, Django REST Framework, PostgreSQL, MySQL
+| Categoría | Tecnologías |
+|---|---|
+| **Lenguajes** | Python, JavaScript, TypeScript, Java, Dart, Kotlin |
+| **Backend** | Django, Django REST Framework, FastAPI, Node.js |
+| **Frontend** | React, Vite, Angular |
+| **Bases de Datos** | PostgreSQL, MySQL |
+| **DevOps y Herramientas** | Docker, Git |
+| **Móvil** | Flutter |
 
-**Frontend (Experiencia Real):**
-React, Vite
+### 📌 Proyectos Destacados
 
-**Actualmente Aprendiendo:**
-Node.js, Angular, Next.js, System Design & Escalabilidad
+<details open>
+<summary><strong>Educoin</strong> — Plataforma SaaS Educativa</summary>
+<br>
+Plataforma full-stack construida con Django + DRF (backend) y React + Vite (frontend). Diseñada para ofrecer experiencias educativas gamificadas como servicio.
+<br><br>
+<code>Python</code> <code>Django</code> <code>DRF</code> <code>PostgreSQL</code> <code>React</code> <code>Vite</code>
+<br>
+<a href="https://github.com/ivnmtz09/Educoin-Backend">Repositorio →</a>
+</details>
 
-**También Conozco:**
-Flutter, Docker, Git, FastAPI
+<br>
 
-**Estilo de Trabajo:**
-Usando IA para aprender más rápido y construir mejor
+<details>
+<summary><strong>Yonna Akademia</strong> — Preservación Cultural y Gamificación</summary>
+<br>
+API REST con Django 5 + Angular 21, enfocada en gamificación y preservación cultural. Incluye cliente móvil en Flutter.
+<br><br>
+<code>Django 5</code> <code>Angular 21</code> <code>Flutter</code> <code>PostgreSQL</code>
+<br>
+<a href="https://github.com/ivnmtz09/yonna_akademia">Repositorio →</a>
+</details>
 
-### Proyectos Actuales
+<br>
 
-**Educoin** — Plataforma SaaS educativa. Proyecto full-stack con backend Django + DRF y frontend React + Vite.
+<details>
+<summary><strong>Edubid</strong> — SaaS Educativo Gamificado</summary>
+<br>
+Plataforma que combina Django REST con React para ofrecer experiencias de aprendizaje gamificadas.
+<br><br>
+<code>Python</code> <code>Django REST</code> <code>React</code> <code>PostgreSQL</code>
+<br>
+<a href="https://github.com/ivnmtz09/edubid">Repositorio →</a>
+</details>
 
-- Backend: Python, Django, DRF, PostgreSQL | Frontend: React, Vite | Estado: En desarrollo | [Repo](https://github.com/ivnmtz09/Educoin-Backend)
+### 📊 Estadísticas de GitHub
 
-**SaaS de Gimnasios** — Trabajando con un amigo en una plataforma de gestión de gimnasios próxima a lanzar.
+<div align="center">
 
-- Tech: Backend (Django, DRF, MySQL) + Frontend (React, Vite) | Estado: Iniciando desarrollo
+[![GitHub Stats](https://github-readme-stats-git-master-anuraghazra.vercel.app/api?username=ivnmtz09&show_icons=true&theme=github_dark&count_private=true&hide_border=true&bg_color=0d1117&title_color=58a6ff&icon_color=58a6ff)](https://github.com/ivnmtz09)
 
-### Estadísticas de GitHub
+[![Top Languages](https://github-readme-stats-git-master-anuraghazra.vercel.app/api/top-langs/?username=ivnmtz09&layout=compact&theme=github_dark&hide_border=true&bg_color=0d1117&title_color=58a6ff)](https://github.com/ivnmtz09)
 
-[![GitHub Stats](https://github-readme-stats-git-master-anuraghazra.vercel.app/api?username=ivnmtz09&show_icons=true&theme=github_dark&count_private=true)](https://github.com/ivnmtz09)
-[![Top Langs](https://github-readme-stats-git-master-anuraghazra.vercel.app/api/top-langs/?username=ivnmtz09&layout=compact&theme=github_dark)](https://github.com/ivnmtz09)
+</div>
 
-### Conectemos
+### 📬 Contacto
 
-Estoy interesado en oportunidades donde pueda seguir construyendo y aprendiendo.
+Estoy abierto a pasantías, posiciones junior y colaboración en proyectos.
 
-- **Email:** ivanjmm01@gmail.com
-- **GitHub:** [ivnmtz09](https://github.com/ivnmtz09)
+<div align="center">
 
-**Abierto a:** Prácticas, posiciones junior, colaboración en proyectos
+[![Email](https://img.shields.io/badge/ivanjmm01@gmail.com-EA4335?style=flat-square&logo=gmail&logoColor=white)](mailto:ivanjmm01@gmail.com)
+[![GitHub](https://img.shields.io/badge/@ivnmtz09-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/ivnmtz09)
+
+</div>
+
+---
+
+<div align="center">
+  <sub>Profile views since June 2026</sub>
+</div>
