@@ -16,10 +16,10 @@
 
 <p align="center">
   <a href="https://github.com/ivnmtz09">
-    <img height="165" src="https://github-readme-stats.vercel.app/api?username=ivnmtz09&show_icons=true&hide_border=true&theme=transparent" alt="GitHub Stats" />
+    <img height="165" src="https://github-readme-stats-api.vercel.app/api?username=ivnmtz09&show_icons=true&hide_border=true&theme=transparent" alt="GitHub Stats" />
   </a>
   <a href="https://github.com/ivnmtz09">
-    <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=ivnmtz09&layout=compact&hide_border=true&theme=transparent" alt="Top Languages" />
+    <img height="165" src="https://github-readme-stats-api.vercel.app/api/top-langs/?username=ivnmtz09&layout=compact&hide_border=true&theme=transparent" alt="Top Languages" />
   </a>
 </p>
 
