@@ -15,7 +15,7 @@
   <a href="https://github.com/ivnmtz09">
     <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub" />
   </a>
-  <a href="https://linkedin.com/">
+  <a href="https://www.linkedin.com/in/ivan-jesus-martinez-molina-0580411b5/">
     <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn" />
   </a>
   <a href="mailto:ivanjmm01@gmail.com">
@@ -234,8 +234,8 @@ I believe in technical rigor: designing resilient backend architectures, optimiz
 [SYSTEM STATUS]: OPERATIONAL | KERNEL 6.x | READY TO DEPLOY
 ```
 
-<a href="https://github.com/ivnmtz09">
-  <img src="https://komarev.com/ghpvc/?username=ivnmtz09&color=1f6feb&style=flat-square&label=SYSTEM+TELEMETRY+VISITS" alt="Profile Telemetry Views" />
+<a href="https://hits.sh/github.com/ivnmtz09/">
+  <img src="https://hits.sh/github.com/ivnmtz09.svg?style=flat-square&label=PROFILE+VIEWS&color=1f6feb&labelColor=0d1117" alt="Profile Views" />
 </a>
 
 <br><br>
