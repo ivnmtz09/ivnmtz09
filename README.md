@@ -1,14 +1,16 @@
 <div align="center">
 
-<!-- HEADER BANNER -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,50:161b22,100:1f6feb&height=200&section=header&text=Ivan%20Martinez&fontSize=48&fontColor=ffffff&animation=fadeIn&desc=Systems%20Engineering%20Student%20%7C%20Full%20Stack%20%26%20Software%20Developer&descSize=18&descAlignY=68" width="100%" alt="Header Banner" />
+<!-- LOCAL VECTOR HEADER BANNER (100% RELIABLE, ZERO RATE LIMIT) -->
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ivnmtz09/ivnmtz09/main/assets/banner.svg" alt="Ivan Martinez - Systems Engineering &amp; Software Development" width="100%" />
+</p>
 
-<!-- TYPING TITLE -->
+<!-- DYNAMIC TYPING ROLE DISPLAY -->
 <a href="https://github.com/ivnmtz09">
   <img src="https://readme-typing-svg.herokuapp.com/?lines=Systems+Engineering+Student;Full+Stack+Software+Developer;Backend+Architect+%26+Cloud+Enthusiast;Building+Scalable+Solutions;Linux+%26+Open+Source+Explorer&center=true&width=560&height=45&font=Fira+Code&weight=600&color=58A6FF&pause=1000" alt="Typing SVG" />
 </a>
 
-<!-- QUICK CONNECT & BADGES -->
+<!-- QUICK CONNECT DOCK -->
 <p align="center">
   <a href="https://github.com/ivnmtz09">
     <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub" />
@@ -25,70 +27,70 @@
 
 <!-- LANGUAGE SELECTOR -->
 <p align="center">
-  <a href="#-sobre-mí"><b>🇪🇸 Versión en Español</b></a>
+  <a href="#sobre-mi"><b>[ ES ] Versión en Español</b></a>
   &nbsp;&nbsp;•&nbsp;&nbsp;
-  <a href="#-about-me"><b>🇬🇧 English Version</b></a>
+  <a href="#about-me"><b>[ EN ] English Version</b></a>
 </p>
 
 </div>
 
 ---
 
-### 🖥️ `sysinfo --profile`
+### // sysinfo --profile
 
 ```bash
 ╭─ ivnmtz09@workstation ~ 
 ╰─$ neofetch --profile
       /\_/\          User       : Ivan Martinez (@ivnmtz09)
      ( o.o )         Role       : Systems Engineering Student & Software Developer
-      > ^ <          Location   : Riohacha, La Guajira, Colombia 🇨🇴
+      > ^ <          Location   : Riohacha, La Guajira, Colombia
      /     \         Alma Mater : Universidad de La Guajira
     (_______)        Core Stack : Django REST, Spring Boot, Angular, React, Flutter, PostgreSQL
                      Focus      : Backend Architecture, Distributed Systems & SaaS
-                     Uptime     : Constant learning & shipping code
+                     Uptime     : Continuous development & system design
                      Current    : EduBid SaaS & Yonna Akademia Ecosystem
                      Status     : open_to_collaboration = true
 ```
 
 ---
 
-<div id="-sobre-mí"></div>
+<div id="sobre-mi"></div>
 
-## 🇪🇸 Sobre Mí
+## // Sobre Mí
 
-Soy estudiante de **Ingeniería de Sistemas** y desarrollador de software enfocado en la construcción de soluciones full-stack robustas, escalables y mantenibles. Aplico principios de ingeniería de software, arquitectura limpia y las mejores prácticas del ecosistema moderno para resolver problemas complejos a través del código.
+Soy estudiante de **Ingeniería de Sistemas** y desarrollador de software enfocado en la construcción de soluciones full-stack robustas, escalables y mantenibles. Aplico principios de arquitectura de software, patrones de diseño y estándares modernos para resolver problemas de ingeniería a través del código.
 
-Creo firmemente en la filosofía de **aprender construyendo**: desde el diseño de APIs REST resilientes y esquemas relacionales en PostgreSQL hasta interfaces reactivas y aplicaciones móviles interactivas.
+Mi enfoque se basa en la disciplina técnica: desde el diseño de APIs REST resilientes y esquemas relacionales en PostgreSQL hasta interfaces reactivas y aplicaciones móviles interactivas.
 
-### 🎯 Enfoque Actual
-- 🚀 Liderando el desarrollo de **EduBid**, una plataforma SaaS de gamificación educativa con economía de incentivos.
-- 🏛️ Diseñando la arquitectura de **Yonna Akademia**, un ecosistema de preservación cultural con API en Django 5, dashboard web en Angular 21 y cliente móvil en Flutter.
-- 🏋️ Construcción de **Gym Tracker**, solución SaaS orientada a la gestión y seguimiento deportivo.
-- ⚡ Profundizando en diseño de sistemas de alta concurrencia, microservicios y contenedorización con Docker.
-
----
-
-<div id="-about-me"></div>
-
-## 🇬🇧 About Me
-
-I am a **Systems Engineering student** and software developer passionate about building scalable, secure, and maintainable full-stack systems. My work combines disciplined software architecture, performance optimization, and modern tooling to turn ideas into robust digital products.
-
-I believe in **learning by engineering**: designing resilient backend architectures, optimizing relational database queries, and crafting seamless responsive client applications.
-
-### 🎯 Current Focus
-- 🚀 Engineering **EduBid**, a gamified educational SaaS platform powered by an incentive economy.
-- 🏛️ Architecting **Yonna Akademia**, a cultural gamification platform featuring a Django 5 REST API, Angular 21 web client, and Flutter mobile app.
-- 🏋️ Developing **Gym Tracker**, an end-to-end management SaaS for fitness centers and athletes.
-- ⚡ Exploring advanced distributed systems, microservices design patterns, and container orchestration with Docker.
+### Enfoque y Filosofía
+- **EduBid**: Liderando el desarrollo de una plataforma SaaS de gamificación educativa con economía de incentivos y subastas en tiempo real.
+- **Yonna Akademia**: Diseñando la arquitectura de un ecosistema de preservación cultural con API REST en Django 5, cliente web en Angular 21 y aplicación móvil en Flutter.
+- **Gym Tracker**: Desarrollo de un SaaS para el seguimiento biométrico, rutinas y gestión de instalaciones deportivas.
+- **Arquitectura de Sistemas**: Explorando alta concurrencia, diseño de microservicios, optimización de queries y contenedorización con Docker.
 
 ---
 
-## 🛠️ Tech Stack & Infrastructure
+<div id="about-me"></div>
+
+## // About Me
+
+I am a **Systems Engineering student** and software developer dedicated to building scalable, secure, and maintainable full-stack systems. My work combines disciplined software architecture, performance optimization, and modern engineering practices.
+
+I believe in technical rigor: designing resilient backend architectures, optimizing relational database schemas, and crafting seamless client applications.
+
+### Focus & Principles
+- **EduBid**: Engineering an educational gamification SaaS platform powered by an incentive economy.
+- **Yonna Akademia**: Architecting a cultural gamification platform featuring a Django 5 REST API, Angular 21 web dashboard, and Flutter mobile client.
+- **Gym Tracker**: Developing an end-to-end management SaaS for athletic centers and performance tracking.
+- **Systems Architecture**: Deepening knowledge in high concurrency, microservices patterns, query optimization, and Docker orchestration.
+
+---
+
+## // Tech Stack & Infrastructure
 
 <div align="center">
 
-### 💻 Lenguajes & Sistemas / Core Languages
+### Languages & Core Systems
 [![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://typescriptlang.org)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)](https://developer.mozilla.org)
@@ -97,14 +99,14 @@ I believe in **learning by engineering**: designing resilient backend architectu
 [![C++](https://img.shields.io/badge/C++-00599C?style=flat-square&logo=cplusplus&logoColor=white)](https://isocpp.org)
 [![Bash](https://img.shields.io/badge/Bash-4EAA25?style=flat-square&logo=gnubash&logoColor=white)](https://www.gnu.org/software/bash/)
 
-### ⚙️ Backend, Frameworks & APIs
+### Backend, Frameworks & APIs
 [![Django](https://img.shields.io/badge/Django-092E20?style=flat-square&logo=django&logoColor=white)](https://djangoproject.com)
 [![Django REST Framework](https://img.shields.io/badge/DRF-A30000?style=flat-square&logo=django&logoColor=white)](https://www.django-rest-framework.org)
 [![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=flat-square&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
 [![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)](https://nodejs.org)
 [![Express](https://img.shields.io/badge/Express.js-000000?style=flat-square&logo=express&logoColor=white)](https://expressjs.com)
 
-### 🎨 Frontend & Mobile Engineering
+### Frontend & Mobile Engineering
 [![Angular](https://img.shields.io/badge/Angular-DD0031?style=flat-square&logo=angular&logoColor=white)](https://angular.dev)
 [![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)](https://react.dev)
 [![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white)](https://nextjs.org)
@@ -113,12 +115,12 @@ I believe in **learning by engineering**: designing resilient backend architectu
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)](https://developer.mozilla.org)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)](https://developer.mozilla.org)
 
-### 🗄️ Bases de Datos / Databases
+### Databases & Persistence
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)](https://postgresql.org)
 [![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)](https://mysql.com)
 [![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white)](https://sqlite.org)
 
-### 🚢 DevOps, Infraestructura & Herramientas / Tools
+### DevOps, Infrastructure & Tooling
 [![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)](https://docker.com)
 [![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black)](https://kernel.org)
 [![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)](https://git-scm.com)
@@ -130,65 +132,65 @@ I believe in **learning by engineering**: designing resilient backend architectu
 
 ---
 
-## 🚀 Proyectos Destacados / Featured Projects
+## // Proyectos Destacados / Featured Systems
 
 <table>
   <tr>
     <td width="50%" valign="top">
-      <h3>🎓 <a href="https://github.com/ivnmtz09/edubid">EduBid</a></h3>
+      <h3><a href="https://github.com/ivnmtz09/edubid">EduBid</a></h3>
       <p><b>SaaS de Gamificación Educativa</b></p>
-      <p>Plataforma SaaS diseñada para impulsar la motivación y el rendimiento académico mediante un sistema de economía de incentivos y subastas de beneficios en tiempo real.</p>
+      <p>Plataforma SaaS diseñada para impulsar la motivación y el rendimiento académico mediante una economía de incentivos y subastas de beneficios en tiempo real.</p>
       <p>
-        <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" />
-        <img src="https://img.shields.io/badge/Django_REST-092E20?style=flat-square&logo=django&logoColor=white" />
-        <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white" />
-        <img src="https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB" />
-        <img src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white" />
+        <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python" />
+        <img src="https://img.shields.io/badge/Django_REST-092E20?style=flat-square&logo=django&logoColor=white" alt="Django REST" />
+        <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white" alt="PostgreSQL" />
+        <img src="https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB" alt="React" />
+        <img src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite" />
       </p>
-      <p>🔗 <a href="https://github.com/ivnmtz09/edubid"><b>Explorar Repositorio →</b></a></p>
+      <p><a href="https://github.com/ivnmtz09/edubid"><b>[ Repositorio ]</b></a></p>
     </td>
     <td width="50%" valign="top">
-      <h3>🏛️ <a href="https://github.com/ivnmtz09/yonna_akademia">Yonna Akademia</a></h3>
-      <p><b>Ecosistema de Preservación Cultural & Gamificación</b></p>
-      <p>Arquitectura distribuida compuesta por una API RESTful en Django 5, un panel web administrativo en Angular 21 y un cliente móvil nativo en Flutter (<a href="https://github.com/ivnmtz09/yonna_app">yonna_app</a>).</p>
+      <h3><a href="https://github.com/ivnmtz09/yonna_akademia">Yonna Akademia</a></h3>
+      <p><b>Ecosistema de Preservación Cultural &amp; Gamificación</b></p>
+      <p>Arquitectura distribuida compuesta por una API RESTful en Django 5, un panel web administrativo en Angular 21 y un cliente móvil en Flutter (<a href="https://github.com/ivnmtz09/yonna_app">yonna_app</a>).</p>
       <p>
-        <img src="https://img.shields.io/badge/Django_5-092E20?style=flat-square&logo=django&logoColor=white" />
-        <img src="https://img.shields.io/badge/Angular_21-DD0031?style=flat-square&logo=angular&logoColor=white" />
-        <img src="https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=flutter&logoColor=white" />
-        <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white" />
+        <img src="https://img.shields.io/badge/Django_5-092E20?style=flat-square&logo=django&logoColor=white" alt="Django 5" />
+        <img src="https://img.shields.io/badge/Angular_21-DD0031?style=flat-square&logo=angular&logoColor=white" alt="Angular 21" />
+        <img src="https://img.shields.io/badge/Flutter-02569B?style=flat-square&logo=flutter&logoColor=white" alt="Flutter" />
+        <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white" alt="PostgreSQL" />
       </p>
-      <p>🔗 <a href="https://github.com/ivnmtz09/yonna_akademia"><b>API & Web →</b></a> &nbsp;|&nbsp; 📱 <a href="https://github.com/ivnmtz09/yonna_app"><b>App Móvil →</b></a></p>
+      <p><a href="https://github.com/ivnmtz09/yonna_akademia"><b>[ API &amp; Web ]</b></a> &nbsp;|&nbsp; <a href="https://github.com/ivnmtz09/yonna_app"><b>[ App Móvil ]</b></a></p>
     </td>
   </tr>
   <tr>
     <td width="50%" valign="top">
-      <h3>🏢 <a href="https://github.com/ivnmtz09/Curso-FullStack-Reservas">Sistema de Reservas Full-Stack</a></h3>
+      <h3><a href="https://github.com/ivnmtz09/Curso-FullStack-Reservas">Sistema de Reservas Full-Stack</a></h3>
       <p><b>Enterprise Booking Management System</b></p>
       <p>Sistema empresarial para la gestión, calendarización y persistencia transaccional de reservas de alta concurrencia con arquitectura desacoplada.</p>
       <p>
-        <img src="https://img.shields.io/badge/Spring_Boot_4-6DB33F?style=flat-square&logo=springboot&logoColor=white" />
-        <img src="https://img.shields.io/badge/Angular_21-DD0031?style=flat-square&logo=angular&logoColor=white" />
-        <img src="https://img.shields.io/badge/PostgreSQL_18-4169E1?style=flat-square&logo=postgresql&logoColor=white" />
+        <img src="https://img.shields.io/badge/Spring_Boot_4-6DB33F?style=flat-square&logo=springboot&logoColor=white" alt="Spring Boot 4" />
+        <img src="https://img.shields.io/badge/Angular_21-DD0031?style=flat-square&logo=angular&logoColor=white" alt="Angular 21" />
+        <img src="https://img.shields.io/badge/PostgreSQL_18-4169E1?style=flat-square&logo=postgresql&logoColor=white" alt="PostgreSQL 18" />
       </p>
-      <p>🔗 <a href="https://github.com/ivnmtz09/Curso-FullStack-Reservas"><b>Explorar Repositorio →</b></a></p>
+      <p><a href="https://github.com/ivnmtz09/Curso-FullStack-Reservas"><b>[ Repositorio ]</b></a></p>
     </td>
     <td width="50%" valign="top">
-      <h3>🏋️ <a href="https://github.com/ivnmtz09/gym-tracker">Gym Tracker SaaS</a></h3>
-      <p><b>Fitness & Facility Management Platform</b></p>
-      <p>Solución orientada al seguimiento biométrico, rutinas, control de usuarios y analítica de desempeño para centros deportivos y atletas.</p>
+      <h3><a href="https://github.com/ivnmtz09/gym-tracker">Gym Tracker SaaS</a></h3>
+      <p><b>Fitness &amp; Facility Management Platform</b></p>
+      <p>Solución orientada al seguimiento biométrico, rutinas, control de usuarios y analítica de desempeño para centros deportivos.</p>
       <p>
-        <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" />
-        <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white" />
-        <img src="https://img.shields.io/badge/REST_API-0969DA?style=flat-square&logo=fastapi&logoColor=white" />
+        <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript" />
+        <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white" alt="Node.js" />
+        <img src="https://img.shields.io/badge/REST_API-0969DA?style=flat-square&logo=fastapi&logoColor=white" alt="REST API" />
       </p>
-      <p>🔗 <a href="https://github.com/ivnmtz09/gym-tracker"><b>Explorar Repositorio →</b></a></p>
+      <p><a href="https://github.com/ivnmtz09/gym-tracker"><b>[ Repositorio ]</b></a></p>
     </td>
   </tr>
 </table>
 
 ---
 
-## 📊 Métricas del Sistema / Telemetry & Analytics
+## // Telemetría & Métricas / Telemetry & Analytics
 
 <div align="center">
 
@@ -213,13 +215,13 @@ I believe in **learning by engineering**: designing resilient backend architectu
 
 ---
 
-## 🐍 Registro de Actividad / Contribution Activity
+## // Registro de Actividad / Contribution Activity
 
 <div align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ivnmtz09/ivnmtz09/output/github-contribution-grid-snake-dark.svg">
     <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/ivnmtz09/ivnmtz09/output/github-contribution-grid-snake.svg">
-    <img alt="Snake Eating Contributions" src="https://raw.githubusercontent.com/ivnmtz09/ivnmtz09/output/github-contribution-grid-snake.svg" width="100%">
+    <img alt="Snake Contribution Grid" src="https://raw.githubusercontent.com/ivnmtz09/ivnmtz09/output/github-contribution-grid-snake.svg" width="100%">
   </picture>
 </div>
 
@@ -229,7 +231,7 @@ I believe in **learning by engineering**: designing resilient backend architectu
 <div align="center">
 
 ```
-[SYSTEM STATUS]: 🟢 ALL SYSTEMS OPERATIONAL | KERNEL 6.x | READY TO DEPLOY
+[SYSTEM STATUS]: OPERATIONAL | KERNEL 6.x | READY TO DEPLOY
 ```
 
 <a href="https://github.com/ivnmtz09">
@@ -238,6 +240,6 @@ I believe in **learning by engineering**: designing resilient backend architectu
 
 <br><br>
 
-<sub>Diseñado con precisión ingenieril por <b>Ivan Martinez</b> • © 2026</sub>
+<sub>Diseñado por <b>Ivan Martinez</b> • 2026</sub>
 
 </div>
