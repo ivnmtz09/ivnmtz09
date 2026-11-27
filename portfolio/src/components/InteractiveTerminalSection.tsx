@@ -3,36 +3,104 @@ import { Terminal } from 'lucide-react';
 import { Lang, PROFILE, PROJECTS } from '../data/portfolioData';
 import { useScrollReveal } from '../hooks/useScrollEffects';
 import { soundEngine } from '../utils/soundEngine';
-import { GridCellMarkers } from './BrandLogo';
 
 interface InteractiveTerminalSectionProps {
   lang: Lang;
 }
 
+type LocalizedLines = Record<Lang, string[]>;
+
 interface TerminalEntry {
   id: number;
   command: string;
-  output: string[];
+  output: LocalizedLines;
+  visibleLines: number;
 }
 
-const NEOFETCH_LINES = [
-  '      /\\_/\\          User       : Ivan Martinez (@ivnmtz09)',
-  '     ( o.o )         Role       : Full Stack Junior · Systems Engineering',
-  '      > ^ <          Location   : Riohacha, La Guajira, Colombia',
-  '     /     \\         Alma Mater : Universidad de La Guajira (10th Sem.)',
-  '    (_______)        Core Stack : Django, Spring Boot, React, Angular, Flutter',
-  '                     Databases  : PostgreSQL, MySQL, Firebase, Supabase',
-  '                     Current    : EduBid SaaS & Yonna Akademia',
-  '                     Status     : open_to_work = true',
-];
+const NEOFETCH_LINES: LocalizedLines = {
+  es: [
+    ' /\\_/\\   Iván Martínez',
+    '( o.o )  Desarrollo web y móvil',
+    ' > ^ <   Riohacha, Colombia',
+    '         Disponible para prácticas',
+    '         y puestos junior.',
+  ],
+  en: [
+    ' /\\_/\\   Iván Martínez',
+    '( o.o )  Web and mobile development',
+    ' > ^ <   Riohacha, Colombia',
+    '         Open to internships',
+    '         and junior roles.',
+  ],
+};
+
+const COMMAND_OUTPUTS: Record<string, LocalizedLines> = {
+  help: {
+    es: [
+      'Comandos disponibles',
+      '  neofetch --profile  Perfil',
+      '  whoami              Sobre mí',
+      '  projects            Lista los proyectos destacados',
+      '  skills              Tecnologías',
+      '  contact             Datos de contacto',
+      '  goto <sección>      Ej. goto projects',
+      '  clear               Limpiar consola',
+    ],
+    en: [
+      'Available commands',
+      '  neofetch --profile  Profile',
+      '  whoami              About me',
+      '  projects            List featured projects',
+      '  skills              Technologies',
+      '  contact             Contact details',
+      '  goto <section>      E.g. goto projects',
+      '  clear               Clear terminal',
+    ],
+  },
+  'neofetch --profile': NEOFETCH_LINES,
+  whoami: {
+    es: [
+      `${PROFILE.name} (${PROFILE.handle})`,
+      'Creo aplicaciones web y móviles.',
+      'Casi 13 años en operación, atención al cliente y soporte técnico.',
+    ],
+    en: [
+      `${PROFILE.name} (${PROFILE.handle})`,
+      'I build web and mobile apps.',
+      'Nearly 13 years in operations, customer service, and IT support.',
+    ],
+  },
+  projects: {
+    es: PROJECTS.map((project) => `• ${project.title} · ${project.subtitle.es}`),
+    en: PROJECTS.map((project) => `• ${project.title} · ${project.subtitle.en}`),
+  },
+  skills: {
+    es: [
+      'Servidor: Django, Spring Boot, Node.js',
+      'Web y móvil: React, Angular, Flutter',
+      'Datos: PostgreSQL, MySQL',
+      'Herramientas: Git, Docker, Linux',
+    ],
+    en: [
+      'Backend: Django, Spring Boot, Node.js',
+      'Web and mobile: React, Angular, Flutter',
+      'Data: PostgreSQL, MySQL',
+      'Tools: Git, Docker, Linux',
+    ],
+  },
+  contact: {
+    es: [`Correo: ${PROFILE.email}`, `Teléfono: ${PROFILE.phone}`, PROFILE.github, PROFILE.linkedin],
+    en: [`Email: ${PROFILE.email}`, `Phone: ${PROFILE.phone}`, PROFILE.github, PROFILE.linkedin],
+  },
+};
+
+const COMMAND_ALIASES: ReadonlyMap<string, string> = new Map([
+  ['neofetch', 'neofetch --profile'],
+  ['ls', 'projects'],
+]);
 
 const AVAILABLE_COMMANDS = [
-  'help',
-  'neofetch --profile',
-  'whoami',
-  'projects',
-  'skills',
-  'contact',
+  ...Object.keys(COMMAND_OUTPUTS),
   'goto top',
   'goto about',
   'goto projects',
@@ -46,6 +114,7 @@ export function InteractiveTerminalSection({ lang }: InteractiveTerminalSectionP
   const { ref, visible } = useScrollReveal();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const nextEntryId = useRef(2);
 
   const [input, setInput] = useState('');
   const [cmdHistory, setCmdHistory] = useState<string[]>(['neofetch --profile']);
@@ -55,6 +124,7 @@ export function InteractiveTerminalSection({ lang }: InteractiveTerminalSectionP
       id: 1,
       command: 'neofetch --profile',
       output: NEOFETCH_LINES,
+      visibleLines: NEOFETCH_LINES.es.length,
     },
   ]);
 
@@ -70,16 +140,16 @@ export function InteractiveTerminalSection({ lang }: InteractiveTerminalSectionP
     return () => window.cancelAnimationFrame(rafId);
   }, [history]);
 
-  const streamOutput = (entryId: number, lines: string[]) => {
+  const streamOutput = (entryId: number, lineCount: number) => {
     let idx = 0;
     const timer = window.setInterval(() => {
       idx += 1;
       setHistory((prev) =>
         prev.map((item) =>
-          item.id === entryId ? { ...item, output: lines.slice(0, idx) } : item
+          item.id === entryId ? { ...item, visibleLines: idx } : item
         )
       );
-      if (idx >= lines.length) {
+      if (idx >= lineCount) {
         window.clearInterval(timer);
       }
     }, 22);
@@ -98,106 +168,32 @@ export function InteractiveTerminalSection({ lang }: InteractiveTerminalSectionP
       return;
     }
 
+    const entryId = nextEntryId.current++;
     if (cmd.startsWith('goto ')) {
-      const targetRaw = cmd.replace('goto ', '').trim();
-      const target = targetRaw === 'hero' ? 'top' : targetRaw;
+      const destination = cmd.slice(5).trim();
+      const target = destination === 'hero' ? 'top' : destination;
       const targetEl = document.getElementById(target);
-      const entryId = Date.now();
-      if (targetEl) {
-        targetEl.scrollIntoView({ behavior: 'smooth' });
-        setHistory((prev) => [
-          ...prev,
-          {
-            id: entryId,
-            command: rawCmd,
-            output: [
-              lang === 'es'
-                ? `-> Navegando a #${target}...`
-                : `-> Navigating to #${target}...`,
-            ],
-          },
-        ]);
-      } else {
-        setHistory((prev) => [
-          ...prev,
-          {
-            id: entryId,
-            command: rawCmd,
-            output: [`Sección '#${target}' no encontrada. Usa: top, about, projects, skills, trajectory, contact`],
-          },
-        ]);
-      }
+      targetEl?.scrollIntoView({ behavior: 'smooth' });
+      const output: LocalizedLines = targetEl
+        ? { es: [`Ir a #${target}`], en: [`Go to #${target}`] }
+        : {
+            es: [`Sección #${target} no encontrada.`, 'Opciones: top, about, projects, skills, trajectory, contact'],
+            en: [`Section #${target} was not found.`, 'Options: top, about, projects, skills, trajectory, contact'],
+          };
+      setHistory((prev) => [...prev, { id: entryId, command: rawCmd, output, visibleLines: output.es.length }]);
       return;
     }
 
-    let output: string[] = [];
+    const canonicalCommand = COMMAND_ALIASES.get(cmd) ?? cmd;
+    const output = Object.hasOwn(COMMAND_OUTPUTS, canonicalCommand)
+      ? COMMAND_OUTPUTS[canonicalCommand]
+      : {
+          es: [`Comando desconocido: ${rawCmd}. Escribe 'help'.`],
+          en: [`Unknown command: ${rawCmd}. Type 'help'.`],
+        };
 
-    if (cmd === 'help') {
-      output =
-        lang === 'es'
-          ? [
-              'Comandos disponibles:',
-              '  neofetch --profile  Muestra ficha técnica del sistema',
-              '  whoami              Resumen profesional de Iván Martínez',
-              '  projects            Lista los 4 sistemas principales',
-              '  skills              Muestra el stack técnico',
-              '  contact             Correo, teléfono, GitHub y LinkedIn',
-              '  goto <sección>      Desplaza a: top | about | projects | skills | trajectory | contact',
-              '  clear               Limpia la consola',
-            ]
-          : [
-              'Available commands:',
-              '  neofetch --profile  Display system profile card',
-              '  whoami              Professional summary of Ivan Martinez',
-              '  projects            List the 4 featured systems',
-              '  skills              Display core tech stack',
-              '  contact             Email, phone, GitHub & LinkedIn',
-              '  goto <section>      Scroll to: top | about | projects | skills | trajectory | contact',
-              '  clear               Clear terminal output',
-            ];
-    } else if (cmd === 'neofetch' || cmd === 'neofetch --profile') {
-      output = NEOFETCH_LINES;
-    } else if (cmd === 'whoami') {
-      output = [
-        `${PROFILE.name} (${PROFILE.handle})`,
-        lang === 'es'
-          ? 'Desarrollador Full Stack Junior · 10.º sem. Ingeniería de Sistemas (Uniguajira)'
-          : 'Junior Full Stack Developer · 10th sem. Systems Engineering (Uniguajira)',
-        lang === 'es'
-          ? '~13 años de experiencia operativa, inventarios, caja y soporte técnico.'
-          : '~13 years of operational, inventory, POS, and IT support experience.',
-      ];
-    } else if (cmd === 'projects' || cmd === 'ls') {
-      output = PROJECTS.map(
-        (p) => `• ${p.title} [${p.year}] — ${p.stack.slice(0, 4).join(', ')} (${p.repoUrl})`
-      );
-    } else if (cmd === 'skills') {
-      output = [
-        'Languages : Python, JavaScript, TypeScript, Java, Dart, C++, Bash',
-        'Backend   : Django, DRF, Spring Boot, Node.js, Express, JWT, Google OAuth',
-        'Frontend  : React 18, Angular 21, Vite, Tailwind CSS, Next.js, Flutter',
-        'Databases : PostgreSQL, MySQL, Firebase, Supabase, SQLite',
-        'DevOps    : Docker, Linux, Git, GitHub Actions, Railway, Netlify',
-      ];
-    } else if (cmd === 'contact') {
-      output = [
-        `Email    : ${PROFILE.email}`,
-        `Phone    : ${PROFILE.phone}`,
-        `GitHub   : ${PROFILE.github}`,
-        `LinkedIn : ${PROFILE.linkedin}`,
-        `Location : ${PROFILE.location}`,
-      ];
-    } else {
-      output = [
-        lang === 'es'
-          ? `bash: ${rawCmd}: comando no encontrado. Escribe 'help' para ver opciones.`
-          : `bash: ${rawCmd}: command not found. Type 'help' for available commands.`,
-      ];
-    }
-
-    const entryId = Date.now();
-    setHistory((prev) => [...prev, { id: entryId, command: rawCmd, output: [] }]);
-    streamOutput(entryId, output);
+    setHistory((prev) => [...prev, { id: entryId, command: rawCmd, output, visibleLines: 0 }]);
+    streamOutput(entryId, Math.max(output.es.length, output.en.length));
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -233,7 +229,7 @@ export function InteractiveTerminalSection({ lang }: InteractiveTerminalSectionP
   };
 
   return (
-    <section id="terminal" className="relative border-b border-zinc-200/70 py-14 sm:py-16 dark:border-zinc-800/70">
+    <section id="terminal" tabIndex={-1} className="relative py-14 sm:py-16">
       <div
         ref={ref}
         className={`mx-auto max-w-6xl px-4 transition-[opacity,transform] duration-500 ease-out sm:px-6 ${
@@ -245,8 +241,8 @@ export function InteractiveTerminalSection({ lang }: InteractiveTerminalSectionP
             <Terminal className="h-4 w-4 shrink-0" />
             <span>
               {lang === 'es'
-                ? '// Consola Interactiva · Tab autocompleta · ↑↓ historial'
-                : '// Interactive Console · Tab autocomplete · ↑↓ history'}
+                ? '// Terminal · Tab completa · ↑↓ historial'
+                : '// Terminal · Tab completes · ↑↓ history'}
             </span>
           </div>
 
@@ -271,7 +267,6 @@ export function InteractiveTerminalSection({ lang }: InteractiveTerminalSectionP
           onClick={() => inputRef.current?.focus()}
           className="relative cursor-text overflow-hidden border border-zinc-300/60 bg-zinc-950/92 text-zinc-100 shadow-[0_16px_48px_rgba(0,102,255,0.14)] backdrop-blur-md dark:border-white/15"
         >
-          <GridCellMarkers />
           <div className="flex items-center justify-between border-b border-zinc-800/90 bg-zinc-900/90 px-4 py-2.5">
             <div className="flex items-center gap-2">
               <span className="h-2.5 w-2.5 rounded-full bg-zinc-500" />
@@ -279,12 +274,12 @@ export function InteractiveTerminalSection({ lang }: InteractiveTerminalSectionP
               <span className="h-2.5 w-2.5 rounded-full bg-[#0066FF]" />
             </div>
             <span className="truncate font-mono text-xs text-zinc-400">ivnmtz09@workstation: ~</span>
-            <span className="hidden font-mono text-[10px] text-[#0066FF] sm:inline">bash · interactive</span>
+            <span className="hidden font-mono text-[10px] text-[#0066FF] sm:inline">bash</span>
           </div>
 
           <div
             ref={scrollContainerRef}
-            className="max-h-[340px] overflow-y-auto p-4 font-mono text-[11px] leading-relaxed sm:p-5 sm:text-[13px]"
+            className="terminal-output max-h-[340px] overflow-y-auto p-4 font-mono text-[11px] leading-relaxed sm:p-5 sm:text-[13px]"
           >
             {history.map((entry) => (
               <div key={entry.id} className="mb-4">
@@ -295,9 +290,9 @@ export function InteractiveTerminalSection({ lang }: InteractiveTerminalSectionP
                 <p className="break-words text-zinc-100">
                   <span className="text-[#0066FF]">╰─$</span> {entry.command}
                 </p>
-                {entry.output.length > 0 && (
+                {entry.visibleLines > 0 && (
                   <pre className="mt-2 overflow-x-auto whitespace-pre-wrap break-words text-zinc-300">
-                    {entry.output.join('\n')}
+                    {entry.output[lang].slice(0, entry.visibleLines).join('\n')}
                   </pre>
                 )}
               </div>
@@ -321,8 +316,8 @@ export function InteractiveTerminalSection({ lang }: InteractiveTerminalSectionP
                   }}
                   placeholder={
                     lang === 'es'
-                      ? "escribe 'help', 'projects', 'goto skills', 'clear'..."
-                      : "type 'help', 'projects', 'goto skills', 'clear'..."
+                      ? "Escribe 'help'"
+                      : "Type 'help'"
                   }
                   className="min-w-0 flex-1 bg-transparent font-mono text-xs text-zinc-100 placeholder-zinc-600 outline-none sm:text-[13px]"
                 />

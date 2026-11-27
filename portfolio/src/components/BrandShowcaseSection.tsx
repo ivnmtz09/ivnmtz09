@@ -1,4 +1,4 @@
-import { BrandMaximalistMark, GridCellMarkers } from './BrandLogo';
+import { BrandMaximalistMark } from './BrandLogo';
 import { ThreeBrandSculpture } from './ThreeBrandSculpture';
 import { useScrollReveal } from '../hooks/useScrollEffects';
 import { Lang } from '../data/portfolioData';
@@ -73,8 +73,7 @@ export function BrandShowcaseSection({ lang, scrollProgress }: BrandShowcaseSect
         {/* Architectural Swiss Grid Showcase */}
         <div className="grid gap-px border border-zinc-200 bg-zinc-200 lg:grid-cols-12 dark:border-zinc-800 dark:bg-zinc-800">
           {/* Left: Maximalist Vertical/Upward SVG Isotype + Full Name */}
-          <div className="bg-dot-matrix relative flex flex-col items-center justify-center bg-white p-6 text-zinc-900 lg:col-span-5 dark:bg-zinc-950 dark:text-white">
-            <GridCellMarkers />
+          <div className="relative flex flex-col items-center justify-center bg-white p-6 text-zinc-900 lg:col-span-5 dark:bg-zinc-950 dark:text-white">
             <div className="mb-4 flex w-full items-center justify-between font-mono text-[11px] text-zinc-500 dark:text-zinc-400">
               <span>{copy.logoLabel}</span>
               <span className="text-[#0066FF]">IM · VECTOR</span>
@@ -85,7 +84,6 @@ export function BrandShowcaseSection({ lang, scrollProgress }: BrandShowcaseSect
           {/* Right Column: Generated Brand Image + Interactive Three.js Sculpture */}
           <div className="grid gap-px bg-zinc-200 lg:col-span-7 dark:bg-zinc-800">
             <div className="relative bg-zinc-950 p-4 sm:p-6">
-              <GridCellMarkers />
               <div className="mb-3 flex items-center justify-between font-mono text-[11px] text-zinc-400">
                 <span>{copy.figLabel}</span>
                 <span className="text-[#0066FF]">BRAND ARTWORK</span>
@@ -99,8 +97,7 @@ export function BrandShowcaseSection({ lang, scrollProgress }: BrandShowcaseSect
               </div>
             </div>
 
-            <div className="bg-swiss-grid relative bg-white p-6 dark:bg-zinc-950">
-              <GridCellMarkers />
+            <div className="relative bg-white p-6 dark:bg-zinc-950">
               <div className="mb-2 flex items-center justify-between font-mono text-[11px] text-zinc-500 dark:text-zinc-400">
                 <span>{copy.threeLabel}</span>
                 <span className="text-[#0066FF]">INTERACTIVE 3D</span>

@@ -1,5 +1,6 @@
 interface BrandLogoProps {
   size?: number;
+  framed?: boolean;
   className?: string;
 }
 
@@ -7,26 +8,30 @@ interface BrandLogoProps {
  * Compact geometric SVG monogram isotype (IM) for Navbar, Footer, and Favicon.
  * Strictly uses monochromatic grays + electric blue (#0066FF).
  */
-export function BrandLogo({ size = 36, className = '' }: BrandLogoProps) {
+export function BrandLogo({ size = 36, framed = true, className = '' }: BrandLogoProps) {
   return (
     <svg
       width={size}
       height={size}
-      viewBox="0 0 64 64"
+      viewBox={framed ? '0 0 64 64' : '8 6 48 48'}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       aria-label="Ivan Martinez Brand Monogram"
     >
-      <polygon
-        points="12,4 52,4 60,12 60,52 52,60 12,60 4,52 4,12"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeOpacity="0.35"
-        fill="none"
-      />
-      <line x1="32" y1="4" x2="32" y2="60" stroke="currentColor" strokeWidth="0.75" strokeOpacity="0.2" strokeDasharray="2 3" />
-      <line x1="4" y1="32" x2="60" y2="32" stroke="currentColor" strokeWidth="0.75" strokeOpacity="0.2" strokeDasharray="2 3" />
+      {framed && (
+        <g>
+          <polygon
+            points="12,4 52,4 60,12 60,52 52,60 12,60 4,52 4,12"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeOpacity="0.35"
+            fill="none"
+          />
+          <line x1="32" y1="4" x2="32" y2="60" stroke="currentColor" strokeWidth="0.75" strokeOpacity="0.2" strokeDasharray="2 3" />
+          <line x1="4" y1="32" x2="60" y2="32" stroke="currentColor" strokeWidth="0.75" strokeOpacity="0.2" strokeDasharray="2 3" />
+        </g>
+      )}
 
       <rect x="16" y="18" width="5" height="28" fill="currentColor" />
       <rect x="14" y="18" width="9" height="3" fill="#0066FF" />
@@ -38,7 +43,7 @@ export function BrandLogo({ size = 36, className = '' }: BrandLogoProps) {
       />
 
       <circle cx="52" cy="12" r="3" fill="#0066FF" />
-      <circle cx="52" cy="12" r="5.5" stroke="#0066FF" strokeWidth="1" strokeOpacity="0.45" />
+      {framed && <circle cx="52" cy="12" r="5.5" stroke="#0066FF" strokeWidth="1" strokeOpacity="0.45" />}
     </svg>
   );
 }
@@ -92,7 +97,7 @@ export function BrandMaximalistMark({ className = '' }: { className?: string }) 
         y="362"
         textAnchor="middle"
         fill="currentColor"
-        fontFamily="'Plus Jakarta Sans', sans-serif"
+        fontFamily="var(--font-mono)"
         fontSize="26"
         fontWeight="800"
         letterSpacing="4"
@@ -113,53 +118,5 @@ export function BrandMaximalistMark({ className = '' }: { className?: string }) 
         @IVNMTZ09 // SYSTEMS &amp; CODE
       </text>
     </svg>
-  );
-}
-
-/**
- * Architectural SVG corner brackets & coordinate crosshairs for grid cells.
- */
-export function GridCellMarkers() {
-  return (
-    <>
-      <span className="pointer-events-none absolute top-0 left-0 h-2.5 w-2.5 border-t border-l border-[#0066FF]" />
-      <span className="pointer-events-none absolute top-0 right-0 h-2.5 w-2.5 border-t border-r border-zinc-400 dark:border-zinc-600" />
-      <span className="pointer-events-none absolute bottom-0 left-0 h-2.5 w-2.5 border-b border-l border-zinc-400 dark:border-zinc-600" />
-      <span className="pointer-events-none absolute right-0 bottom-0 h-2.5 w-2.5 border-r border-b border-[#0066FF]" />
-    </>
-  );
-}
-
-/**
- * Floating geometric SVG shapes driven smoothly via CSS custom property `--scroll-y`
- * without triggering React re-renders.
- */
-export function ScrollGeometricShapes() {
-  return (
-    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden opacity-30 dark:opacity-20">
-      <svg
-        className="absolute -top-24 -right-24 h-[420px] w-[420px] text-zinc-400 will-change-transform dark:text-zinc-700"
-        viewBox="0 0 200 200"
-        fill="none"
-        style={{ transform: 'rotate(calc(var(--scroll-y, 0) * 0.04deg))' }}
-      >
-        <circle cx="100" cy="100" r="88" stroke="currentColor" strokeWidth="0.6" strokeDasharray="4 6" />
-        <circle cx="100" cy="100" r="62" stroke="#0066FF" strokeWidth="0.6" strokeOpacity="0.5" />
-        <polygon points="100,18 171,59 171,141 100,182 29,141 29,59" stroke="currentColor" strokeWidth="0.6" />
-        <line x1="100" y1="0" x2="100" y2="200" stroke="currentColor" strokeWidth="0.4" />
-        <line x1="0" y1="100" x2="200" y2="100" stroke="currentColor" strokeWidth="0.4" />
-      </svg>
-
-      <svg
-        className="absolute -bottom-28 -left-28 h-[380px] w-[380px] text-zinc-400 will-change-transform dark:text-zinc-700"
-        viewBox="0 0 200 200"
-        fill="none"
-        style={{ transform: 'rotate(calc(var(--scroll-y, 0) * -0.03deg))' }}
-      >
-        <rect x="35" y="35" width="130" height="130" stroke="currentColor" strokeWidth="0.6" />
-        <rect x="35" y="35" width="130" height="130" stroke="#0066FF" strokeWidth="0.6" strokeOpacity="0.45" transform="rotate(45 100 100)" />
-        <circle cx="100" cy="100" r="45" stroke="currentColor" strokeWidth="0.6" strokeDasharray="2 4" />
-      </svg>
-    </div>
   );
 }

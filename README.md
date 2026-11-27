@@ -1,14 +1,14 @@
-<div align="center">
+<h1 align="center">
+  <img src="./assets/banner.svg" alt="Iván Martínez, desarrollo web y móvil" width="880">
+</h1>
 
-<!-- LOCAL VECTOR HEADER BANNER (100% RELIABLE, ZERO RATE LIMIT) -->
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ivnmtz09/ivnmtz09/main/assets/banner.svg" alt="Ivan Martinez - Systems Engineering &amp; Software Development" width="100%" />
+  <a href="https://ivnmtz09.vercel.app/"><strong>Portafolio web</strong></a>
 </p>
 
-<!-- DYNAMIC TYPING ROLE DISPLAY -->
-<a href="https://github.com/ivnmtz09">
-  <img src="https://readme-typing-svg.herokuapp.com/?lines=Systems+Engineering+Student;Full+Stack+Software+Developer;Backend+Architect+%26+Cloud+Enthusiast;Building+Scalable+Solutions;Linux+%26+Open+Source+Explorer&center=true&width=560&height=45&font=Fira+Code&weight=600&color=58A6FF&pause=1000" alt="Typing SVG" />
-</a>
+<p align="center"><code>Disponible para prácticas o empleo junior</code></p>
+
+<div align="center">
 
 <!-- QUICK CONNECT DOCK -->
 <p align="center">
@@ -67,22 +67,6 @@ Mi enfoque se basa en la disciplina técnica: desde el diseño de APIs REST resi
 - **Yonna Akademia**: Diseñando la arquitectura de un ecosistema de preservación cultural con API REST en Django 5, cliente web en Angular 21 y aplicación móvil en Flutter.
 - **Gym Tracker**: Desarrollo de un SaaS para el seguimiento biométrico, rutinas y gestión de instalaciones deportivas.
 - **Arquitectura de Sistemas**: Explorando alta concurrencia, diseño de microservicios, optimización de queries y contenedorización con Docker.
-
----
-
-<div id="about-me"></div>
-
-## // About Me
-
-I am a **Systems Engineering student** and software developer dedicated to building scalable, secure, and maintainable full-stack systems. My work combines disciplined software architecture, performance optimization, and modern engineering practices.
-
-I believe in technical rigor: designing resilient backend architectures, optimizing relational database schemas, and crafting seamless client applications.
-
-### Focus & Principles
-- **EduBid**: Engineering an educational gamification SaaS platform powered by an incentive economy.
-- **Yonna Akademia**: Architecting a cultural gamification platform featuring a Django 5 REST API, Angular 21 web dashboard, and Flutter mobile client.
-- **Gym Tracker**: Developing an end-to-end management SaaS for athletic centers and performance tracking.
-- **Systems Architecture**: Deepening knowledge in high concurrency, microservices patterns, query optimization, and Docker orchestration.
 
 ---
 
@@ -215,31 +199,19 @@ I believe in technical rigor: designing resilient backend architectures, optimiz
 
 ---
 
-## // Registro de Actividad / Contribution Activity
+## Actividad en GitHub
 
-<div align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ivnmtz09/ivnmtz09/output/github-contribution-grid-snake-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/ivnmtz09/ivnmtz09/output/github-contribution-grid-snake.svg">
-    <img alt="Snake Contribution Grid" src="https://raw.githubusercontent.com/ivnmtz09/ivnmtz09/output/github-contribution-grid-snake.svg" width="100%">
-  </picture>
-</div>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ivnmtz09/ivnmtz09/output/github-contribution-grid-snake-dark.svg">
+  <img src="https://raw.githubusercontent.com/ivnmtz09/ivnmtz09/output/github-contribution-grid-snake.svg" alt="Mapa de contribuciones de Iván Martínez en GitHub">
+</picture>
 
----
+## About me
 
-<!-- FOOTER -->
-<div align="center">
+I'm a Systems Engineering student at Universidad de La Guajira. I build web and mobile apps from idea to launch, with nearly 13 years of experience in operations, customer service, and IT support.
 
-```
-[SYSTEM STATUS]: OPERATIONAL | KERNEL 6.x | READY TO DEPLOY
-```
+- [EduBid](https://github.com/ivnmtz09/edubid) lets students earn points for academic achievements and bid on rewards in real time.
+- [Yonna Akademia](https://github.com/ivnmtz09/yonna_akademia) helps Spanish speakers learn Wayuunaiki with interactive lessons on the web and on [mobile](https://github.com/ivnmtz09/yonna_app).
+- [Gym Tracker](https://github.com/ivnmtz09/gym-tracker) helps gyms manage members, tailor workouts, and track progress.
 
-<a href="https://hits.sh/github.com/ivnmtz09/">
-  <img src="https://hits.sh/github.com/ivnmtz09.svg?style=flat-square&label=PROFILE+VIEWS&color=1f6feb&labelColor=0d1117" alt="Profile Views" />
-</a>
-
-<br><br>
-
-<sub>Diseñado por <b>Ivan Martinez</b> • 2026</sub>
-
-</div>
+[Portfolio](https://ivnmtz09.vercel.app/) · [LinkedIn](https://www.linkedin.com/in/ivan-jesus-martinez-molina-0580411b5/) · [Email](mailto:ivanjmm01@gmail.com)

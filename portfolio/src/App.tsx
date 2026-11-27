@@ -1,12 +1,13 @@
-import { Suspense, lazy, useEffect, useState } from 'react';
+import { Suspense, lazy, memo, useEffect, useState } from 'react';
 import { AboutSection } from './components/AboutSection';
-import { ScrollGeometricShapes } from './components/BrandLogo';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { Hero } from './components/Hero';
 import { InteractiveTerminalSection } from './components/InteractiveTerminalSection';
 import { Navbar } from './components/Navbar';
 import { ProjectsSection } from './components/ProjectsSection';
+import { ScrollCorners } from './components/ScrollCorners';
+import { SectionRail } from './components/SectionRail';
 import { SkillsSection } from './components/SkillsSection';
 import { TrajectorySection } from './components/TrajectorySection';
 import { Lang } from './data/portfolioData';
@@ -15,11 +16,28 @@ import { soundEngine } from './utils/soundEngine';
 
 const ThreeScrollStage = lazy(() => import('./components/ThreeScrollStage'));
 
+const PortfolioContent = memo(function PortfolioContent({ lang }: { lang: Lang }) {
+  return (
+    <>
+      <main className="portfolio-content relative z-10">
+        <Hero lang={lang} />
+        <InteractiveTerminalSection lang={lang} />
+        <AboutSection lang={lang} />
+        <ProjectsSection lang={lang} />
+        <SkillsSection lang={lang} />
+        <TrajectorySection lang={lang} />
+        <ContactSection lang={lang} />
+      </main>
+      <Footer lang={lang} />
+    </>
+  );
+});
+
 export function App() {
   const [lang, setLang] = useState<Lang>('es');
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [soundOn, setSoundOn] = useState(true);
-  useScrollCssVars();
+  const { progressRef, cornersRef, activeSection } = useScrollCssVars();
 
   useEffect(() => {
     const root = document.documentElement;
@@ -45,11 +63,14 @@ export function App() {
 
   return (
     <div className="relative min-h-screen bg-zinc-50 text-zinc-900 transition-colors dark:bg-[#09090B] dark:text-zinc-100">
+      <div className="dimensionality-overlay" aria-hidden="true" />
+      <ScrollCorners scrollRef={cornersRef} />
       <Suspense fallback={null}>
         <ThreeScrollStage />
       </Suspense>
-      <ScrollGeometricShapes />
       <Navbar
+        progressRef={progressRef}
+        activeSection={activeSection}
         lang={lang}
         onToggleLang={() => setLang((prev) => (prev === 'es' ? 'en' : 'es'))}
         theme={theme}
@@ -57,16 +78,8 @@ export function App() {
         soundOn={soundOn}
         onToggleSound={handleToggleSound}
       />
-      <main className="relative z-10">
-        <Hero lang={lang} />
-        <InteractiveTerminalSection lang={lang} />
-        <AboutSection lang={lang} />
-        <ProjectsSection lang={lang} />
-        <SkillsSection lang={lang} />
-        <TrajectorySection lang={lang} />
-        <ContactSection lang={lang} />
-      </main>
-      <Footer lang={lang} />
+      <SectionRail lang={lang} activeSection={activeSection} />
+      <PortfolioContent lang={lang} />
     </div>
   );
 }

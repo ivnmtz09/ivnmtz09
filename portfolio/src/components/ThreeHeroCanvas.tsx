@@ -68,18 +68,6 @@ export function ThreeHeroCanvas({ scrollY }: ThreeHeroCanvasProps) {
     ring.rotation.x = Math.PI / 2.6;
     group.add(ring);
 
-    // Architectural 3D grid floor
-    const gridHelper = new THREE.GridHelper(18, 24, 0x0066ff, 0x52525b);
-    gridHelper.position.set(0, -2.8, -1.5);
-    const gridMaterials = Array.isArray(gridHelper.material)
-      ? gridHelper.material
-      : [gridHelper.material];
-    gridMaterials.forEach((m) => {
-      m.transparent = true;
-      m.opacity = 0.22;
-    });
-    scene.add(gridHelper);
-
     // Monochromatic + electric blue particle field
     const particleCount = 140;
     const positions = new Float32Array(particleCount * 3);

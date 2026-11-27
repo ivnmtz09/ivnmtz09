@@ -1,15 +1,15 @@
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { ExternalLink, Layers, Server, Smartphone, Database, Cloud, X, CheckCircle2 } from 'lucide-react';
-import { Lang, PROJECTS, ProjectItem, UI_COPY } from '../data/portfolioData';
+import { Lang, PROJECTS, ProjectFilter, ProjectItem, UI_COPY } from '../data/portfolioData';
 import { useScrollReveal } from '../hooks/useScrollEffects';
 import { soundEngine } from '../utils/soundEngine';
-import { GridCellMarkers } from './BrandLogo';
 
 interface ProjectsSectionProps { lang: Lang; }
 
 export function ProjectsSection({ lang }: ProjectsSectionProps) {
   const copy = UI_COPY[lang].projects;
-  const [filter, setFilter] = useState<'all' | 'fullstack' | 'backend' | 'ecosystem'>('all');
+  const [filter, setFilter] = useState<ProjectFilter>('all');
   const [selected, setSelected] = useState<ProjectItem | null>(null);
   const { ref, visible } = useScrollReveal();
 
@@ -18,7 +18,8 @@ export function ProjectsSection({ lang }: ProjectsSectionProps) {
   return (
     <section
       id="projects"
-      className="relative border-b border-zinc-200/60 py-18 sm:py-26 dark:border-zinc-800/60"
+      tabIndex={-1}
+      className="relative py-18 sm:py-26"
     >
       <div
         ref={ref}
@@ -31,14 +32,12 @@ export function ProjectsSection({ lang }: ProjectsSectionProps) {
           {/* Left column — project content */}
           <div className="lg:col-span-8">
             <div className="glass relative mb-6 p-6">
-              <GridCellMarkers />
-              <p className="font-mono text-xs font-semibold tracking-wider text-[#0066FF] uppercase">
+              <p className="font-mono text-xs font-semibold tracking-wider text-[color:var(--glass-accent)] uppercase">
                 {copy.eyebrow}
               </p>
-              <h2 className="mt-2 text-2xl font-bold tracking-tight text-zinc-900 sm:text-4xl dark:text-white">
+              <h2 className="mt-2 text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl dark:text-white">
                 {copy.title}
               </h2>
-              <p className="mt-3 text-sm text-zinc-700 sm:text-base dark:text-zinc-300">{copy.subtitle}</p>
             </div>
 
             {/* Filters */}
@@ -47,14 +46,15 @@ export function ProjectsSection({ lang }: ProjectsSectionProps) {
                 <button
                   key={item.id}
                   type="button"
+                  aria-pressed={filter === item.id}
                   onClick={() => {
                     soundEngine.playClick();
                     setFilter(item.id);
                   }}
                   className={`px-3.5 py-1.5 font-mono text-xs font-semibold transition ${
                     filter === item.id
-                      ? 'glass-blue text-[#0066FF]'
-                      : 'glass-chip glass-hover text-zinc-700 hover:text-[#0066FF] dark:text-zinc-300'
+                      ? 'glass-blue text-[color:var(--glass-accent)]'
+                      : 'glass-chip glass-hover text-zinc-700 hover:text-[color:var(--glass-accent)] dark:text-zinc-300'
                   }`}
                 >
                   {item.label}
@@ -69,10 +69,9 @@ export function ProjectsSection({ lang }: ProjectsSectionProps) {
                   key={project.id}
                   className="glass glass-hover group relative flex flex-col justify-between p-5"
                 >
-                  <GridCellMarkers />
                   <div>
                     <div className="flex flex-wrap items-start gap-2">
-                      <span className="glass-blue px-2 py-0.5 font-mono text-[11px] font-bold text-[#0066FF]">
+                      <span className="glass-blue px-2 py-0.5 font-mono text-[11px] font-bold text-[color:var(--glass-accent)]">
                         {project.year}
                       </span>
                       <span className="font-mono text-[11px] text-zinc-500 dark:text-zinc-400">
@@ -80,12 +79,12 @@ export function ProjectsSection({ lang }: ProjectsSectionProps) {
                       </span>
                     </div>
                     <h3 className="mt-2 text-lg font-bold text-zinc-900 dark:text-white">{project.title}</h3>
-                    <p className="font-mono text-xs font-medium text-[#0066FF]">{project.subtitle[lang]}</p>
+                    <p className="font-mono text-xs font-medium text-[color:var(--glass-accent)]">{project.subtitle[lang]}</p>
                     <p className="mt-2 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
                       {project.description[lang]}
                     </p>
                     <ul className="mt-2.5 space-y-1 text-xs text-zinc-600 dark:text-zinc-400">
-                      {project.highlights[lang].slice(0, 2).map((item) => (
+                      {project.highlights[lang].map((item) => (
                         <li key={item} className="flex items-start gap-2">
                           <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#0066FF]" />
                           <span>{item}</span>
@@ -93,7 +92,7 @@ export function ProjectsSection({ lang }: ProjectsSectionProps) {
                       ))}
                     </ul>
                     <div className="mt-3 flex flex-wrap gap-1.5">
-                      {project.stack.slice(0, 5).map((tech) => (
+                      {project.stack.map((tech) => (
                         <span key={tech} className="glass-chip px-2 py-0.5 font-mono text-[10px] font-medium text-zinc-800 dark:text-zinc-200">
                           {tech}
                         </span>
@@ -107,17 +106,17 @@ export function ProjectsSection({ lang }: ProjectsSectionProps) {
                         soundEngine.playClick();
                         setSelected(project);
                       }}
-                      className="glass-blue inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-xs font-semibold text-[#0066FF] transition hover:bg-[#0066FF] hover:text-white"
+                      className="glass-blue inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-xs font-semibold text-[color:var(--glass-accent)] transition hover:bg-[#0066FF] hover:bg-none hover:text-white"
                     >
                       <Layers className="h-3.5 w-3.5" />
-                      {copy.viewArchitecture}
+                      {copy.viewDetails}
                     </button>
                     <a
                       href={project.repoUrl}
                       target="_blank"
                       rel="noreferrer"
                       onClick={() => soundEngine.playClick()}
-                      className="glass-chip inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-xs font-semibold text-zinc-700 transition hover:border-[#0066FF] hover:text-[#0066FF] dark:text-zinc-300"
+                      className="glass-chip inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-xs font-semibold text-zinc-700 transition hover:border-[#0066FF] hover:text-[color:var(--glass-accent)] dark:text-zinc-300"
                     >
                       {copy.viewRepo}
                       <ExternalLink className="h-3.5 w-3.5" />
@@ -128,7 +127,7 @@ export function ProjectsSection({ lang }: ProjectsSectionProps) {
                         target="_blank"
                         rel="noreferrer"
                         onClick={() => soundEngine.playClick()}
-                        className="glass-chip inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-xs font-semibold text-zinc-700 transition hover:border-[#0066FF] hover:text-[#0066FF] dark:text-zinc-300"
+                        className="glass-chip inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-xs font-semibold text-zinc-700 transition hover:border-[#0066FF] hover:text-[color:var(--glass-accent)] dark:text-zinc-300"
                       >
                         {project.secondaryRepoLabel[lang]}
                         <ExternalLink className="h-3.5 w-3.5" />
@@ -141,25 +140,24 @@ export function ProjectsSection({ lang }: ProjectsSectionProps) {
           </div>
 
           {/* Right column — unobstructed open space for 3D Code Brackets < / > */}
-          <div className="hidden lg:col-span-4 lg:block lg:min-h-[500px]" aria-hidden="true" />
+          <div data-stage-anchor className="h-44 sm:h-52 lg:h-auto lg:col-span-4 lg:min-h-[500px] order-first lg:order-none" aria-hidden="true" />
         </div>
       </div>
 
-      {/* Architecture Modal */}
-      {selected && (
+      {/* Project details */}
+      {selected && createPortal(
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/65 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/65 p-4 backdrop-blur-sm"
           onClick={() => setSelected(null)}
         >
           <div
             className="glass relative max-h-[90vh] w-full max-w-2xl overflow-y-auto p-6 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <GridCellMarkers />
             <div className="flex items-start justify-between gap-4">
               <div>
-                <span className="font-mono text-xs font-semibold text-[#0066FF]">
-                  {copy.modal.architectureTitle} · {selected.year}
+                <span className="font-mono text-xs font-semibold text-[color:var(--glass-accent)]">
+                  {copy.modal.detailsTitle} · {selected.year}
                 </span>
                 <h3 className="mt-1 text-2xl font-bold text-zinc-900 dark:text-white">{selected.title}</h3>
                 <p className="text-sm text-zinc-600 dark:text-zinc-400">{selected.subtitle[lang]}</p>
@@ -171,7 +169,7 @@ export function ProjectsSection({ lang }: ProjectsSectionProps) {
                   soundEngine.playClick();
                   setSelected(null);
                 }}
-                className="glass-chip p-2 text-zinc-600 transition hover:text-[#0066FF] dark:text-zinc-300"
+                className="glass-chip p-2 text-zinc-600 transition hover:text-[color:var(--glass-accent)] dark:text-zinc-300"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -184,7 +182,7 @@ export function ProjectsSection({ lang }: ProjectsSectionProps) {
                 { icon: Cloud,      label: copy.modal.deployment, val: selected.architecture[lang].deployment },
               ].map(({ icon: Icon, label, val }) => (
                 <div key={label} className="glass-blue p-4">
-                  <div className="flex items-center gap-2 font-mono text-xs font-semibold text-[#0066FF]">
+                  <div className="flex items-center gap-2 font-mono text-xs font-semibold text-[color:var(--glass-accent)]">
                     <Icon className="h-4 w-4" />{label}
                   </div>
                   <p className="mt-1.5 text-sm text-zinc-800 dark:text-zinc-200">{val}</p>
@@ -221,7 +219,8 @@ export function ProjectsSection({ lang }: ProjectsSectionProps) {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </section>
   );

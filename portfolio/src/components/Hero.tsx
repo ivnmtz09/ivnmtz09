@@ -55,12 +55,10 @@ export function Hero({ lang }: HeroProps) {
   return (
     <section
       id="top"
-      className="bg-swiss-grid relative min-h-[560px] overflow-hidden border-b border-zinc-200/70 dark:border-zinc-800/70"
+      tabIndex={-1}
+      className="relative min-h-[560px] overflow-hidden"
     >
       <div className="relative z-10 mx-auto grid max-w-6xl gap-6 px-4 py-8 sm:px-6 sm:py-20 lg:grid-cols-12 lg:items-center lg:gap-10">
-        {/* Mobile-only unobstructed space at top so Rocket Arrow floats cleanly above card */}
-        <div className="h-40 lg:hidden" aria-hidden="true" />
-
         {/* Left column — frosted glass card container */}
         <div className="glass rounded-sm p-6 sm:p-8 lg:col-span-7">
           <div className="glass-blue mb-5 inline-flex items-center gap-2 px-3.5 py-1.5 font-mono text-[11px] font-medium text-zinc-900 dark:text-zinc-100 sm:text-xs">
@@ -68,23 +66,23 @@ export function Hero({ lang }: HeroProps) {
             <span>{copy.statusBadge}</span>
           </div>
 
-          <p className="mb-1.5 font-mono text-sm font-semibold text-[#0066FF]">
+          <p className="mb-1.5 font-mono text-sm font-semibold text-[color:var(--glass-accent)]">
             {copy.greeting}
           </p>
 
-          <h1 className="text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-5xl lg:text-[3.35rem] dark:text-white">
+          <h1 className="text-[clamp(2.35rem,1rem_+_6vw,4.65rem)] leading-[0.98] font-bold tracking-[-0.055em] text-balance text-zinc-900 dark:text-white">
             {PROFILE.name}
           </h1>
 
           <div className="mt-4 flex min-h-[3.2rem] items-start font-mono text-sm font-semibold text-zinc-800 sm:min-h-[2rem] sm:items-center sm:text-lg dark:text-zinc-100">
-            <span className="mr-2 shrink-0 text-[#0066FF]">&gt;</span>
+            <span className="mr-2 shrink-0 text-[color:var(--glass-accent)]">&gt;</span>
             <span>
               {displayed}
               <span className="animate-cursor ml-1 inline-block h-4 w-2 align-middle bg-[#0066FF] sm:h-5" />
             </span>
           </div>
 
-          <p className="mt-5 max-w-2xl text-sm leading-relaxed text-zinc-700 sm:text-base dark:text-zinc-300">
+          <p className="mt-5 text-sm leading-relaxed whitespace-pre-line text-zinc-700 sm:text-[0.9375rem] dark:text-zinc-300">
             {copy.summary}
           </p>
 
@@ -106,7 +104,7 @@ export function Hero({ lang }: HeroProps) {
             <button
               type="button"
               onClick={handleCopyEmail}
-              className="glass-chip glass-hover inline-flex items-center gap-2 px-4 py-3 font-mono text-xs font-semibold tracking-wider text-zinc-900 uppercase hover:text-[#0066FF] dark:text-zinc-100"
+              className="glass-chip glass-hover inline-flex items-center gap-2 px-4 py-3 font-mono text-xs font-semibold tracking-wider text-zinc-900 uppercase hover:text-[color:var(--glass-accent)] dark:text-zinc-100"
             >
               {copiedEmail ? (
                 <>
@@ -127,7 +125,7 @@ export function Hero({ lang }: HeroProps) {
               rel="noreferrer"
               onClick={() => soundEngine.playClick()}
               aria-label="GitHub"
-              className="glass-chip glass-hover inline-flex h-11 w-11 items-center justify-center text-zinc-800 hover:text-[#0066FF] dark:text-zinc-200"
+              className="glass-chip glass-hover inline-flex h-11 w-11 items-center justify-center text-zinc-800 hover:text-[color:var(--glass-accent)] dark:text-zinc-200"
             >
               <Github className="h-5 w-5" />
             </a>
@@ -138,7 +136,7 @@ export function Hero({ lang }: HeroProps) {
               rel="noreferrer"
               onClick={() => soundEngine.playClick()}
               aria-label="LinkedIn"
-              className="glass-chip glass-hover inline-flex h-11 w-11 items-center justify-center text-zinc-800 hover:text-[#0066FF] dark:text-zinc-200"
+              className="glass-chip glass-hover inline-flex h-11 w-11 items-center justify-center text-zinc-800 hover:text-[color:var(--glass-accent)] dark:text-zinc-200"
             >
               <Linkedin className="h-5 w-5" />
             </a>
@@ -146,7 +144,7 @@ export function Hero({ lang }: HeroProps) {
         </div>
 
         {/* Right column — completely open unobstructed space for 3D Rocket Arrow ▲ */}
-        <div className="hidden lg:col-span-5 lg:block lg:min-h-[440px]" aria-hidden="true" />
+        <div data-stage-anchor className="h-44 sm:h-52 lg:h-auto lg:col-span-5 lg:min-h-[440px] order-first lg:order-none" aria-hidden="true" />
       </div>
     </section>
   );

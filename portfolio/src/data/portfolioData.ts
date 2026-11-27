@@ -1,12 +1,15 @@
 export type Lang = 'es' | 'en';
 
+export type ProjectCategory = 'web' | 'multiplatform';
+export type ProjectFilter = 'all' | ProjectCategory;
+
 export interface ProjectItem {
   id: string;
   title: string;
   subtitle: Record<Lang, string>;
   role: Record<Lang, string>;
   year: string;
-  category: 'fullstack' | 'backend' | 'ecosystem';
+  category: ProjectCategory;
   description: Record<Lang, string>;
   highlights: Record<Lang, string[]>;
   architecture: Record<Lang, {
@@ -55,28 +58,135 @@ export const PROFILE = {
   github: 'https://github.com/ivnmtz09',
   linkedin: 'https://www.linkedin.com/in/ivan-jesus-martinez-molina-0580411b5/',
   typingRoles: {
-    es: [
-      'Desarrollador Full Stack Junior',
-      'Estudiante de Ingeniería de Sistemas (10.º sem.)',
-      'Arquitecto Backend en Django & Spring Boot',
-      'Constructor de Interfaces en React & Angular',
-    ],
-    en: [
-      'Junior Full Stack Software Developer',
-      'Systems Engineering Student (10th Semester)',
-      'Backend Architect · Django & Spring Boot',
-      'Frontend Builder · React & Angular',
-    ],
+    es: ['Desarrollador Full Stack Junior', 'Estudiante de Ingeniería de Sistemas'],
+    en: ['Junior Full Stack Developer', 'Systems Engineering Student'],
   },
 };
 
+export const PROJECTS: ProjectItem[] = [
+  {
+    id: 'edubid',
+    title: 'EduBid',
+    subtitle: { es: 'Proyecto de grado', en: 'Capstone project' },
+    role: { es: 'Desarrollo del servidor', en: 'Backend development' },
+    year: '2026',
+    category: 'web',
+    featured: true,
+    description: {
+      es: 'Los alumnos ganan puntos y pujan por beneficios en vivo.',
+      en: 'Students earn points and bid on rewards in real time.',
+    },
+    highlights: {
+      es: ['Puntos por logros académicos.', 'Subastas de beneficios en vivo.'],
+      en: ['Points for academic achievements.', 'Live reward auctions.'],
+    },
+    architecture: {
+      es: {
+        backend: 'Django REST Framework y acceso con Google',
+        frontend: 'React, Vite y Tailwind CSS',
+        database: 'MySQL y PostgreSQL',
+        deployment: 'Railway (servidor) y Netlify (web)',
+      },
+      en: {
+        backend: 'Django REST Framework and Google sign-in',
+        frontend: 'React, Vite, and Tailwind CSS',
+        database: 'MySQL and PostgreSQL',
+        deployment: 'Railway (server) and Netlify (web)',
+      },
+    },
+    stack: ['Python', 'Django', 'React', 'Tailwind CSS', 'MySQL'],
+    repoUrl: 'https://github.com/ivnmtz09/edubid',
+  },
+  {
+    id: 'yonna-akademia',
+    title: 'Yonna Akademia',
+    subtitle: { es: 'Aprendizaje de wayuunaiki', en: 'Wayuunaiki learning' },
+    role: { es: 'Desarrollo web y móvil', en: 'Web and mobile development' },
+    year: '2026',
+    category: 'multiplatform',
+    featured: true,
+    description: {
+      es: 'Wayuunaiki en web y app, con lecciones, niveles y logros.',
+      en: 'Wayuunaiki lessons, levels and achievements on web and mobile.',
+    },
+    highlights: {
+      es: ['Lecciones interactivas desde el español.', 'Rachas para sostener el hábito.'],
+      en: ['Interactive lessons for Spanish speakers.', 'Streaks to build a learning habit.'],
+    },
+    architecture: {
+      es: {
+        backend: 'Django REST Framework',
+        frontend: 'Angular (web) y Flutter (app)',
+        database: 'PostgreSQL',
+        deployment: 'Web y app con un servidor compartido',
+      },
+      en: {
+        backend: 'Django REST Framework',
+        frontend: 'Angular (web) and Flutter (app)',
+        database: 'PostgreSQL',
+        deployment: 'Web and mobile apps share a server',
+      },
+    },
+    stack: ['Django', 'Angular', 'Flutter', 'PostgreSQL'],
+    repoUrl: 'https://github.com/ivnmtz09/yonna_akademia',
+    secondaryRepoUrl: 'https://github.com/ivnmtz09/yonna_app',
+    secondaryRepoLabel: { es: 'App móvil', en: 'Mobile app' },
+  },
+  {
+    id: 'gym-tracker',
+    title: 'Gym Tracker',
+    subtitle: { es: 'Gestión de gimnasios', en: 'Gym management' },
+    role: { es: 'Desarrollo web', en: 'Web development' },
+    year: '2025–2026',
+    category: 'web',
+    description: {
+      es: 'Web para gestionar clientes, rutinas y progreso físico.',
+      en: 'Manage gym members, workouts, and fitness progress online.',
+    },
+    highlights: {
+      es: ['Rutinas personalizadas para cada cliente.', 'Historial de medidas y avances.'],
+      en: ['Personalized workouts for each member.', 'History of measurements and progress.'],
+    },
+    architecture: {
+      es: {
+        backend: 'Node.js y Express',
+        frontend: 'Aplicación web en JavaScript',
+        database: 'Base de datos relacional',
+        deployment: 'Servicios web por función',
+      },
+      en: {
+        backend: 'Node.js and Express',
+        frontend: 'JavaScript web app',
+        database: 'Relational database',
+        deployment: 'Web services grouped by feature',
+      },
+    },
+    stack: ['JavaScript', 'Node.js', 'Express'],
+    repoUrl: 'https://github.com/ivnmtz09/gym-tracker',
+  },
+];
+
+export const NAV_SECTIONS = [
+  { id: 'top', marker: '00' },
+  { id: 'terminal', marker: '>_' },
+  { id: 'about', marker: '01' },
+  { id: 'projects', marker: '02' },
+  { id: 'skills', marker: '03' },
+  { id: 'trajectory', marker: '04' },
+  { id: 'contact', marker: '05' },
+] as const;
+
+export type SectionId = (typeof NAV_SECTIONS)[number]['id'];
+
 export const UI_COPY: Record<Lang, {
-  nav: {
-    about: string;
-    projects: string;
-    skills: string;
-    trajectory: string;
-    contact: string;
+  nav: Record<SectionId, string> & {
+    primary: string;
+    sectionProgress: string;
+    menu: string;
+    soundOn: string;
+    soundOff: string;
+    language: string;
+    theme: string;
     hireMe: string;
   };
   hero: {
@@ -86,7 +196,6 @@ export const UI_COPY: Record<Lang, {
     ctaProjects: string;
     ctaCopyEmail: string;
     copied: string;
-    terminalTitle: string;
   };
   about: {
     eyebrow: string;
@@ -97,12 +206,11 @@ export const UI_COPY: Record<Lang, {
   projects: {
     eyebrow: string;
     title: string;
-    subtitle: string;
-    filters: { id: 'all' | 'fullstack' | 'backend' | 'ecosystem'; label: string }[];
-    viewArchitecture: string;
+    filters: { id: ProjectFilter; label: string }[];
+    viewDetails: string;
     viewRepo: string;
     modal: {
-      architectureTitle: string;
+      detailsTitle: string;
       backend: string;
       frontend: string;
       database: string;
@@ -122,6 +230,7 @@ export const UI_COPY: Record<Lang, {
   trajectory: {
     eyebrow: string;
     title: string;
+    subtitle: string;
     experienceTitle: string;
     educationTitle: string;
     certificationsTitle: string;
@@ -144,13 +253,25 @@ export const UI_COPY: Record<Lang, {
     copyMessage: string;
   };
   footer: {
-    status: string;
     builtWith: string;
+    navigation: string;
+    links: string;
+    email: string;
+    backToTop: string;
   };
 }> = {
   es: {
     nav: {
+      top: 'Inicio',
+      terminal: 'Consola',
       about: 'Sobre mí',
+      primary: 'Navegación principal',
+      sectionProgress: 'Recorrido por secciones',
+      menu: 'Menú',
+      soundOn: 'Silenciar sonidos',
+      soundOff: 'Activar sonidos',
+      language: 'Cambiar idioma',
+      theme: 'Cambiar tema',
       projects: 'Proyectos',
       skills: 'Stack',
       trajectory: 'Trayectoria',
@@ -158,113 +279,102 @@ export const UI_COPY: Record<Lang, {
       hireMe: 'Hablemos',
     },
     hero: {
-      statusBadge: 'Disponible para práctica profesional o primer empleo',
+      statusBadge: 'Disponible para prácticas o empleo junior',
       greeting: 'Hola, soy',
-      summary:
-        'Estudiante de décimo semestre de Ingeniería de Sistemas en la Universidad de La Guajira. Construyo APIs REST resilientes en Django y Spring Boot e interfaces modernas en React y Angular, respaldado por ~13 años de experiencia operativa, atención al cliente y soporte técnico.',
-      ctaProjects: 'Explorar proyectos',
+      summary: 'Apps web y móviles completas\nExperiencia en operación y soporte',
+      ctaProjects: 'Ver proyectos',
       ctaCopyEmail: 'Copiar correo',
-      copied: '¡Correo copiado!',
-      terminalTitle: 'ivnmtz09@workstation: ~',
+      copied: 'Correo copiado',
     },
     about: {
-      eyebrow: '// 01. Perfil Profesional',
-      title: 'Ingeniería de software con disciplina operativa real',
+      eyebrow: '// 01. Perfil',
+      title: 'De la operación al software',
       paragraphs: [
-        'Mi enfoque combina rigor técnico en arquitectura backend, modelado relacional (PostgreSQL / MySQL) y desarrollo frontend reactivo con una sólida trayectoria en entornos de trabajo reales.',
-        'Durante cerca de 13 años como Auxiliar Operativo y de Soporte Interno, gestioné inventarios, conciliación diaria, pagos digitales y soporte de primer nivel. Esa experiencia se traduce hoy en código mantenible, comunicación asertiva con equipos Scrum y capacidad para resolver problemas bajo presión.',
+        'Construyo aplicaciones web y móviles, desde la idea hasta la puesta en marcha.',
+        'Durante casi 13 años trabajé en operaciones, atención al cliente y soporte técnico. Esa experiencia me ayuda a entender lo que un equipo necesita en el día a día.',
       ],
       metrics: [
-        {
-          value: '10.º Sem.',
-          label: 'Ingeniería de Sistemas',
-          detail: 'Universidad de La Guajira (2022–Actualidad)',
-        },
-        {
-          value: '~13 Años',
-          label: 'Operación & Soporte',
-          detail: 'Inventarios, caja, clientes y hardware/LAN',
-        },
-        {
-          value: '4+ Sistemas',
-          label: 'Proyectos Full-Stack',
-          detail: 'SaaS, EdTech, Reservas y Preservación Cultural',
-        },
-        {
-          value: 'SDD + Scrum',
-          label: 'Flujo de Ingeniería',
-          detail: 'Spec Driven Development, Git PRs y pruebas API',
-        },
+        { value: '10.º sem.', label: 'Ingeniería de Sistemas', detail: 'Universidad de La Guajira' },
+        { value: 'Casi 13 años', label: 'Operación y soporte', detail: 'Atención al cliente y soporte técnico' },
+        { value: String(PROJECTS.length), label: 'Proyectos destacados', detail: 'Educación, idiomas y gimnasios' },
       ],
     },
     projects: {
-      eyebrow: '// 02. Proyectos Destacados',
-      title: 'Sistemas diseñados de extremo a extremo',
-      subtitle:
-        'Plataformas reales construidas con arquitecturas desacopladas, autenticación segura y foco en la experiencia de usuario.',
+      eyebrow: '// 02. Portafolio',
+      title: 'Proyectos',
       filters: [
         { id: 'all', label: 'Todos' },
-        { id: 'fullstack', label: 'Full-Stack & SaaS' },
-        { id: 'ecosystem', label: 'Ecosistema Multi-cliente' },
-        { id: 'backend', label: 'Enterprise & APIs' },
+        { id: 'web', label: 'Web y SaaS' },
+        { id: 'multiplatform', label: 'Multiplataforma' },
       ],
-      viewArchitecture: 'Ver arquitectura',
+      viewDetails: 'Ver detalles',
       viewRepo: 'Repositorio',
       modal: {
-        architectureTitle: 'Arquitectura del sistema',
-        backend: 'Backend & API',
-        frontend: 'Frontend / Cliente',
-        database: 'Persistencia',
-        deployment: 'Despliegue & Flujo',
-        highlights: 'Logros clave',
+        detailsTitle: 'Detalles',
+        backend: 'Servidor',
+        frontend: 'Interfaz',
+        database: 'Base de datos',
+        deployment: 'Puesta en marcha',
+        highlights: 'Funciones',
         close: 'Cerrar',
       },
     },
     skills: {
-      eyebrow: '// 03. Stack Tecnológico',
-      title: 'Herramientas, lenguajes y metodología',
-      subtitle:
-        'Un ecosistema enfocado en backend robusto, interfaces modernas, contenedores y buenas prácticas de ingeniería.',
-      softSkillsTitle: 'Habilidades Blandas',
+      eyebrow: '// 03. Stack',
+      title: 'Tecnologías',
+      subtitle: 'Herramientas que uso para crear y mantener aplicaciones.',
+      softSkillsTitle: 'Cómo trabajo',
       languagesTitle: 'Idiomas',
       languages: [
         { name: 'Español', level: 'Nativo' },
-        { name: 'Inglés', level: 'Básico · Lectura de documentación técnica' },
+        { name: 'Inglés', level: 'Básico · Lectura técnica' },
       ],
     },
     trajectory: {
       eyebrow: '// 04. Trayectoria',
-      title: 'Experiencia, formación y certificaciones',
-      experienceTitle: 'Experiencia Laboral',
-      educationTitle: 'Formación Académica',
-      certificationsTitle: 'Certificaciones y Ponencias',
-      certNote: 'Certificados y referencias disponibles a solicitud.',
+      title: 'Experiencia y formación',
+      subtitle: 'Operación comercial, soporte técnico y estudios de ingeniería.',
+      experienceTitle: 'Experiencia laboral',
+      educationTitle: 'Estudios',
+      certificationsTitle: 'Certificaciones y ponencias',
+      certNote: 'Certificados y referencias a solicitud.',
     },
     contact: {
       eyebrow: '// 05. Contacto',
-      title: 'Construyamos algo sólido juntos',
-      subtitle:
-        'Busco una práctica profesional o mi primer empleo como Desarrollador Full Stack o Backend Junior. Respondo rápido por correo, LinkedIn o WhatsApp.',
-      emailLabel: 'Correo electrónico',
-      phoneLabel: 'Teléfono / WhatsApp',
+      title: 'Hablemos',
+      subtitle: 'Busco una práctica o un puesto junior en desarrollo.',
+      emailLabel: 'Correo',
+      phoneLabel: 'Teléfono o WhatsApp',
       locationLabel: 'Ubicación',
       copyBtn: 'Copiar',
       copiedBtn: 'Copiado',
-      formTitle: 'Enviar mensaje rápido',
-      namePlaceholder: 'Tu nombre o empresa',
-      subjectPlaceholder: 'Asunto (ej. Oportunidad práctica / Junior Dev)',
-      messagePlaceholder: 'Cuéntame sobre el equipo, proyecto o vacante...',
-      sendMailto: 'Abrir en cliente de correo',
-      copyMessage: 'Copiar texto',
+      formTitle: 'Enviar un mensaje',
+      namePlaceholder: 'Nombre o empresa',
+      subjectPlaceholder: 'Asunto',
+      messagePlaceholder: 'Cuéntame sobre tu proyecto o vacante',
+      sendMailto: 'Abrir correo',
+      copyMessage: 'Copiar mensaje',
     },
     footer: {
-      status: '[SYSTEM STATUS]: OPERATIONAL • KERNEL 6.x • READY TO DEPLOY',
-      builtWith: 'Diseñado y desarrollado con React, TypeScript & Tailwind CSS por Iván Martínez • 2026',
+      builtWith: 'Iván Martínez · 2026',
+      navigation: 'Secciones',
+      links: 'Enlaces',
+      email: 'Correo',
+      backToTop: 'Subir',
     },
   },
   en: {
     nav: {
+      top: 'Home',
+      terminal: 'Console',
       about: 'About',
+      primary: 'Main navigation',
+      sectionProgress: 'Section progress',
+      menu: 'Menu',
+      soundOn: 'Mute sounds',
+      soundOff: 'Enable sounds',
+      language: 'Change language',
+      theme: 'Change theme',
       projects: 'Projects',
       skills: 'Stack',
       trajectory: 'Background',
@@ -272,358 +382,123 @@ export const UI_COPY: Record<Lang, {
       hireMe: 'Let’s talk',
     },
     hero: {
-      statusBadge: 'Open to internships or junior developer roles',
+      statusBadge: 'Open to internships and junior roles',
       greeting: 'Hi, I’m',
-      summary:
-        '10th-semester Systems Engineering student at Universidad de La Guajira. I build resilient REST APIs with Django and Spring Boot alongside modern React and Angular interfaces, backed by ~13 years of real-world operations, customer service, and IT support.',
-      ctaProjects: 'Explore projects',
+      summary: 'End-to-end web and mobile apps\nHands-on operations and support',
+      ctaProjects: 'View projects',
       ctaCopyEmail: 'Copy email',
-      copied: 'Email copied!',
-      terminalTitle: 'ivnmtz09@workstation: ~',
+      copied: 'Email copied',
     },
     about: {
-      eyebrow: '// 01. Professional Profile',
-      title: 'Software engineering grounded in real-world operations',
+      eyebrow: '// 01. About',
+      title: 'From operations to software',
       paragraphs: [
-        'My approach blends technical rigor in backend architecture, relational modeling (PostgreSQL / MySQL), and reactive frontend engineering with years of hands-on operational responsibility.',
-        'Over nearly 13 years as an Operations & Internal Support Assistant, I managed inventory audits, daily cash reconciliation, digital payments, and tier-1 IT support. Today that translates into maintainable code, clear Scrum collaboration, and calm problem-solving under pressure.',
+        'I build web and mobile apps from idea to launch.',
+        'I spent nearly 13 years in operations, customer service, and IT support. That experience helps me understand what teams need day to day.',
       ],
       metrics: [
-        {
-          value: '10th Sem.',
-          label: 'Systems Engineering',
-          detail: 'Universidad de La Guajira (2022–Present)',
-        },
-        {
-          value: '~13 Years',
-          label: 'Operations & Support',
-          detail: 'Inventory, POS reconciliation & hardware/LAN',
-        },
-        {
-          value: '4+ Systems',
-          label: 'Full-Stack Projects',
-          detail: 'SaaS, EdTech, Bookings & Cultural Preservation',
-        },
-        {
-          value: 'SDD + Scrum',
-          label: 'Engineering Flow',
-          detail: 'Spec Driven Development, Git PRs & API testing',
-        },
+        { value: '10th term', label: 'Systems Engineering', detail: 'Universidad de La Guajira' },
+        { value: 'Nearly 13 years', label: 'Operations and support', detail: 'Customer service and IT support' },
+        { value: String(PROJECTS.length), label: 'Featured projects', detail: 'Education, languages, and gyms' },
       ],
     },
     projects: {
-      eyebrow: '// 02. Featured Systems',
-      title: 'End-to-end engineered platforms',
-      subtitle:
-        'Real-world applications built with decoupled architectures, secure authentication, and clean user experiences.',
+      eyebrow: '// 02. Portfolio',
+      title: 'Projects',
       filters: [
         { id: 'all', label: 'All' },
-        { id: 'fullstack', label: 'Full-Stack & SaaS' },
-        { id: 'ecosystem', label: 'Multi-Client Ecosystem' },
-        { id: 'backend', label: 'Enterprise & APIs' },
+        { id: 'web', label: 'Web & SaaS' },
+        { id: 'multiplatform', label: 'Cross-platform' },
       ],
-      viewArchitecture: 'Inspect architecture',
+      viewDetails: 'View details',
       viewRepo: 'Repository',
       modal: {
-        architectureTitle: 'System Architecture',
-        backend: 'Backend & API',
-        frontend: 'Frontend / Client',
-        database: 'Persistence',
-        deployment: 'Deployment & Workflow',
-        highlights: 'Key Highlights',
+        detailsTitle: 'Details',
+        backend: 'Server',
+        frontend: 'Interface',
+        database: 'Database',
+        deployment: 'Delivery',
+        highlights: 'Features',
         close: 'Close',
       },
     },
     skills: {
-      eyebrow: '// 03. Tech Stack',
-      title: 'Tools, languages & engineering practices',
-      subtitle:
-        'A focused stack for resilient backends, responsive frontends, containerization, and disciplined delivery.',
-      softSkillsTitle: 'Soft Skills',
+      eyebrow: '// 03. Stack',
+      title: 'Technologies',
+      subtitle: 'Tools I use to build and maintain applications.',
+      softSkillsTitle: 'How I work',
       languagesTitle: 'Languages',
       languages: [
         { name: 'Spanish', level: 'Native' },
-        { name: 'English', level: 'Basic · Technical documentation reading' },
+        { name: 'English', level: 'Basic · Technical reading' },
       ],
     },
     trajectory: {
       eyebrow: '// 04. Background',
-      title: 'Experience, education & certifications',
-      experienceTitle: 'Work Experience',
+      title: 'Experience and education',
+      subtitle: 'Retail operations, IT support, and engineering studies.',
+      experienceTitle: 'Work experience',
       educationTitle: 'Education',
-      certificationsTitle: 'Certifications & Talks',
-      certNote: 'Certificates and references available upon request.',
+      certificationsTitle: 'Certificates and talks',
+      certNote: 'Certificates and references on request.',
     },
     contact: {
       eyebrow: '// 05. Contact',
-      title: 'Let’s build something reliable together',
-      subtitle:
-        'I am looking for an internship or my first role as a Junior Full Stack or Backend Developer. Reach out via email, LinkedIn, or WhatsApp.',
+      title: 'Let’s talk',
+      subtitle: 'I’m looking for a development internship or junior role.',
       emailLabel: 'Email',
-      phoneLabel: 'Phone / WhatsApp',
+      phoneLabel: 'Phone or WhatsApp',
       locationLabel: 'Location',
       copyBtn: 'Copy',
       copiedBtn: 'Copied',
-      formTitle: 'Quick message',
-      namePlaceholder: 'Your name or company',
-      subjectPlaceholder: 'Subject (e.g. Junior Dev / Internship opportunity)',
-      messagePlaceholder: 'Tell me about your team, project, or role...',
-      sendMailto: 'Open in email client',
-      copyMessage: 'Copy text',
+      formTitle: 'Send a message',
+      namePlaceholder: 'Name or company',
+      subjectPlaceholder: 'Subject',
+      messagePlaceholder: 'Tell me about your project or role',
+      sendMailto: 'Open email',
+      copyMessage: 'Copy message',
     },
     footer: {
-      status: '[SYSTEM STATUS]: OPERATIONAL • KERNEL 6.x • READY TO DEPLOY',
-      builtWith: 'Designed & built with React, TypeScript & Tailwind CSS by Iván Martínez • 2026',
+      builtWith: 'Iván Martínez · 2026',
+      navigation: 'Sections',
+      links: 'Links',
+      email: 'Email',
+      backToTop: 'Back to top',
     },
   },
 };
-
-export const PROJECTS: ProjectItem[] = [
-  {
-    id: 'edubid',
-    title: 'EduBid',
-    subtitle: {
-      es: 'Plataforma SaaS de Gamificación Educativa (Proyecto de Grado)',
-      en: 'Educational Gamification SaaS Platform (Capstone Project)',
-    },
-    role: {
-      es: 'Desarrollador Backend',
-      en: 'Backend Developer',
-    },
-    year: '2026',
-    category: 'fullstack',
-    featured: true,
-    description: {
-      es: 'Plataforma SaaS educativa diseñada para impulsar la motivación y el rendimiento académico mediante tokens virtuales, economía de incentivos y subastas de beneficios en tiempo real.',
-      en: 'Educational SaaS platform designed to boost academic motivation through virtual tokens, an incentive economy, and real-time reward auctions.',
-    },
-    highlights: {
-      es: [
-        'API REST robusta con Django 5.2, Django REST Framework y MySQL 8 / PostgreSQL.',
-        'Autenticación híbrida segura con JWT y Google OAuth.',
-        'Backend desplegado en Railway y frontend en Netlify (React + Tailwind CSS + Vite, trabajo en equipo).',
-      ],
-      en: [
-        'Resilient REST API built with Django 5.2, Django REST Framework, and MySQL 8 / PostgreSQL.',
-        'Secure hybrid authentication with JWT and Google OAuth.',
-        'Backend deployed on Railway and frontend on Netlify (React + Tailwind CSS + Vite, team collaboration).',
-      ],
-    },
-    architecture: {
-      es: {
-        backend: 'Django 5.2 + Django REST Framework + JWT + Google OAuth',
-        frontend: 'React 18 + Vite + Tailwind CSS',
-        database: 'MySQL 8 / PostgreSQL',
-        deployment: 'Railway (API) & Netlify (Web Client)',
-      },
-      en: {
-        backend: 'Django 5.2 + Django REST Framework + JWT + Google OAuth',
-        frontend: 'React 18 + Vite + Tailwind CSS',
-        database: 'MySQL 8 / PostgreSQL',
-        deployment: 'Railway (API) & Netlify (Web Client)',
-      },
-    },
-    stack: ['Python', 'Django 5.2', 'DRF', 'React', 'Vite', 'Tailwind CSS', 'MySQL 8', 'JWT', 'Google OAuth'],
-    repoUrl: 'https://github.com/ivnmtz09/edubid',
-  },
-  {
-    id: 'yonna-akademia',
-    title: 'Yonna Akademia',
-    subtitle: {
-      es: 'Ecosistema de Preservación Cultural & Gamificación (Proyecto II)',
-      en: 'Cultural Preservation & Gamification Ecosystem (Project II)',
-    },
-    role: {
-      es: 'Desarrollador Full-Stack',
-      en: 'Full-Stack Developer',
-    },
-    year: '2026',
-    category: 'ecosystem',
-    featured: true,
-    description: {
-      es: 'Plataforma web y móvil gamificada para aprender wayuunaiki desde el español. Integra módulos bilingües, puntos de experiencia, rachas, niveles y logros.',
-      en: 'Gamified web and mobile ecosystem for learning Wayuunaiki from Spanish, featuring bilingual modules, XP, streaks, levels, and achievements.',
-    },
-    highlights: {
-      es: [
-        'Arquitectura distribuida: API REST en Django 5 con JWT y PostgreSQL.',
-        'Panel web en Angular 21 con módulos bilingües y cliente móvil en Flutter (yonna_app).',
-        'Desarrollo iterativo gestionado bajo metodología ágil Scrum.',
-      ],
-      en: [
-        'Distributed architecture: Django 5 REST API with JWT and PostgreSQL.',
-        'Angular 21 web platform with bilingual modules plus Flutter mobile client (yonna_app).',
-        'Iterative delivery managed with Scrum methodology.',
-      ],
-    },
-    architecture: {
-      es: {
-        backend: 'Django 5 + Django REST Framework + JWT',
-        frontend: 'Angular 21 (Web) + Flutter (Móvil)',
-        database: 'PostgreSQL',
-        deployment: 'Arquitectura desacoplada multi-cliente + Scrum',
-      },
-      en: {
-        backend: 'Django 5 + Django REST Framework + JWT',
-        frontend: 'Angular 21 (Web) + Flutter (Mobile)',
-        database: 'PostgreSQL',
-        deployment: 'Decoupled multi-client architecture + Scrum',
-      },
-    },
-    stack: ['Django 5', 'Angular 21', 'Flutter', 'PostgreSQL', 'JWT', 'Scrum'],
-    repoUrl: 'https://github.com/ivnmtz09/yonna_akademia',
-    secondaryRepoUrl: 'https://github.com/ivnmtz09/yonna_app',
-    secondaryRepoLabel: {
-      es: 'App Móvil (Flutter)',
-      en: 'Mobile App (Flutter)',
-    },
-  },
-  {
-    id: 'reservas-fullstack',
-    title: 'Sistema de Reservas Full-Stack',
-    subtitle: {
-      es: 'Enterprise Booking Management System',
-      en: 'Enterprise Booking Management System',
-    },
-    role: {
-      es: 'Desarrollador Full-Stack',
-      en: 'Full-Stack Developer',
-    },
-    year: '2026',
-    category: 'backend',
-    description: {
-      es: 'Sistema empresarial para la gestión, calendarización y persistencia transaccional de reservas de alta concurrencia con arquitectura desacoplada.',
-      en: 'Enterprise booking system engineered for scheduling and transactional persistence under high concurrency with a decoupled architecture.',
-    },
-    highlights: {
-      es: [
-        'Backend empresarial en Java con Spring Boot 4 y persistencia en PostgreSQL 18.',
-        'Frontend reactivo desacoplado en Angular 21.',
-        'Control transaccional y modelado relacional orientado a integridad de datos.',
-      ],
-      en: [
-        'Enterprise Java backend with Spring Boot 4 and PostgreSQL 18 persistence.',
-        'Decoupled reactive frontend built with Angular 21.',
-        'Transactional control and relational modeling focused on data integrity.',
-      ],
-    },
-    architecture: {
-      es: {
-        backend: 'Java + Spring Boot 4 + API REST',
-        frontend: 'Angular 21 + TypeScript',
-        database: 'PostgreSQL 18',
-        deployment: 'Arquitectura empresarial desacoplada',
-      },
-      en: {
-        backend: 'Java + Spring Boot 4 + REST API',
-        frontend: 'Angular 21 + TypeScript',
-        database: 'PostgreSQL 18',
-        deployment: 'Decoupled enterprise architecture',
-      },
-    },
-    stack: ['Java', 'Spring Boot 4', 'Angular 21', 'TypeScript', 'PostgreSQL 18'],
-    repoUrl: 'https://github.com/ivnmtz09/Curso-FullStack-Reservas',
-  },
-  {
-    id: 'gym-tracker',
-    title: 'Gym Tracker SaaS',
-    subtitle: {
-      es: 'Fitness & Facility Management Platform',
-      en: 'Fitness & Facility Management Platform',
-    },
-    role: {
-      es: 'Desarrollador Full-Stack',
-      en: 'Full-Stack Developer',
-    },
-    year: '2025–2026',
-    category: 'fullstack',
-    description: {
-      es: 'Solución SaaS orientada al seguimiento biométrico, rutinas personalizadas, control de usuarios y analítica de desempeño para centros deportivos.',
-      en: 'SaaS platform for biometric tracking, custom workout routines, member management, and performance analytics for athletic facilities.',
-    },
-    highlights: {
-      es: [
-        'API REST modular construida con Node.js y JavaScript.',
-        'Gestión de métricas biométricas, rutinas y seguimiento de progreso.',
-        'Diseño orientado a escalabilidad para múltiples instalaciones deportivas.',
-      ],
-      en: [
-        'Modular REST API built with Node.js and JavaScript.',
-        'Biometric metrics, workout routines, and progress tracking.',
-        'Scalable design tailored for multi-facility gym operations.',
-      ],
-    },
-    architecture: {
-      es: {
-        backend: 'Node.js + Express + REST API',
-        frontend: 'JavaScript + Interfaz Web',
-        database: 'Persistencia relacional / API',
-        deployment: 'Arquitectura SaaS modular',
-      },
-      en: {
-        backend: 'Node.js + Express + REST API',
-        frontend: 'JavaScript + Web UI',
-        database: 'Relational / API Persistence',
-        deployment: 'Modular SaaS architecture',
-      },
-    },
-    stack: ['JavaScript', 'Node.js', 'Express', 'REST API'],
-    repoUrl: 'https://github.com/ivnmtz09/gym-tracker',
-  },
-];
 
 export const SKILL_GROUPS: SkillGroup[] = [
   {
     id: 'languages',
     label: { es: 'Lenguajes', en: 'Languages' },
-    items: ['Python', 'JavaScript', 'TypeScript', 'Java', 'Dart', 'C++', 'Bash'],
+    items: ['Python', 'JavaScript', 'TypeScript', 'Java', 'Dart'],
   },
   {
     id: 'backend',
-    label: { es: 'Backend & APIs', en: 'Backend & APIs' },
-    items: ['Django', 'Django REST Framework', 'Spring Boot', 'Node.js', 'Express', 'API REST', 'JWT', 'Google OAuth', 'Swagger'],
+    label: { es: 'Servidor', en: 'Backend' },
+    items: ['Django', 'Spring Boot', 'Node.js', 'Express'],
   },
   {
     id: 'frontend',
-    label: { es: 'Frontend & Móvil', en: 'Frontend & Mobile' },
-    items: ['React 18', 'Angular', 'Vite', 'Tailwind CSS', 'Axios', 'Next.js', 'Flutter'],
+    label: { es: 'Web y móvil', en: 'Web & mobile' },
+    items: ['React', 'Angular', 'Flutter', 'Tailwind CSS'],
   },
   {
     id: 'databases',
     label: { es: 'Bases de Datos', en: 'Databases' },
-    items: ['PostgreSQL', 'MySQL', 'Firebase', 'Supabase', 'SQLite', 'SQL básico'],
+    items: ['PostgreSQL', 'MySQL', 'Firebase', 'Supabase', 'SQLite'],
   },
   {
     id: 'tools',
-    label: { es: 'Herramientas & DevOps', en: 'Tooling & DevOps' },
-    items: ['Git', 'GitHub', 'GitHub Actions', 'Docker', 'Linux', 'Postman', 'Bruno', 'Railway', 'Netlify', 'VS Code', 'Antigravity', 'OpenCode'],
-  },
-  {
-    id: 'methods',
-    label: { es: 'Métodos & Soporte', en: 'Methods & IT Support' },
-    items: ['Scrum', 'Spec Driven Development (SDD)', 'MVC', 'Ramas & Pull Requests', 'Pruebas de API', 'Hardware & SO', 'Redes LAN básicas'],
+    label: { es: 'Despliegue y herramientas', en: 'Deployment & tools' },
+    items: ['Git', 'GitHub Actions', 'Docker', 'Linux', 'Railway', 'Netlify'],
   },
 ];
 
 export const SOFT_SKILLS: Record<Lang, string[]> = {
-  es: [
-    'Trabajo en equipo',
-    'Aprendizaje rápido',
-    'Pensamiento analítico',
-    'Comunicación asertiva',
-    'Atención al cliente',
-    'Resolución de problemas bajo presión',
-    'Sensibilidad intercultural',
-  ],
-  en: [
-    'Teamwork',
-    'Fast learner',
-    'Analytical thinking',
-    'Assertive communication',
-    'Customer service',
-    'Problem solving under pressure',
-    'Intercultural sensitivity',
-  ],
+  es: ['Trabajo en equipo', 'Atención al cliente', 'Resolución de problemas'],
+  en: ['Teamwork', 'Customer service', 'Problem solving'],
 };
 
 export const EXPERIENCE: TimelineEntry[] = [
@@ -637,12 +512,12 @@ export const EXPERIENCE: TimelineEntry[] = [
     period: '2012 – 2025',
     bullets: {
       es: [
-        'Control de inventarios, relación con proveedores y auditorías de existencias para decidir compras.',
-        'Caja y conciliación diaria, gestión de pagos digitales (Nequi y transferencias) y soporte técnico de primer nivel (hardware, sistemas operativos y redes LAN).',
+        'Gestioné inventarios y coordiné compras con proveedores.',
+        'Atendí clientes, gestioné caja y pagos, y di soporte técnico.',
       ],
       en: [
-        'Managed inventory control, supplier coordination, and stock audits to guide purchasing decisions.',
-        'Handled daily POS cash reconciliation, digital payments (Nequi & bank transfers), and tier-1 IT support (hardware, OS, and basic LAN).',
+        'Managed inventory and coordinated orders with suppliers.',
+        'Helped customers, handled payments, and provided IT support.',
       ],
     },
   },
@@ -657,8 +532,8 @@ export const EDUCATION: TimelineEntry[] = [
     org: 'Universidad de La Guajira',
     period: '2022 – Actualidad',
     bullets: {
-      es: ['Enfoque en arquitectura de software, bases de datos relacionales, desarrollo web/móvil y proyectos de impacto regional.'],
-      en: ['Focused on software architecture, relational databases, web/mobile engineering, and regional impact projects.'],
+      es: ['Desarrollo de aplicaciones web y móviles.'],
+      en: ['Web and mobile application development.'],
     },
   },
   {
@@ -669,8 +544,8 @@ export const EDUCATION: TimelineEntry[] = [
     org: 'SENA',
     period: '2019',
     bullets: {
-      es: ['Formación técnica complementaria en gestión de procesos y normativa ambiental.'],
-      en: ['Technical training in process management and environmental standards.'],
+      es: ['Procesos y normativa ambiental.'],
+      en: ['Environmental processes and standards.'],
     },
   },
   {

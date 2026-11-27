@@ -2,16 +2,19 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 const PARTICLE_COUNT = 1650;
-const SECTION_IDS = ['top', 'about', 'projects', 'skills', 'trajectory', 'contact'] as const;
+const FIGURE_WIDTHS = [2.25, 3.55, 4.35, 4.20, 4.25, 3.75];
 
-// ─── 3-Color Monochrome + Electric Blue Brand Palette ─────────────────────────
-const C_BLUE      = new THREE.Color(0x0066ff);
-const C_BLUE_HI   = new THREE.Color(0x5ca3ff);
-const C_BLUE_DEEP = new THREE.Color(0x0040aa);
-const C_WHITE     = new THREE.Color(0xe4e4e7);
-const C_SILVER    = new THREE.Color(0xa1a1aa);
-const C_SLATE     = new THREE.Color(0x71717a);
-const C_CHARCOAL  = new THREE.Color(0x3f3f46);
+const TAU = Math.PI * 2;
+const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5));
+
+const C_BLUE = new THREE.Color(0x0066ff);
+const C_WHITE = new THREE.Color(0xe4e4e7);
+const C_SLATE = new THREE.Color(0x71717a);
+const C_BLACK = new THREE.Color(0x09090b);
+const C_BLUE_LIGHT = C_BLUE.clone().lerp(C_WHITE, 0.22);
+const C_BLUE_DARK = C_BLUE.clone().lerp(C_BLACK, 0.62);
+const C_SILVER = C_SLATE.clone().lerp(C_WHITE, 0.48);
+const C_CHARCOAL = C_BLACK.clone().lerp(C_SLATE, 0.36);
 
 interface FigureData {
   pos: Float32Array;
@@ -31,437 +34,342 @@ interface ParticleDraft {
   group: number;
 }
 
-function rand(min = -1, max = 1): number {
-  return min + Math.random() * (max - min);
+function sampleNoise(index: number): number {
+  const bits = Math.imul(index + 1, 0x9e3779b1);
+  return ((bits ^ (bits >>> 16)) >>> 0) / 0x100000000;
 }
 
 function lerpColor(a: THREE.Color, b: THREE.Color, t: number): THREE.Color {
-  return new THREE.Color().lerpColors(a, b, Math.max(0, Math.min(1, t)));
+  return new THREE.Color().lerpColors(a, b, THREE.MathUtils.clamp(t, 0, 1));
 }
 
-/** Bake soft top-left clay shading + AO directly into vertex RGB */
 function pushShaded(
   out: ParticleDraft[],
-  x: number,
-  y: number,
-  z: number,
-  nx: number,
-  ny: number,
-  nz: number,
+  x: number, y: number, z: number,
+  nx: number, ny: number, nz: number,
   base: THREE.Color,
-  size = 1.0,
+  size: number,
   group = 0,
-  ao = 1.0,
 ) {
   const len = Math.hypot(nx, ny, nz) || 1;
   const lightDot = (nx * -0.42 + ny * 0.66 + nz * 0.62) / len;
-  const shade = (0.82 + lightDot * 0.24) * ao;
+  const shade = 0.78 + lightDot * 0.22;
   out.push({
-    x,
-    y,
-    z,
-    r: Math.min(1, Math.max(0.03, base.r * shade)),
-    g: Math.min(1, Math.max(0.03, base.g * shade)),
-    b: Math.min(1, Math.max(0.04, base.b * shade)),
-    size,
+    x, y, z,
+    r: base.r * shade,
+    g: base.g * shade,
+    b: base.b * shade,
+    size: size * (0.96 + 0.08 * sampleNoise(out.length)),
     group,
   });
 }
 
-/** 3D rounded capsule shell between A and B */
 function addCapsule(
   out: ParticleDraft[],
   ax: number, ay: number, az: number,
   bx: number, by: number, bz: number,
-  radius: number,
-  count: number,
-  colA: THREE.Color,
-  colB: THREE.Color,
-  ptSize = 1.0,
-  group = 0,
+  radius: number, count: number,
+  colA: THREE.Color, colB: THREE.Color,
+  size: number,
 ) {
-  const dx = bx - ax;
-  const dy = by - ay;
-  const dz = bz - az;
-  const len = Math.hypot(dx, dy, dz) || 1;
-  const ux = dx / len;
-  const uy = dy / len;
-  const uz = dz / len;
+  const start = new THREE.Vector3(ax, ay, az);
+  const end = new THREE.Vector3(bx, by, bz);
+  const axis = end.clone().sub(start).normalize();
+  const ref = Math.abs(axis.x) < 0.85 ? new THREE.Vector3(1, 0, 0) : new THREE.Vector3(0, 1, 0);
+  const across = new THREE.Vector3().crossVectors(axis, ref).normalize();
+  const up = new THREE.Vector3().crossVectors(axis, across);
+  const p = new THREE.Vector3();
+  const n = new THREE.Vector3();
 
-  const refX = Math.abs(ux) < 0.85 ? 1 : 0;
-  const refY = Math.abs(ux) < 0.85 ? 0 : 1;
-  let px = -uz * refY;
-  let py = uz * refX;
-  let pz = ux * refY - uy * refX;
-  const pLen = Math.hypot(px, py, pz) || 1;
-  px /= pLen; py /= pLen; pz /= pLen;
-
-  const qx = uy * pz - uz * py;
-  const qy = uz * px - ux * pz;
-  const qz = ux * py - uy * px;
-
+  // Equal-area bands across the cylindrical wall and both hemispherical caps.
+  const length = start.distanceTo(end);
+  const surfaceLength = length + 2 * radius;
   for (let i = 0; i < count; i++) {
-    const t = Math.random();
-    const angle = rand(0, Math.PI * 2);
-    const shell = rand(0.78, 1.0);
-    const rad = radius * shell;
-
-    const nx = Math.cos(angle) * px + Math.sin(angle) * qx;
-    const ny = Math.cos(angle) * py + Math.sin(angle) * qy;
-    const nz = Math.cos(angle) * pz + Math.sin(angle) * qz;
-
-    const capFactor = t < 0.08 ? Math.sin((t / 0.08) * (Math.PI / 2)) : t > 0.92 ? Math.sin(((1 - t) / 0.08) * (Math.PI / 2)) : 1;
-    const effRad = rad * (0.48 + 0.52 * capFactor);
-
-    const x = ax + dx * t + nx * effRad;
-    const y = ay + dy * t + ny * effRad;
-    const z = az + dz * t + nz * effRad;
-
-    const c = lerpColor(colA, colB, t * 0.6 + (nz * 0.25 + 0.25));
-    pushShaded(out, x, y, z, nx, ny, nz, c, ptSize * rand(0.88, 1.14), group);
+    const s = (i + 0.38 + 0.24 * sampleNoise(i)) / count * surfaceLength - radius;
+    const t = THREE.MathUtils.clamp(s / length, 0, 1);
+    const axialNormal = (s - t * length) / radius;
+    const radialNormal = Math.sqrt(Math.max(0, 1 - axialNormal * axialNormal));
+    const angle = i * GOLDEN_ANGLE;
+    n.copy(across).multiplyScalar(Math.cos(angle) * radialNormal)
+      .addScaledVector(up, Math.sin(angle) * radialNormal)
+      .addScaledVector(axis, axialNormal);
+    p.lerpVectors(start, end, t).addScaledVector(n, radius);
+    const color = lerpColor(colA, colB, 0.14 + t * 0.44 + (n.y + 1) * 0.15);
+    pushShaded(out, p.x, p.y, p.z, n.x, n.y, n.z, color, size);
   }
 }
 
-/** 3D ellipsoid outer clay shell */
 function addEllipsoid(
   out: ParticleDraft[],
   cx: number, cy: number, cz: number,
   rx: number, ry: number, rz: number,
-  count: number,
-  colA: THREE.Color,
-  colB: THREE.Color,
-  ptSize = 1.0,
-  group = 0,
+  count: number, colA: THREE.Color, colB: THREE.Color,
+  size: number, group = 0,
 ) {
   for (let i = 0; i < count; i++) {
-    const theta = rand(0, Math.PI * 2);
-    const phi = Math.acos(rand(-1, 1));
-    const shell = rand(0.82, 1.0);
-    const nx = Math.sin(phi) * Math.cos(theta);
-    const ny = Math.sin(phi) * Math.sin(theta);
-    const nz = Math.cos(phi);
-    const x = cx + nx * rx * shell;
-    const y = cy + ny * ry * shell;
-    const z = cz + nz * rz * shell;
-    const c = lerpColor(colA, colB, ny * 0.35 + nz * 0.2 + 0.45);
-    pushShaded(out, x, y, z, nx, ny, nz, c, ptSize * rand(0.88, 1.15), group);
+    const y = 1 - 2 * (i + 0.4 + 0.2 * sampleNoise(i)) / count;
+    const theta = i * GOLDEN_ANGLE;
+    const band = Math.sqrt(1 - y * y);
+    const x = Math.cos(theta) * band;
+    const z = Math.sin(theta) * band;
+    const color = lerpColor(colA, colB, 0.48 + y * 0.32 + z * 0.12);
+    pushShaded(out, cx + x * rx, cy + y * ry, cz + z * rz, x / rx, y / ry, z / rz, color, size, group);
   }
 }
 
-/** 3D beveled box prism outer faces */
 function addBeveledBox(
   out: ParticleDraft[],
   cx: number, cy: number, cz: number,
   hw: number, hh: number, hd: number,
-  count: number,
-  colA: THREE.Color,
-  colB: THREE.Color,
-  ptSize = 1.0,
+  radius: number, count: number,
+  colA: THREE.Color, colB: THREE.Color,
+  size: number, highlight = 0,
 ) {
-  for (let i = 0; i < count; i++) {
-    let lx = 0, ly = 0, lz = 0, nx = 0, ny = 0, nz = 0;
-    const face = Math.random();
-    if (face < 0.60) {
-      const sign = face < 0.38 ? 1 : -1;
-      lx = rand(-hw, hw);
-      ly = rand(-hh, hh);
-      lz = sign * hd * rand(0.88, 1.0);
-      nz = sign;
-    } else if (face < 0.82) {
-      const sign = face < 0.72 ? 1 : -1;
-      lx = rand(-hw, hw);
-      ly = sign * hh * rand(0.88, 1.0);
-      lz = rand(-hd, hd);
-      ny = sign;
-    } else {
-      const sign = face < 0.91 ? 1 : -1;
-      lx = sign * hw * rand(0.88, 1.0);
-      ly = rand(-hh, hh);
-      lz = rand(-hd, hd);
-      nx = sign;
-    }
+  const half = [hw, hh, hd];
+  const faces = [
+    { axis: 2, sign: 1, u: 0, v: 1, weight: hw * hh * 1.78 },
+    { axis: 2, sign: -1, u: 0, v: 1, weight: hw * hh * 0.36 },
+    { axis: 1, sign: 1, u: 0, v: 2, weight: hw * hd * 1.12 },
+    { axis: 1, sign: -1, u: 0, v: 2, weight: hw * hd * 0.35 },
+    { axis: 0, sign: 1, u: 2, v: 1, weight: hd * hh },
+    { axis: 0, sign: -1, u: 2, v: 1, weight: hd * hh },
+  ];
+  const weight = faces.reduce((sum, face) => sum + face.weight, 0);
+  const inner = half.map((extent) => extent - radius);
+  const p = [0, 0, 0];
+  const n = new THREE.Vector3();
+  let allocated = 0;
+  let cumulativeWeight = 0;
 
-    const mixT = (ly / (hh || 1) + 1) * 0.5;
-    const c = lerpColor(colA, colB, mixT);
-    pushShaded(out, cx + lx, cy + ly, cz + lz, nx, ny, nz, c, ptSize * rand(0.88, 1.13));
+  for (const face of faces) {
+    const { axis, sign, u, v } = face;
+    cumulativeWeight += face.weight;
+    const next = Math.round(count * cumulativeWeight / weight);
+    const samples = next - allocated;
+    allocated = next;
+    const rows = Math.max(1, Math.min(samples, Math.round(Math.sqrt(samples * half[v] / half[u]))));
+    for (let row = 0; row < rows; row++) {
+      const columns = Math.round((row + 1) * samples / rows) - Math.round(row * samples / rows);
+      for (let col = 0; col < columns; col++) {
+        const ju = sampleNoise(out.length) - 0.5;
+        const jv = sampleNoise(out.length + 521) - 0.5;
+        const stagger = (row % 2 === 0 ? -0.14 : 0.14);
+        p[axis] = sign * half[axis];
+        p[u] = ((col + 0.5 + stagger + ju * 0.16) / columns * 2 - 1) * half[u];
+        p[v] = ((row + 0.5 + jv * 0.16) / rows * 2 - 1) * half[v];
+
+        // Project the regular face samples onto one rounded box surface.
+        const x = THREE.MathUtils.clamp(p[0], -inner[0], inner[0]);
+        const y = THREE.MathUtils.clamp(p[1], -inner[1], inner[1]);
+        const z = THREE.MathUtils.clamp(p[2], -inner[2], inner[2]);
+        n.set(p[0] - x, p[1] - y, p[2] - z).normalize();
+        const localY = y + n.y * radius;
+        const top = THREE.MathUtils.smoothstep(localY / hh, 0.36, 1);
+        const edge = 1 - Math.abs(n.y) * 0.7;
+        const color = lerpColor(colA, colB, (localY / hh + 1) * 0.5);
+        color.lerp(C_WHITE, top * edge * highlight);
+        pushShaded(out, cx + x + n.x * radius, cy + localY, cz + z + n.z * radius, n.x, n.y, n.z, color, size);
+      }
+    }
   }
 }
 
-/** Extruded 3D triangular prism */
-function addTriPrism(
-  out: ParticleDraft[],
-  p0: [number, number],
-  p1: [number, number],
-  p2: [number, number],
-  halfDepth: number,
-  count: number,
-  colA: THREE.Color,
-  colB: THREE.Color,
-  ptSize = 1.0,
-) {
+function addRocketFin(out: ParticleDraft[], side: number, count: number) {
+  const faceCount = count / 2;
   for (let i = 0; i < count; i++) {
-    let u = Math.random();
-    let v = Math.random();
-    if (u + v > 1) {
-      u = 1 - u;
-      v = 1 - v;
-    }
-    const w = 1 - u - v;
-    const x = p0[0] * u + p1[0] * v + p2[0] * w;
-    const y = p0[1] * u + p1[1] * v + p2[1] * w;
-
-    const edgeDist = Math.min(u, v, w) * 3;
-    const taper = 0.38 + 0.62 * Math.sqrt(Math.min(1, edgeDist));
-    const zSign = Math.random() < 0.55 ? 1 : -1;
-    const z = zSign * rand(0.75, 1.0) * halfDepth * taper;
-
-    const nx = x * 0.35;
-    const ny = 0.35;
-    const nz = z >= 0 ? 0.85 : -0.85;
-    const c = lerpColor(colA, colB, (y + 1) * 0.25 + (1 - Math.abs(x) * 0.35) * 0.5);
-    pushShaded(out, x, y, z, nx, ny, nz, c, ptSize * rand(0.88, 1.14));
+    const u = ((i % faceCount) + 0.5) / faceCount;
+    const v = (i * 0.61803398875) % 1;
+    const root = Math.sqrt(u);
+    const a = 1 - root;
+    const b = root * (1 - v);
+    const c = root * v;
+    const x = side * (a * 0.32 + b * 1.02 + c * 0.34);
+    const y = a * -0.28 + b * -1.27 + c * -1.03;
+    const bevel = 0.35 + 0.65 * Math.sqrt(3 * Math.min(a, b, c));
+    const sign = i < faceCount ? 1 : -1;
+    const color = lerpColor(C_BLUE_DARK, C_BLUE, 0.24 + a * 0.6);
+    pushShaded(out, x, y, sign * bevel * 0.19, side * 0.22, 0.24, sign, color, 0.91);
   }
 }
 
-/** Normalize draft list cleanly to exact PARTICLE_COUNT */
 function finalizeFigure(draft: ParticleDraft[]): FigureData {
+  if (draft.length !== PARTICLE_COUNT) {
+    throw new Error(`Expected ${PARTICLE_COUNT} particles, received ${draft.length}`);
+  }
   const pos = new Float32Array(PARTICLE_COUNT * 3);
   const col = new Float32Array(PARTICLE_COUNT * 3);
   const size = new Float32Array(PARTICLE_COUNT);
   const group = new Float32Array(PARTICLE_COUNT);
 
-  for (let i = draft.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const tmp = draft[i];
-    draft[i] = draft[j];
-    draft[j] = tmp;
-  }
-
-  for (let i = 0; i < PARTICLE_COUNT; i++) {
-    const p = draft[i % draft.length];
-    pos[i * 3]     = p.x;
-    pos[i * 3 + 1] = p.y;
-    pos[i * 3 + 2] = p.z;
-    col[i * 3]     = p.r;
-    col[i * 3 + 1] = p.g;
-    col[i * 3 + 2] = p.b;
-    size[i]        = p.size;
-    group[i]       = p.group;
+  // Keep complete surfaces and mix travel paths during the morph.
+  for (let i = 0; i < draft.length; i++) {
+    const offset = (i * 1027) % PARTICLE_COUNT;
+    const p = draft[i];
+    pos.set([p.x, p.y, p.z], offset * 3);
+    col.set([p.r, p.g, p.b], offset * 3);
+    size[offset] = p.size;
+    group[offset] = p.group;
   }
 
   return { pos, col, size, group };
 }
 
-// ─── 6 Representative 3D Claymorphism Figure Builders ─────────────────────────
-
-/** 0 · Hero — Upward Launch Rocket Arrow ▲ */
 function buildArrowFigure(): FigureData {
   const pts: ParticleDraft[] = [];
-
-  addTriPrism(pts, [-1.14, 0.24], [0, 2.18], [1.14, 0.24], 0.38, 600, C_BLUE_DEEP, C_BLUE_HI, 1.06);
-  addCapsule(pts, 0, 0.34, 0.18, 0, 2.12, 0.04, 0.15, 110, C_BLUE_HI, C_WHITE, 1.02);
-  addCapsule(pts, 0, 0.38, 0, 0, -1.18, 0, 0.28, 310, C_SILVER, C_WHITE, 1.04);
-  addEllipsoid(pts, 0, -1.24, 0, 0.34, 0.13, 0.34, 95, C_CHARCOAL, C_SLATE, 0.98);
-  addTriPrism(pts, [-0.20, -0.45], [-0.96, -1.36], [-0.20, -1.22], 0.15, 150, C_CHARCOAL, C_SLATE, 0.96);
-  addTriPrism(pts, [0.20, -0.45], [0.96, -1.36], [0.20, -1.22], 0.15, 150, C_CHARCOAL, C_SLATE, 0.96);
-
-  for (let s = 0; s < 7; s++) {
-    const sx = (s - 3) * 0.13;
-    const len = s === 3 ? 0.56 : s === 2 || s === 4 ? 0.42 : 0.28;
-    const y0 = -1.44 - Math.abs(s - 3) * 0.05;
-    addCapsule(pts, sx, y0, 0, sx * 1.12, y0 - len, 0, s === 3 ? 0.10 : 0.07, 34, C_BLUE, C_BLUE_HI, 0.88);
+  const hull: [y0: number, y1: number, r0: number, r1: number, count: number, base: THREE.Color, tip: THREE.Color][] = [
+    [-1.30, -1.13, 0.32, 0.43, 52, C_BLACK, C_SLATE],
+    [-1.13, -0.62, 0.43, 0.50, 174, C_SLATE, C_WHITE],
+    [-0.62, 0.06, 0.50, 0.55, 218, C_SILVER, C_WHITE],
+    [0.06, 0.70, 0.55, 0.55, 222, C_WHITE, C_WHITE],
+    [0.70, 1.25, 0.55, 0.44, 160, C_BLUE_DARK, C_BLUE],
+    [1.25, 1.75, 0.44, 0.26, 104, C_BLUE, C_BLUE_LIGHT],
+    [1.75, 2.12, 0.26, 0.015, 60, C_BLUE_LIGHT, C_BLUE],
+  ];
+  for (const [y0, y1, r0, r1, count, base, tip] of hull) {
+    for (let i = 0; i < count; i++) {
+      const t = (i + 0.5) / count;
+      const angle = (pts.length + 1) * GOLDEN_ANGLE;
+      const x = Math.cos(angle);
+      const z = Math.sin(angle);
+      const radius = THREE.MathUtils.lerp(r0, r1, t);
+      const ny = (r0 - r1) / (y1 - y0);
+      pushShaded(pts, x * radius, THREE.MathUtils.lerp(y0, y1, t), z * radius, x, ny, z, lerpColor(base, tip, t), 1.08);
+    }
   }
-
+  addRocketFin(pts, -1, 190);
+  addRocketFin(pts, 1, 190);
+  addEllipsoid(pts, 0, 0.23, 0.51, 0.26, 0.26, 0.11, 110, C_BLUE_DARK, C_BLUE_LIGHT, 0.92);
+  addEllipsoid(pts, 0, -1.40, 0, 0.30, 0.12, 0.26, 80, C_BLUE, C_BLUE_LIGHT, 0.98);
+  addEllipsoid(pts, 0, -1.64, 0, 0.22, 0.10, 0.19, 54, C_BLUE_DARK, C_BLUE_LIGHT, 0.9);
+  addEllipsoid(pts, 0, -1.85, 0, 0.13, 0.08, 0.12, 36, C_BLUE_DARK, C_BLUE, 0.82);
   return finalizeFigure(pts);
 }
 
-/** 1 · 01 Perfil — Developer Profile Bust Silhouette 👤 */
 function buildProfileFigure(): FigureData {
   const pts: ParticleDraft[] = [];
+  addEllipsoid(pts, 0, 1.14, 0, 0.66, 0.77, 0.57, 490, C_SILVER, C_WHITE, 1.09);
+  addCapsule(pts, -0.40, 1.18, 0.46, 0.40, 1.18, 0.46, 0.152, 125, C_BLUE_DARK, C_BLUE_LIGHT, 0.89);
+  addCapsule(pts, 0, 0.20, 0, 0, 0.52, 0, 0.255, 115, C_SLATE, C_SILVER, 1.01);
+  addEllipsoid(pts, 0, -0.68, 0, 1.72, 0.94, 0.51, 680, C_BLUE_DARK, C_BLUE_LIGHT, 1.08);
 
-  addEllipsoid(pts, 0, 1.42, 0, 0.68, 0.76, 0.66, 480, C_SILVER, C_WHITE, 1.06);
-  addBeveledBox(pts, 0, 1.46, 0.56, 0.44, 0.11, 0.12, 110, C_CHARCOAL, C_BLUE, 0.94);
-  addCapsule(pts, 0, 0.72, 0, 0, 0.38, 0, 0.24, 90, C_SILVER, C_WHITE, 0.98);
-
-  for (let i = 0; i < 690; i++) {
-    const u = rand(-1.95, 1.95);
-    const archTop = 0.42 * (1 - (u * u) / (2.05 * 2.05));
-    const y = rand(-1.42, Math.max(-0.9, archTop));
-    const taperX = y < -1.1 ? 0.92 : 1.0;
-    const x = u * taperX;
-    const edge = 1 - Math.abs(x) / 2.02;
-    const maxZ = 0.46 * Math.sqrt(Math.max(0.08, edge));
-    const zSign = Math.random() < 0.56 ? 1 : -1;
-    const z = zSign * rand(0.75, 1.0) * maxZ;
-    const c = lerpColor(C_BLUE_DEEP, C_BLUE_HI, (y + 1.42) / 1.9 * 0.7 + 0.2);
-    pushShaded(pts, x, y, z, x * 0.3, y > archTop - 0.2 ? 0.7 : 0.1, z >= 0 ? 0.85 : -0.85, c, rand(0.92, 1.15));
-  }
-
-  const barWidths = [0.72, 0.48, 0.62];
-  for (let r = 0; r < 3; r++) {
-    addBeveledBox(pts, -0.22 + r * 0.08, -0.35 - r * 0.32, 0.46, barWidths[r], 0.085, 0.08, 50, C_WHITE, C_BLUE_HI, 0.94);
-  }
-
-  for (let i = 0; i < 130; i++) {
-    const a = (i / 130) * Math.PI * 1.4 - Math.PI * 0.2;
-    const rx = Math.cos(a) * 1.92;
-    const ry = 0.08 + Math.sin(a) * 1.92;
-    pushShaded(pts, rx, ry, -0.45 + rand(-0.06, 0.06), 0, 0.3, 0.9, C_SLATE, 0.86);
-  }
-
+  const widths = [0.90, 0.60, 0.76];
+  widths.forEach((width, i) => {
+    const y = -0.42 - i * 0.25;
+    addCapsule(pts, -0.53, y, 0.47, -0.53 + width, y, 0.51, 0.053, 80, C_SILVER, C_WHITE, 0.79);
+  });
   return finalizeFigure(pts);
 }
 
-/** 2 · 02 Proyectos — 3D Code Brackets < / > */
 function buildBracketsFigure(): FigureData {
   const pts: ParticleDraft[] = [];
-
-  addCapsule(pts, -0.82, 1.56, 0.08, -2.06, 0.0, 0.08, 0.25, 265, C_BLUE_DEEP, C_BLUE_HI, 1.05);
-  addCapsule(pts, -2.06, 0.0, 0.08, -0.82, -1.56, 0.08, 0.25, 265, C_BLUE_DEEP, C_BLUE_HI, 1.05);
-  addCapsule(pts, 0.44, 1.76, -0.08, -0.44, -1.76, -0.08, 0.22, 330, C_SILVER, C_WHITE, 1.05);
-  addCapsule(pts, 0.82, 1.56, 0.08, 2.06, 0.0, 0.08, 0.25, 265, C_BLUE_DEEP, C_BLUE_HI, 1.05);
-  addCapsule(pts, 2.06, 0.0, 0.08, 0.82, -1.56, 0.08, 0.25, 265, C_BLUE_DEEP, C_BLUE_HI, 1.05);
-
-  addEllipsoid(pts, -2.06, 0, 0.10, 0.29, 0.29, 0.29, 70, C_BLUE_HI, C_WHITE, 1.08);
-  addEllipsoid(pts, 2.06, 0, 0.10, 0.29, 0.29, 0.29, 70, C_BLUE_HI, C_WHITE, 1.08);
-  addCapsule(pts, -0.82, 1.56, -0.48, -2.06, 0.0, -0.48, 0.12, 60, C_CHARCOAL, C_SLATE, 0.88);
-  addCapsule(pts, 0.82, -1.56, -0.48, 2.06, 0.0, -0.48, 0.12, 60, C_CHARCOAL, C_SLATE, 0.88);
-
+  for (const side of [-1, 1]) {
+    addCapsule(pts, side * 0.96, 1.18, 0, side * 1.86, 0, 0, 0.24, 332, C_BLUE_LIGHT, C_BLUE, 1.01);
+    addCapsule(pts, side * 1.86, 0, 0, side * 0.96, -1.18, 0, 0.24, 332, C_BLUE, C_BLUE_DARK, 1.01);
+  }
+  addCapsule(pts, -0.41, -1.44, 0, 0.41, 1.44, 0, 0.24, 322, C_SLATE, C_WHITE, 1.04);
   return finalizeFigure(pts);
 }
 
 const ATOM_ORBITS: [number, number, number][] = [
-  [0.42, 0.0, 0.15],
-  [-0.45, Math.PI / 3, -0.25],
-  [1.08, -Math.PI * 0.35, 0.4],
+  [0.48, 0.05, 0.12],
+  [-0.44, 0.52, Math.PI / 3],
+  [0.55, -0.48, -Math.PI / 3],
 ];
 
-const ATOM_ORBIT_AXES: [number, number, number][] = ATOM_ORBITS.map(([tx, ty, tz]) => {
-  const v = new THREE.Vector3(0, 0, 1).applyEuler(new THREE.Euler(tx, ty, tz)).normalize();
-  return [v.x, v.y, v.z];
-});
+const ATOM_ORBIT_AXES = ATOM_ORBITS.map(([tx, ty, tz]) =>
+  new THREE.Vector3(0, 0, 1).applyEuler(new THREE.Euler(tx, ty, tz)).normalize(),
+);
 
-/** 3 · 03 Stack Tecnológico — Atomic Orbital System ⚛ */
 function buildAtomFigure(): FigureData {
   const pts: ParticleDraft[] = [];
-
-  const coreOffsets: [number, number, number, THREE.Color][] = [
-    [0, 0, 0, C_BLUE],
-    [0.24, 0.18, 0.14, C_WHITE],
-    [-0.22, 0.2, -0.1, C_BLUE_HI],
-    [0.16, -0.24, -0.14, C_SILVER],
-    [-0.2, -0.18, 0.2, C_BLUE],
-    [0.02, 0.04, -0.26, C_BLUE_DEEP],
-    [-0.04, -0.02, 0.26, C_WHITE],
+  const core: [number, number, number, THREE.Color][] = [
+    [0, 0.22, 0.10, C_BLUE],
+    [0.24, 0.09, -0.08, C_SILVER],
+    [-0.21, 0.06, -0.12, C_BLUE_LIGHT],
+    [0.16, -0.21, 0.04, C_SLATE],
+    [-0.18, -0.17, 0.09, C_BLUE],
+    [0, -0.02, 0.25, C_SILVER],
   ];
-  coreOffsets.forEach(([ox, oy, oz, col]) => {
-    addEllipsoid(pts, ox, oy, oz, 0.28, 0.28, 0.28, 56, col, C_BLUE_HI, 1.06, 0);
-  });
+  for (const [x, y, z, color] of core) {
+    addEllipsoid(pts, x, y, z, 0.25, 0.25, 0.25, 65, color, color === C_SILVER ? C_WHITE : C_BLUE_LIGHT, 1.13);
+  }
 
-  const ringColors: [THREE.Color, THREE.Color, THREE.Color][] = [
-    [C_BLUE, C_BLUE_HI, C_WHITE],
-    [C_BLUE_HI, C_SLATE, C_BLUE],
-    [C_SILVER, C_WHITE, C_BLUE],
-  ];
-
-  ATOM_ORBITS.forEach(([tx, ty, tz], idx) => {
-    const groupId = idx + 1;
+  const orbitColors = [C_BLUE, C_SILVER, C_BLUE_LIGHT];
+  ATOM_ORBITS.forEach(([tx, ty, tz], index) => {
+    const group = index + 1;
     const euler = new THREE.Euler(tx, ty, tz);
-    const rx = 2.15;
-    const ry = 0.84;
-    const [colA, colB, electronCol] = ringColors[idx];
+    const rx = 1.98;
+    const ry = 0.82;
+    const tube = 0.068;
+    const count = 330;
+    const position = new THREE.Vector3();
+    const normal = new THREE.Vector3();
 
-    for (let i = 0; i < 330; i++) {
-      const a = (i / 330) * Math.PI * 2;
-      const tAngle = rand(0, Math.PI * 2);
-      const tubeR = 0.115 * rand(0.75, 1.0);
-      const cosA = Math.cos(a);
-      const sinA = Math.sin(a);
-
-      const lx = cosA * rx + cosA * Math.cos(tAngle) * tubeR;
-      const ly = sinA * ry + sinA * Math.cos(tAngle) * tubeR;
-      const lz = Math.sin(tAngle) * tubeR;
-
-      const p = new THREE.Vector3(lx, ly, lz).applyEuler(euler);
-      const n = new THREE.Vector3(
-        cosA * Math.cos(tAngle),
-        sinA * Math.cos(tAngle),
-        Math.sin(tAngle),
-      ).applyEuler(euler);
-
-      const c = lerpColor(colA, colB, (i % 40) / 40);
-      pushShaded(pts, p.x, p.y, p.z, n.x, n.y, n.z, c, rand(0.86, 1.08), groupId);
+    for (let i = 0; i < count; i++) {
+      const t = i / count;
+      const angle = TAU * t;
+      const a = Math.cos(angle);
+      const b = Math.sin(angle);
+      const tubeAngle = i * GOLDEN_ANGLE;
+      const len = Math.hypot(a / rx, b / ry);
+      normal.set(a / rx / len * Math.cos(tubeAngle), b / ry / len * Math.cos(tubeAngle), Math.sin(tubeAngle));
+      position.set(a * rx, b * ry, 0).addScaledVector(normal, tube).applyEuler(euler);
+      normal.applyEuler(euler);
+      const color = lerpColor(orbitColors[index], C_WHITE, 0.10 + 0.14 * (1 + b));
+      pushShaded(pts, position.x, position.y, position.z, normal.x, normal.y, normal.z, color, 0.71, group);
     }
 
-    const eA = (idx * Math.PI * 2) / 3 + 0.4;
-    const eCenter = new THREE.Vector3(Math.cos(eA) * rx, Math.sin(eA) * ry, 0).applyEuler(euler);
-    addEllipsoid(pts, eCenter.x, eCenter.y, eCenter.z, 0.25, 0.25, 0.25, 88, C_BLUE, electronCol, 1.12, groupId);
+    const angle = 0.35 + TAU * index / 3;
+    position.set(Math.cos(angle) * rx, Math.sin(angle) * ry, 0).applyEuler(euler);
+    addEllipsoid(pts, position.x, position.y, position.z, 0.22, 0.22, 0.22, 90, C_BLUE, C_WHITE, 1.10, group);
   });
 
   return finalizeFigure(pts);
 }
 
-/** 4 · 04 Trayectoria — Stepped Ascending Pyramid 🪜 */
 function buildPyramidFigure(): FigureData {
   const pts: ParticleDraft[] = [];
-
   const tiers: [number, number, number, number, THREE.Color, THREE.Color][] = [
-    [2.05, 0.19, 1.02, -1.56, C_CHARCOAL, C_SLATE],
-    [1.68, 0.19, 0.86, -0.94, C_SLATE,    C_SILVER],
-    [1.30, 0.19, 0.70, -0.32, C_SILVER,   C_BLUE_HI],
-    [0.94, 0.19, 0.54,  0.30, C_BLUE_DEEP, C_BLUE_HI],
-    [0.58, 0.19, 0.38,  0.92, C_BLUE,     C_WHITE],
+    [1.93, 0.96, -1.14, 415, C_CHARCOAL, C_SLATE],
+    [1.56, 0.79, -0.65, 345, C_SLATE, C_SILVER],
+    [1.19, 0.63, -0.16, 278, C_SLATE, C_WHITE],
+    [0.82, 0.47, 0.33, 226, C_BLUE_DARK, C_BLUE],
+    [0.46, 0.33, 0.82, 196, C_BLUE, C_BLUE_LIGHT],
   ];
-
-  const tierCounts = [360, 315, 280, 245, 215];
-
-  tiers.forEach(([hw, hh, hd, y, cA, cB], idx) => {
-    addBeveledBox(pts, 0, y, 0, hw, hh, hd, tierCounts[idx], cA, cB, 0.98);
-  });
-
-  addEllipsoid(pts, 0, 1.66, 0, 0.33, 0.33, 0.33, 165, C_BLUE, C_WHITE, 1.1);
-  addCapsule(pts, 0, 1.16, 0, 0, 1.50, 0, 0.08, 70, C_WHITE, C_BLUE_HI, 0.94);
-
+  for (const [hw, hd, y, count, base, top] of tiers) {
+    addBeveledBox(pts, 0, y, 0, hw, 0.245, hd, 0.105, count, base, top, 0.99, 0.42);
+  }
+  addEllipsoid(pts, 0, 1.27, 0, 0.27, 0.28, 0.27, 190, C_BLUE_DARK, C_BLUE_LIGHT, 1.06);
   return finalizeFigure(pts);
 }
 
-/** 5 · 05 Contacto — 3D Clay Envelope with Flap & Signal Waves ✉️ */
 function buildEnvelopeFigure(): FigureData {
   const pts: ParticleDraft[] = [];
+  addBeveledBox(pts, 0, -0.35, -0.08, 1.78, 1.05, 0.23, 0.15, 350, C_CHARCOAL, C_SLATE, 0.91);
+  addBeveledBox(pts, 0, -0.35, 0.12, 1.71, 0.98, 0.13, 0.11, 800, C_SILVER, C_WHITE, 1.07);
+  addCapsule(pts, -1.58, 0.52, 0.26, 0, -0.39, 0.27, 0.086, 120, C_BLUE_LIGHT, C_BLUE, 0.91);
+  addCapsule(pts, 0, -0.39, 0.27, 1.58, 0.52, 0.26, 0.086, 120, C_BLUE, C_BLUE_LIGHT, 0.91);
+  addCapsule(pts, -1.53, -1.20, 0.247, -0.50, -0.57, 0.247, 0.046, 45, C_SLATE, C_SILVER, 0.73);
+  addCapsule(pts, 1.53, -1.20, 0.247, 0.50, -0.57, 0.247, 0.046, 45, C_SLATE, C_SILVER, 0.73);
+  addEllipsoid(pts, 0, -0.39, 0.32, 0.18, 0.18, 0.12, 74, C_BLUE, C_BLUE_LIGHT, 0.96);
 
-  addBeveledBox(pts, -0.1, -0.15, -0.05, 1.88, 1.18, 0.22, 690, C_SLATE, C_WHITE, 0.98);
-  addCapsule(pts, -1.98, 1.03, 0.15, 1.78, 1.03, 0.15, 0.075, 65, C_CHARCOAL, C_SLATE, 0.9);
-  addCapsule(pts, -1.98, -1.33, 0.15, 1.78, -1.33, 0.15, 0.075, 65, C_CHARCOAL, C_SLATE, 0.9);
-
-  addCapsule(pts, -1.92, 1.01, 0.22, -0.1, -0.18, 0.30, 0.135, 200, C_BLUE_DEEP, C_BLUE_HI, 1.04);
-  addCapsule(pts, -0.1, -0.18, 0.30, 1.72, 1.01, 0.22, 0.135, 200, C_BLUE_DEEP, C_BLUE_HI, 1.04);
-
-  addCapsule(pts, -1.88, -1.27, 0.20, -0.45, -0.38, 0.20, 0.08, 65, C_CHARCOAL, C_SLATE, 0.9);
-  addCapsule(pts, 1.68, -1.27, 0.20, 0.25, -0.38, 0.20, 0.08, 65, C_CHARCOAL, C_SLATE, 0.9);
-
-  addEllipsoid(pts, -0.1, -0.18, 0.36, 0.25, 0.25, 0.17, 105, C_WHITE, C_BLUE_HI, 1.08);
-
-  const radii = [0.36, 0.64, 0.92];
-  const counts = [55, 65, 75];
-  radii.forEach((r, idx) => {
-    const segs = 12;
-    const perSeg = Math.ceil(counts[idx] / segs);
-    for (let s = 0; s < segs; s++) {
-      const a0 = (s / segs) * (Math.PI * 0.45) + 0.15;
-      const a1 = ((s + 1) / segs) * (Math.PI * 0.45) + 0.15;
-      addCapsule(
-        pts,
-        1.12 + Math.cos(a0) * r, 0.92 + Math.sin(a0) * r, 0.14,
-        1.12 + Math.cos(a1) * r, 0.92 + Math.sin(a1) * r, 0.14,
-        0.072,
-        perSeg,
-        C_BLUE,
-        C_BLUE_HI,
-        0.92,
-      );
+  const radii = [0.30, 0.52, 0.74];
+  radii.forEach((radius, index) => {
+    const count = 24 + index * 8;
+    for (let i = 0; i < count; i++) {
+      const t = (i + 0.5) / count;
+      const angle = Math.PI * (0.24 + t * 0.48);
+      const tubeAngle = i * GOLDEN_ANGLE;
+      const taper = Math.sin(Math.PI * t);
+      const tube = (0.038 - index * 0.005) * (0.6 + 0.4 * taper);
+      const x = Math.cos(angle);
+      const y = Math.sin(angle);
+      const ny = Math.cos(tubeAngle);
+      const distance = radius + tube * ny;
+      const color = lerpColor(C_BLUE, C_BLUE_LIGHT, taper * (0.55 - index * 0.12));
+      pushShaded(pts, 0.91 + x * distance, 0.68 + y * distance, 0.16 + tube * Math.sin(tubeAngle), x * ny, y * ny, Math.sin(tubeAngle), color, 0.69 - index * 0.045);
     }
   });
-
   return finalizeFigure(pts);
 }
 
@@ -484,7 +392,6 @@ const VERTEX_SHADER = `
   uniform float uOffsetX_B;
   uniform float uScale_A;
   uniform float uScale_B;
-  uniform float uOffsetY;
   uniform float uTiltX;
   uniform float uTiltY;
   uniform float uOrbitWeightA;
@@ -492,7 +399,7 @@ const VERTEX_SHADER = `
   uniform float uProjScale;
   uniform float uBaseSize;
   uniform float uIsDark;
-  uniform float uMobileDim;
+  uniform float uMotion;
 
   uniform vec3 uAxis1;
   uniform vec3 uAxis2;
@@ -530,14 +437,14 @@ const VERTEX_SHADER = `
   }
 
   void main() {
-    float rY = uTiltY + sin(uTime * 0.55) * 0.16;
+    float rY = uTiltY + sin(uTime * 0.55) * 0.14;
     float rX = uTiltX;
 
     vec3 localA = applyOrbit(aPosA, aGroupA, uOrbitWeightA, uTime);
     vec3 localB = applyOrbit(aPosB, aGroupB, uOrbitWeightB, uTime);
 
-    vec3 worldA = applyTilt(localA, rY, rX) * uScale_A + vec3(uOffsetX_A, uOffsetY, 0.0);
-    vec3 worldB = applyTilt(localB, rY, rX) * uScale_B + vec3(uOffsetX_B, uOffsetY, 0.0);
+    vec3 worldA = applyTilt(localA, rY, rX) * uScale_A + vec3(uOffsetX_A, 0.0, 0.0);
+    vec3 worldB = applyTilt(localB, rY, rX) * uScale_B + vec3(uOffsetX_B, 0.0, 0.0);
 
     // Tighter per-particle stagger so transitions feel fast, smooth & cohesive
     float m = clamp((uMorph - aSeed.x * 0.16) / 0.84, 0.0, 1.0);
@@ -551,27 +458,28 @@ const VERTEX_SHADER = `
     pos.xy += vec2(cos(swirlAngle) * 1.65, sin(swirlAngle) * 0.65) * mid * aSeed.z;
     pos.z += -1.85 * sin(m * 6.2831853) * mid * aSeed.z;
 
-    pos.y += sin(uTime * 1.1 + aSeed.x * 6.28) * 0.03;
+    pos.y += sin(uTime * 1.1 + aSeed.x * 6.28) * 0.014 * uMotion;
 
     vec3 rawCol = mix(aColA, aColB, m);
     float maxC = max(rawCol.r, max(rawCol.g, rawCol.b));
     float minC = min(rawCol.r, min(rawCol.g, rawCol.b));
     float isNeutral = 1.0 - smoothstep(0.08, 0.25, maxC - minC);
-    vec3 lightAdapted = mix(rawCol * 0.88, rawCol * 0.42 + vec3(0.06), isNeutral);
+    vec3 lightAdapted = mix(rawCol * 0.72, rawCol * 0.63, isNeutral);
     vColor = mix(lightAdapted, rawCol, uIsDark);
     vDark = uIsDark;
 
     vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
     gl_Position = projectionMatrix * mvPos;
 
-    float ptSize = mix(aSizeA, aSizeB, m) * (1.0 - 0.14 * mid) * uBaseSize;
+    float figureScale = mix(uScale_A, uScale_B, m);
+    float ptSize = mix(aSizeA, aSizeB, m) * (1.0 - 0.14 * mid) * uBaseSize * figureScale;
     gl_PointSize = ptSize * uProjScale / max(1.0, -mvPos.z);
 
-    vDepthFade = clamp(1.0 - max(0.0, -pos.z) * 0.09, 0.58, 1.0) * uMobileDim;
+    vDepthFade = 1.0 - min(0.16, max(0.0, -pos.z) * 0.10);
   }
 `;
 
-// Algebraic clay lighting (zero pow() calls per fragment -> significantly faster on GPU)
+// Analytic edge coverage and soft lighting in the same depth-writing draw call.
 const FRAGMENT_SHADER = `
   varying vec3 vColor;
   varying float vDepthFade;
@@ -580,28 +488,28 @@ const FRAGMENT_SHADER = `
   void main() {
     vec2 uv = gl_PointCoord * 2.0 - 1.0;
     float r2 = dot(uv, uv);
-    if (r2 > 0.92) discard;
+    float aa = clamp(0.40 * fwidth(r2), 0.035, 0.30);
+    float coverage = 1.0 - smoothstep(0.79 - aa, 0.79 + aa, r2);
+    if (coverage <= 0.0) discard;
 
     float z = sqrt(max(0.0, 1.0 - r2));
     vec3 normal = vec3(uv.x, -uv.y, z);
+    float halfLambert = 0.5 + 0.5 * dot(normal, vec3(-0.44, 0.66, 0.61));
+    float diffuse = 0.28 + 0.72 * halfLambert;
 
-    vec3 keyDir = vec3(-0.44, 0.66, 0.61);
-    float wrapDiff = clamp(dot(normal, keyDir) * 0.42 + 0.62, 0.24, 1.04);
-
-    vec3 halfDir = vec3(-0.24, 0.36, 0.90);
-    float nh = max(dot(normal, halfDir), 0.0);
+    float nh = max(dot(normal, vec3(-0.24, 0.36, 0.90)), 0.0);
     float nh2 = nh * nh;
     float nh4 = nh2 * nh2;
-    float spec = (nh4 * nh4 * nh4) * mix(0.18, 0.26, vDark);
+    float specular = nh4 * nh4 * mix(0.043, 0.083, vDark);
 
-    float rim = 1.0 - max(normal.z, 0.0);
+    float rim = 1.0 - normal.z;
     float fresnel = rim * rim;
-    float rimAO = smoothstep(0.68, 0.92, r2) * mix(0.28, 0.34, vDark);
+    float ao = smoothstep(0.38, 0.85, r2) * 0.25;
+    vec3 bounce = vec3(0.0, 0.133, 1.0) * mix(0.09, 0.16, vDark);
+    vec3 lit = vColor * (diffuse - ao) + vec3(specular) + bounce * fresnel;
 
-    vec3 bounceCol = mix(vec3(0.0, 0.32, 0.85), vec3(0.36, 0.64, 1.0), vDark);
-    vec3 lit = vColor * (wrapDiff - rimAO) + vec3(spec) + bounceCol * fresnel * 0.22;
-
-    gl_FragColor = vec4(clamp(lit * vDepthFade, 0.0, 1.0), 1.0);
+    gl_FragColor = vec4(clamp(lit * vDepthFade, 0.0, 1.0), coverage);
+    #include <colorspace_fragment>
   }
 `;
 
@@ -615,22 +523,11 @@ export function ThreeScrollStage() {
     if (!container) return;
 
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: false, powerPreference: 'high-performance' });
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-    renderer.setPixelRatio(dpr);
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.domElement.className = 'absolute';
     container.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
-
-    const grid = new THREE.GridHelper(32, 32, 0x0066ff, 0x52525b);
-    grid.position.set(0, -4.6, -4.5);
-    const gridMats = Array.isArray(grid.material) ? grid.material : [grid.material];
-    gridMats.forEach((m) => {
-      m.transparent = true;
-      m.opacity = 0.07;
-    });
-    scene.add(grid);
+    const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
 
     const figures: FigureData[] = [
       buildArrowFigure(),
@@ -644,9 +541,9 @@ export function ThreeScrollStage() {
     const dummyPos = new Float32Array(PARTICLE_COUNT * 3);
     const seeds = new Float32Array(PARTICLE_COUNT * 3);
     for (let i = 0; i < PARTICLE_COUNT; i++) {
-      seeds[i * 3]     = Math.random();
-      seeds[i * 3 + 1] = rand(0, Math.PI * 2);
-      seeds[i * 3 + 2] = rand(0.45, 1.25);
+      seeds[i * 3]     = sampleNoise(i);
+      seeds[i * 3 + 1] = sampleNoise(i + 751) * TAU;
+      seeds[i * 3 + 2] = 0.45 + sampleNoise(i + 1913) * 0.8;
     }
 
     const morphGeo = new THREE.BufferGeometry();
@@ -678,25 +575,24 @@ export function ThreeScrollStage() {
       uOffsetX_B:    { value: -2.8 },
       uScale_A:      { value: 1.0 },
       uScale_B:      { value: 1.0 },
-      uOffsetY:      { value: 0.0 },
       uTiltX:        { value: 0.0 },
       uTiltY:        { value: 0.0 },
       uOrbitWeightA: { value: 0.0 },
       uOrbitWeightB: { value: 0.0 },
       uProjScale:    { value: 900.0 },
-      uBaseSize:     { value: 0.195 },
+      uBaseSize:     { value: 0.207 },
       uIsDark:       { value: document.documentElement.classList.contains('dark') ? 1.0 : 0.0 },
-      uMobileDim:    { value: 1.0 },
-      uAxis1:        { value: new THREE.Vector3(...ATOM_ORBIT_AXES[0]) },
-      uAxis2:        { value: new THREE.Vector3(...ATOM_ORBIT_AXES[1]) },
-      uAxis3:        { value: new THREE.Vector3(...ATOM_ORBIT_AXES[2]) },
+      uMotion:       { value: 1.0 },
+      uAxis1:        { value: ATOM_ORBIT_AXES[0] },
+      uAxis2:        { value: ATOM_ORBIT_AXES[1] },
+      uAxis3:        { value: ATOM_ORBIT_AXES[2] },
     };
 
     const morphMat = new THREE.ShaderMaterial({
       vertexShader: VERTEX_SHADER,
       fragmentShader: FRAGMENT_SHADER,
       uniforms,
-      transparent: false,
+      transparent: true,
       depthTest: true,
       depthWrite: true,
     });
@@ -705,61 +601,71 @@ export function ThreeScrollStage() {
     clayMesh.frustumCulled = false;
     scene.add(clayMesh);
 
-    const normOffsets = [0.583, -0.583, 0.67, -0.583, 0.67, -0.583];
-    const desktopScales = [0.90, 0.94, 0.88, 0.94, 0.87, 0.92];
-
-    let halfVisibleWorldW = 5.5;
-    let containerScaleRatio = 0.88;
-    let desktopResponsiveFit = 1.0;
-    let isDesktop = window.innerWidth >= 1024;
+    const anchors = Array.from(document.querySelectorAll<HTMLElement>('[data-stage-anchor]'));
+    const tanHalfFov = Math.tan(THREE.MathUtils.degToRad(camera.fov * 0.5));
+    let isDesktop = false;
+    let viewportWidth = 0;
+    let viewportHeight = 0;
+    let focalY = 0;
+    let canvasHeight = 0;
     let cachedCenters: number[] = [];
+    let offsets: number[] = [];
+    let scales: number[] = [];
 
     const measureSectionCenters = () => {
-      cachedCenters = SECTION_IDS.map((id) => {
-        const el = document.getElementById(id);
-        return el ? el.offsetTop + el.offsetHeight * 0.45 : 0;
+      const worldPerPixel = (2 * tanHalfFov * camera.position.z) / viewportHeight;
+      cachedCenters = anchors.map((anchor) => {
+        // Flow position is stable while the surrounding section reveals via transform.
+        let y = anchor.offsetHeight * 0.5;
+        for (let el: HTMLElement | null = anchor; el; el = el.offsetParent as HTMLElement | null) {
+          y += el.offsetTop;
+        }
+        return y;
       });
+      offsets = anchors.map((anchor) => {
+        const { left, width } = anchor.getBoundingClientRect();
+        return (left + width * 0.5 - viewportWidth * 0.5) * worldPerPixel;
+      });
+      scales = anchors.map((anchor, i) => {
+        const fit = anchor.offsetWidth * 0.88 / FIGURE_WIDTHS[i];
+        const verticalFit = isDesktop ? 108 : (anchor.offsetHeight - 20) / 4.2;
+        return Math.min(fit, verticalFit) * worldPerPixel;
+      });
+      focalY = Math.min(viewportHeight * 0.5, cachedCenters[0]);
+      renderer.domElement.style.top = `${Math.round(focalY - canvasHeight * 0.5)}px`;
     };
 
     const updateLayoutMetrics = () => {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      isDesktop = w >= 1024;
-      const curDpr = Math.min(window.devicePixelRatio || 1, 1.5);
-
-      camera.aspect = w / h;
-      camera.position.z = w < 640 ? 11.8 : w < 1024 ? 10.6 : 9.2;
+      viewportWidth = window.innerWidth;
+      viewportHeight = window.innerHeight;
+      isDesktop = viewportWidth >= 1024;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      // Match the viewport projection while redrawing only the band occupied by the figures.
+      const canvasWidth = Math.min(viewportWidth, 1250);
+      canvasHeight = Math.min(viewportHeight, isDesktop ? 520 : viewportWidth < 640 ? 230 : 280);
+      camera.aspect = canvasWidth / canvasHeight;
+      camera.fov = THREE.MathUtils.radToDeg(2 * Math.atan(tanHalfFov * canvasHeight / viewportHeight));
+      camera.position.z = isDesktop ? 9.2 : 11.8;
       camera.updateProjectionMatrix();
-      renderer.setPixelRatio(curDpr);
-      renderer.setSize(w, h);
+      renderer.setPixelRatio(dpr);
+      renderer.setSize(canvasWidth, canvasHeight);
+      renderer.domElement.style.left = `${(viewportWidth - canvasWidth) * 0.5}px`;
 
-      const tanHalfFov = Math.tan(THREE.MathUtils.degToRad(22.5));
-      const halfH = tanHalfFov * camera.position.z;
-      halfVisibleWorldW = halfH * camera.aspect;
-
-      const usablePx = Math.min(w - 48, 1152);
-      containerScaleRatio = Math.max(0.7, usablePx / w);
-      const worldHalf = halfVisibleWorldW * containerScaleRatio;
-      desktopResponsiveFit = Math.min(1.0, Math.max(0.76, worldHalf / 5.8));
-
-      uniforms.uProjScale.value = (h * curDpr) / (2.0 * tanHalfFov);
-      uniforms.uBaseSize.value = w < 640 ? 0.165 : w < 1024 ? 0.175 : 0.195 * desktopResponsiveFit + (1 - desktopResponsiveFit) * 0.165;
-      uniforms.uOffsetY.value = isDesktop ? 0.0 : 1.35;
-      uniforms.uMobileDim.value = isDesktop ? 1.0 : 0.72;
-
+      uniforms.uProjScale.value = (viewportHeight * dpr) / (2 * tanHalfFov);
       measureSectionCenters();
     };
     updateLayoutMetrics();
 
-    const bodyResizeObserver = new ResizeObserver(measureSectionCenters);
-    bodyResizeObserver.observe(document.body);
+    const sectionResizeObserver = new ResizeObserver(measureSectionCenters);
+    sectionResizeObserver.observe(document.body);
+    for (const anchor of anchors) {
+      const section = anchor.closest('section');
+      if (section) sectionResizeObserver.observe(section);
+    }
 
     const syncTheme = () => {
-      const dark = document.documentElement.classList.contains('dark');
-      uniforms.uIsDark.value = dark ? 1.0 : 0.0;
-      gridMats.forEach((m) => { m.opacity = dark ? 0.07 : 0.05; });
+      uniforms.uIsDark.value = document.documentElement.classList.contains('dark') ? 1 : 0;
     };
-    syncTheme();
     const themeObserver = new MutationObserver(syncTheme);
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
@@ -776,7 +682,7 @@ export function ThreeScrollStage() {
 
     const getRawProgress = (): number => {
       if (cachedCenters.length === 0) return 0;
-      const viewCenter = window.scrollY + window.innerHeight * 0.5;
+      const viewCenter = window.scrollY + focalY;
       if (viewCenter <= cachedCenters[0]) return 0;
       const last = cachedCenters.length - 1;
       if (viewCenter >= cachedCenters[last]) return last;
@@ -807,17 +713,19 @@ export function ThreeScrollStage() {
     let curPairB = -1;
     let smoothRaw = getRawProgress();
     let raf = 0;
-    const clock = new THREE.Clock();
-    let prevTime = 0;
+    const timer = new THREE.Timer();
+    timer.connect(document);
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    const animate = () => {
+    const animate = (timestamp: number) => {
       raf = requestAnimationFrame(animate);
-      const t = clock.getElapsedTime();
-      const dt = Math.min(0.1, Math.max(0.004, t - prevTime));
-      prevTime = t;
+      timer.update(timestamp);
+      const animateDetails = !reducedMotion.matches;
+      const t = animateDetails ? timer.getElapsed() : 0;
+      const dt = Math.min(0.1, Math.max(0.004, timer.getDelta()));
 
       const targetRaw = getRawProgress();
-      const followRate = 1.0 - Math.exp(-15.0 * dt);
+      const followRate = animateDetails ? 1 - Math.exp(-15 * dt) : 1;
       smoothRaw += (targetRaw - smoothRaw) * followRate;
       const clamped = Math.max(0, Math.min(figures.length - 1, smoothRaw));
 
@@ -838,32 +746,30 @@ export function ThreeScrollStage() {
 
       uniforms.uMorph.value = morphT;
       uniforms.uTime.value = t;
-      uniforms.uTiltY.value = mx * 0.28;
-      uniforms.uTiltX.value = my * 0.18;
-
-      const worldContainerHalf = halfVisibleWorldW * containerScaleRatio;
-      uniforms.uOffsetX_A.value = isDesktop ? normOffsets[idxA] * worldContainerHalf : 0;
-      uniforms.uOffsetX_B.value = isDesktop ? normOffsets[idxB] * worldContainerHalf : 0;
-      uniforms.uScale_A.value   = isDesktop ? desktopScales[idxA] * desktopResponsiveFit : 0.74;
-      uniforms.uScale_B.value   = isDesktop ? desktopScales[idxB] * desktopResponsiveFit : 0.74;
+      uniforms.uTiltY.value = animateDetails && isDesktop ? mx * 0.22 : 0;
+      uniforms.uTiltX.value = animateDetails && isDesktop ? my * 0.12 + 0.08 : 0.08;
+      uniforms.uMotion.value = animateDetails ? 1 : 0;
+      uniforms.uOffsetX_A.value = offsets[idxA];
+      uniforms.uOffsetX_B.value = offsets[idxB];
+      uniforms.uScale_A.value = scales[idxA];
+      uniforms.uScale_B.value = scales[idxB];
 
       uniforms.uOrbitWeightA.value = idxA === 3 ? 1.0 : 0.0;
       uniforms.uOrbitWeightB.value = idxB === 3 ? 1.0 : 0.0;
 
       renderer.render(scene, camera);
     };
-    animate();
+    raf = requestAnimationFrame(animate);
 
     return () => {
       cancelAnimationFrame(raf);
-      bodyResizeObserver.disconnect();
+      timer.dispose();
+      sectionResizeObserver.disconnect();
       themeObserver.disconnect();
       window.removeEventListener('pointermove', onPointerMove);
       window.removeEventListener('resize', updateLayoutMetrics);
       morphGeo.dispose();
       morphMat.dispose();
-      grid.geometry.dispose();
-      gridMats.forEach((m) => m.dispose());
       renderer.dispose();
       if (renderer.domElement.parentNode === container) {
         container.removeChild(renderer.domElement);
